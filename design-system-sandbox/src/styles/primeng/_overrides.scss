@@ -1,0 +1,413 @@
+// PrimeNG 7 theme overrides — consumes Layer 2 bridge tokens (--primeng-*).
+// Loaded after nova-light so Curinos styling replaces default PrimeNG colors.
+//
+// All selectors are scoped to `body:not(.primeng-default)` so that pages which
+// add the `primeng-default` class to <body> fall back to stock nova-light
+// styling (used by the PrimeNG-default comparison pages).
+
+$font-sans: 'Work Sans', sans-serif;
+
+body:not(.primeng-default) .ui-inputtext {
+  background: var(--primeng-inputtext-background);
+  border: 1px solid var(--primeng-inputtext-border-color);
+  border-radius: var(--primeng-inputtext-border-radius);
+  padding: var(--primeng-inputtext-padding-y) var(--primeng-inputtext-padding-x);
+  font-family: $font-sans;
+  font-size: var(--primeng-inputtext-font-size);
+  color: var(--primeng-inputtext-color);
+  box-shadow: var(--primeng-inputtext-shadow);
+
+  &::placeholder {
+    color: var(--primeng-inputtext-placeholder-color);
+  }
+}
+
+body:not(.primeng-default) .ui-inputtext:enabled:hover:not(.ui-state-error) {
+  border-color: var(--primeng-inputtext-hover-border-color);
+}
+
+body:not(.primeng-default) .ui-inputtext:enabled:focus:not(.ui-state-error) {
+  border-color: var(--primeng-inputtext-focus-border-color);
+  box-shadow: var(--primeng-inputtext-shadow);
+}
+
+body:not(.primeng-default) .ui-dropdown {
+  background: var(--primeng-inputtext-background);
+  border: 1px solid var(--primeng-inputtext-border-color);
+  border-radius: var(--primeng-inputtext-border-radius);
+  box-shadow: var(--primeng-inputtext-shadow);
+}
+
+body:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled):hover {
+  border-color: var(--primeng-inputtext-hover-border-color);
+}
+
+body:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  border-color: var(--primeng-inputtext-focus-border-color);
+  box-shadow: var(--primeng-inputtext-shadow);
+  outline: none;
+}
+
+body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext {
+  padding: var(--primeng-inputtext-padding-y) 2.5em var(--primeng-inputtext-padding-y)
+    var(--primeng-inputtext-padding-x);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: $font-sans;
+  font-size: var(--primeng-inputtext-font-size);
+  color: var(--primeng-inputtext-placeholder-color);
+}
+
+body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:not(.ui-dropdown-label-empty) {
+  color: var(--primeng-inputtext-color);
+}
+
+body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:hover:not(.ui-state-error),
+body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:focus:not(.ui-state-error) {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+body:not(.primeng-default) .ui-dropdown .ui-dropdown-trigger {
+  width: 2.5em;
+  background: transparent;
+  border: 0;
+  line-height: normal;
+  color: var(--curinos-color-foreground-3);
+}
+
+body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
+  color: var(--primeng-dropdown-item-color);
+}
+
+body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+  background: var(--primeng-dropdown-item-hover-background) !important;
+  color: var(--primeng-dropdown-item-hover-color) !important;
+}
+
+body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight {
+  background: var(--primeng-dropdown-item-selected-background) !important;
+  color: var(--primeng-dropdown-item-selected-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu {
+  min-width: 160px;
+  padding: 4px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-cards);
+  background: var(--curinos-color-background-1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: $font-sans;
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link {
+  padding: 8px 12px;
+  border-radius: var(--curinos-dimensions-radii-buttons);
+  color: var(--curinos-color-foreground-1);
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover {
+  background: var(--primeng-dropdown-item-hover-background) !important;
+  color: var(--primeng-dropdown-item-hover-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {
+  color: var(--primeng-dropdown-item-hover-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {
+  margin-right: 8px;
+  font-size: 16px;
+  color: var(--curinos-color-foreground-3);
+}
+
+body:not(.primeng-default) .ui-paginator .ui-dropdown {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default {
+  width: fit-content;
+  max-width: 100%;
+  background: var(--primeng-button-primary-background);
+  border: 1px solid var(--primeng-button-primary-border-color);
+  color: var(--primeng-button-primary-color);
+  font-family: $font-sans;
+  font-size: var(--primeng-button-lg-font-size);
+  font-weight: var(--primeng-button-label-font-weight);
+  border-radius: var(--primeng-button-border-radius);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {
+  background: var(--primeng-button-primary-hover-background);
+  border-color: var(--primeng-button-primary-hover-border-color);
+  color: var(--primeng-button-primary-hover-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default:enabled:active {
+  background: var(--primeng-button-primary-hover-background);
+  border-color: var(--primeng-button-primary-hover-border-color);
+  color: var(--primeng-button-primary-hover-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {
+  padding: var(--primeng-button-lg-padding-y) var(--primeng-button-lg-padding-x);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm {
+  font-size: var(--primeng-button-sm-font-size);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm.ui-button-text-only .ui-button-text {
+  padding: var(--primeng-button-sm-padding-y) var(--primeng-button-sm-padding-x);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary,
+body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
+  background: transparent;
+  border: 1px solid var(--primeng-button-secondary-border-color);
+  color: var(--primeng-button-secondary-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:hover,
+body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {
+  background: var(--primeng-button-secondary-hover-background);
+  border-color: var(--primeng-button-secondary-border-color);
+  color: var(--primeng-button-secondary-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:focus,
+body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:active,
+body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
+  background: var(--primeng-button-secondary-hover-background);
+  border-color: var(--primeng-button-secondary-border-color);
+  color: var(--primeng-button-secondary-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost {
+  background: transparent;
+  border: 1px solid var(--primeng-button-ghost-border-color);
+  color: var(--primeng-button-ghost-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:hover {
+  background: var(--primeng-button-ghost-hover-background);
+  border-color: var(--primeng-button-ghost-border-color);
+  color: var(--primeng-button-ghost-hover-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:active {
+  background: var(--primeng-button-ghost-hover-background);
+  border-color: var(--primeng-button-ghost-border-color);
+  color: var(--primeng-button-ghost-hover-color);
+}
+
+body:not(.primeng-default) .ui-button.ui-state-default.ui-button-full-width,
+body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-width {
+  width: 100%;
+}
+
+body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {
+  width: fit-content;
+}
+
+body:not(.primeng-default) .ui-card {
+  background: var(--curinos-color-background-1);
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--primeng-card-border-radius);
+  box-shadow: var(--primeng-card-shadow);
+  color: var(--curinos-color-foreground-1);
+}
+
+// Sidebar navigation — PrimeNG 7 PanelMenu styled to Figma.
+// Resets nova-light accordion chrome (blue expanded headers, gray borders).
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu {
+  width: 100%;
+  border: 0;
+  background: transparent;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {
+  border: 0;
+  margin: 0;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {
+  background: transparent !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0 !important;
+  border-radius: 6px;
+  background: transparent !important;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--primeng-panelmenu-item-color);
+  text-decoration: none;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {
+  background: var(--primeng-panelmenu-item-active-background) !important;
+  color: var(--primeng-panelmenu-item-hover-color);
+  border: 0 !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--primeng-panelmenu-item-color);
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {
+  color: var(--primeng-panelmenu-icon-color);
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {
+  background: var(--primeng-panelmenu-item-active-background) !important;
+  color: var(--primeng-panelmenu-item-active-color);
+  border: 0 !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {
+  order: 3;
+  margin: 0 0 0 auto;
+  font-size: 14px;
+  color: var(--primeng-panelmenu-icon-color);
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-icon {
+  order: 1;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: currentColor;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-text {
+  order: 2;
+  flex: 1;
+  min-width: 0;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+  .ui-panelmenu-header-link.ui-state-active
+  .ph-duotone.ph-parallelogram::before {
+  color: var(--primeng-panelmenu-icon-active-fill);
+  opacity: 1;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+  .ui-panelmenu-header-link.ui-state-active
+  .ph-duotone.ph-parallelogram::after {
+  color: var(--primeng-panelmenu-icon-active-stroke);
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {
+  overflow: hidden;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {
+  padding: 0;
+  margin: 0;
+  border: 0 !important;
+  border-top: 0 !important;
+  background: transparent !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {
+  margin: 0;
+  padding: 2px 0 2px 10px;
+  border-left: 1px solid var(--primeng-panelmenu-border-color);
+  margin-left: 14px;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem {
+  margin: 0;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {
+  margin-top: 4px;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {
+  margin-top: 4px;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 2px;
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--primeng-panelmenu-item-color) !important;
+  text-decoration: none;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {
+  color: var(--primeng-panelmenu-item-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover {
+  background: var(--primeng-panelmenu-item-active-background) !important;
+  color: var(--primeng-panelmenu-item-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {
+  color: var(--primeng-panelmenu-item-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {
+  background: transparent !important;
+  color: var(--primeng-panelmenu-item-active-color) !important;
+}
+
+body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {
+  color: var(--primeng-panelmenu-item-active-color) !important;
+}

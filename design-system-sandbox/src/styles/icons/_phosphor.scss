@@ -1,0 +1,66 @@
+// Phosphor webfont icons — sizing and PrimeNG slot alignment.
+// Webfont icons inherit color via currentColor; stroke token applies to SVG component only.
+//
+// Override @font-face from @phosphor-icons/web with absolute asset paths so fonts
+// load on all routes (relative urls break on /login, /dashboard, etc.).
+
+@font-face {
+  font-family: "Phosphor";
+  src:
+    url("/assets/fonts/phosphor/Phosphor.woff2") format("woff2"),
+    url("/assets/fonts/phosphor/Phosphor.woff") format("woff"),
+    url("/assets/fonts/phosphor/Phosphor.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Phosphor-Duotone";
+  src:
+    url("/assets/fonts/phosphor-duotone/Phosphor-Duotone.woff2") format("woff2"),
+    url("/assets/fonts/phosphor-duotone/Phosphor-Duotone.woff") format("woff"),
+    url("/assets/fonts/phosphor-duotone/Phosphor-Duotone.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.ph {
+  display: inline-block;
+  color: currentColor;
+}
+
+.ph-duotone {
+  display: inline-block;
+  color: currentColor;
+  position: relative;
+}
+
+.ui-button-icon-left.ph,
+.ui-button-icon-right.ph,
+.ui-menuitem-icon.ph,
+.ui-button-icon-left.ph-duotone,
+.ui-button-icon-right.ph-duotone,
+.ui-menuitem-icon.ph-duotone {
+  font-size: 1em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+// Default inline icon size for standalone SVG component usage
+.ph-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--curinos-dimensions-controls-sizing-sm);
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  color: currentColor;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}

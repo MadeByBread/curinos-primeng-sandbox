@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+.pd-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #f4f4f4;
+}
+
+.pd-auth__card {
+  width: 360px;
+}
+
+.pd-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px 0;
+}
+
+.pd-logo {
+  display: block;
+  width: 90px;
+  height: 24px;
+}
+
+.pd-title {
+  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.pd-subtitle {
+  margin: 0;
+  color: #6c757d;
+}
+
+.pd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pd-form label {
+  font-size: 13px;
+  color: #333;
+}
+
+.pd-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pd-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pd-continue {
+  width: 100%;
+}
+
+.pd-link,
+.pd-compare {
+  font-size: 14px;
+  color: #007ad9;
+}
+
+.pd-legal {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #6c757d;
+}

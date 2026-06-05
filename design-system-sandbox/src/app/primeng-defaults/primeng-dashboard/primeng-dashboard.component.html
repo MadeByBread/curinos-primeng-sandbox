@@ -1,0 +1,102 @@
+<div class="pd-layout">
+  <aside class="pd-sidebar">
+    <div class="pd-sidebar__container">
+      <header class="pd-sidebar__header">
+        <app-curinos-logo variant="wordmark" class="pd-sidebar__logo"></app-curinos-logo>
+      </header>
+
+      <nav class="pd-sidebar__nav" aria-label="Main navigation">
+        <p-panelMenu [model]="menuItems" [multiple]="true"></p-panelMenu>
+      </nav>
+
+      <footer class="pd-sidebar__footer">
+        <p-menu #accountMenu [popup]="true" [model]="accountMenuItems" appendTo="body"></p-menu>
+        <button
+          type="button"
+          class="pd-sidebar-profile"
+          aria-label="Account menu"
+          aria-haspopup="true"
+          (click)="accountMenu.toggle($event)">
+          <span class="pd-sidebar-profile__avatar" aria-hidden="true">P</span>
+          <span class="pd-sidebar-profile__info">
+            <span class="pd-sidebar-profile__name">Maven Raven</span>
+            <span class="pd-sidebar-profile__role">Head of Retail</span>
+          </span>
+          <i class="ph ph-caret-up-down" aria-hidden="true"></i>
+        </button>
+      </footer>
+    </div>
+  </aside>
+
+  <main class="pd-content">
+    <div class="pd-dashboard">
+      <div class="pd-toolbar">
+        <span class="pd-toolbar__label">PrimeNG default dashboard</span>
+        <a class="pd-toolbar__link" routerLink="/dashboard">View Curinos design-system version</a>
+      </div>
+
+      <p-card styleClass="pd-card">
+    <h1 class="pd-h1">Header 1</h1>
+    <p class="pd-body-copy">Body copy</p>
+  </p-card>
+
+  <p-card styleClass="pd-card">
+    <p-header>
+      <h2 class="pd-h2">Header 2</h2>
+    </p-header>
+  </p-card>
+
+  <p-card styleClass="pd-card">
+    <p-header>
+      <h2 class="pd-h3">Header 3</h2>
+    </p-header>
+
+    <div class="pd-filter-row">
+      <label class="pd-field">
+        <span class="pd-field-label">Start Date</span>
+        <span class="pd-field-control">
+          <input pInputText type="text" class="pd-input" placeholder="Jan 1, 2026" readonly />
+          <i class="ph ph-calendar-minus pd-field-icon" aria-hidden="true"></i>
+        </span>
+      </label>
+
+      <label class="pd-field">
+        <span class="pd-field-label">End Date</span>
+        <span class="pd-field-control">
+          <input pInputText type="text" class="pd-input" placeholder="Jan 1, 2026" readonly />
+          <i class="ph ph-calendar-minus pd-field-icon" aria-hidden="true"></i>
+        </span>
+      </label>
+
+      <label class="pd-field">
+        <span class="pd-field-label">Label</span>
+        <span class="pd-field-control">
+          <input pInputText type="text" class="pd-input" placeholder="Placeholder" />
+          <i class="ph ph-magnifying-glass pd-field-icon" aria-hidden="true"></i>
+        </span>
+      </label>
+
+      <div class="pd-field pd-field--select">
+        <label class="pd-field-label" for="pd-product">Product</label>
+        <p-dropdown
+          inputId="pd-product"
+          styleClass="pd-select"
+          [options]="products"
+          placeholder="Select"
+          [(ngModel)]="selectedProduct">
+        </p-dropdown>
+      </div>
+
+      <button pButton type="button" label="Update" class="ui-button-secondary"></button>
+      <button pButton type="button" label="Update"></button>
+    </div>
+  </p-card>
+
+      <div class="pd-stat-row">
+        <p-card *ngFor="let stat of statCards" styleClass="pd-card pd-stat">
+          <h3 class="pd-h4">{{ stat }}</h3>
+        </p-card>
+      </div>
+    </div>
+  </main>
+</div>

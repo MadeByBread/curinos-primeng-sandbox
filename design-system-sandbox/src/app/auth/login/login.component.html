@@ -1,0 +1,70 @@
+<div class="auth-page">
+  <div class="auth-orb" aria-hidden="true"></div>
+
+  <div class="auth-panel auth-panel--left">
+    <p-card styleClass="auth-card">
+      <p-header>
+        <app-curinos-logo variant="wordmark" class="auth-logo"></app-curinos-logo>
+      </p-header>
+
+      <section class="auth-card__body">
+        <div class="auth-headings">
+          <h1>Decision intelligence.
+          <p class="auth-subtitle">Sign in to Continue.</p>
+        </h1>
+        </div>
+
+        <div class="ui-fluid auth-form">
+          <label class="auth-label" for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            placeholder="Your email address" />                                                                  <label class="auth-label" for="password">Password</label>
+                                                                  <input
+            id="email"
+            type="email"
+            pInputText
+            placeholder="Your email address" />
+
+          <app-button
+            label="Continue"
+            [fullWidth]="true"
+            routerLink="/dashboard"></app-button>
+
+          <app-button
+            label="Sign in with SSO"
+            variant="secondary"
+            size="small"></app-button>
+        </div>
+      </section>
+
+      <p-footer>
+        <a class="auth-link" href="#">
+          Forgot password?
+        </a>
+        <p class="auth-legal">
+          By continuing, you acknowledge that you understand and agree to the
+          <a href="https://curinos.com/terms-and-conditions/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+          and
+          <a href="https://curinos.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.
+        </p>
+      </p-footer>
+    </p-card>
+  </div>
+
+  <div class="auth-panel auth-panel--right">
+    <p-card styleClass="copilot-card">
+      <div class="copilot-card__blob" aria-hidden="true">
+        <img src="assets/auth/copilot-blob.png" alt="" />
+      </div>
+      <app-curinos-logo variant="wordmark" class="auth-logo"></app-curinos-logo>
+      <div class="copilot-card__body">
+        <div class="copilot-card__title">
+          <h2>Copilot</h2>
+        </div>
+        <app-button label="Learn more" variant="ghost" size="small"></app-button>
+      </div>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="dashboard-panel">
+  <div class="panel-container">
+    <p-card styleClass="panel-card panel-hero">
+      <h1 class="panel-heading panel-heading--1">Header 1</h1>
+      <p class="panel-body-copy">Body copy</p>
+    </p-card>
+
+    <p-card styleClass="panel-card panel-section">
+      <p-header>
+        <h2 class="panel-heading panel-heading--2">Header 2</h2>
+      </p-header>
+    </p-card>
+
+    <p-card styleClass="panel-card panel-section panel-filter">
+      <p-header>
+        <h2 class="panel-heading panel-heading--3">Header 3</h2>
+      </p-header>
+
+      <div class="filter-row">
+        <label class="field">
+          <span class="field-label">Start Date</span>
+          <span class="field-control">
+            <input pInputText type="text" placeholder="Jan 1, 2026" readonly />
+            <i class="ph ph-calendar-minus field-icon" aria-hidden="true"></i>
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">End Date</span>
+          <span class="field-control">
+            <input pInputText type="text" placeholder="Jan 1, 2026" readonly />
+            <i class="ph ph-calendar-minus field-icon" aria-hidden="true"></i>
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Label</span>
+          <span class="field-control">
+            <input pInputText type="text" placeholder="Placeholder" />
+            <i class="ph ph-magnifying-glass field-icon" aria-hidden="true"></i>
+          </span>
+        </label>
+
+        <span class="field-divider" aria-hidden="true"></span>
+
+        <div class="field field--select">
+          <label class="field-label" for="product">Product</label>
+          <p-dropdown
+            inputId="product"
+            styleClass="panel-select"
+            [options]="products"
+            placeholder="Select"
+            [(ngModel)]="selectedProduct">
+          </p-dropdown>
+        </div>
+
+        <app-button label="Update" variant="secondary"></app-button>
+        <app-button label="Update" variant="primary"></app-button>
+      </div>
+    </p-card>
+
+    <div class="panel-stat-row">
+      <p-card *ngFor="let stat of statCards" styleClass="panel-card panel-stat">
+        <h3 class="panel-heading panel-heading--4">{{ stat }}</h3>
+      </p-card>
+    </div>
+  </div>
+</div>

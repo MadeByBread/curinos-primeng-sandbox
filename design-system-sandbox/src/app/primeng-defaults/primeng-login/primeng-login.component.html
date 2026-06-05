@@ -1,0 +1,55 @@
+<div class="pd-auth">
+  <p-card styleClass="pd-auth__card">
+    <p-header>
+      <div class="pd-card-head">
+        <app-curinos-logo variant="wordmark" class="pd-logo"></app-curinos-logo>
+        <h1 class="pd-title">Decision intelligence.</h1>
+        <p class="pd-subtitle">Sign in to Continue.</p>
+      </div>
+    </p-header>
+
+    <div class="pd-form">
+      <label for="pd-email">Email</label>
+      <input
+        id="pd-email"
+        type="email"
+        pInputText
+        class="pd-input"
+        placeholder="Your email address" />
+
+      <label for="pd-password">Password</label>
+      <input
+        id="pd-password"
+        type="password"
+        pInputText
+        class="pd-input"
+        placeholder="Your password" />
+
+      <div class="pd-actions">
+        <button
+          pButton
+          type="button"
+          label="Continue"
+          class="pd-continue"
+          routerLink="/dashboard-default"></button>
+
+        <button
+          pButton
+          type="button"
+          label="Sign in with SSO"
+          class="ui-button-secondary"></button>
+      </div>
+    </div>
+
+    <p-footer>
+      <a class="pd-link" href="#">Forgot password?</a>
+      <p class="pd-legal">
+        By continuing, you acknowledge that you understand and agree to the
+        <a href="https://curinos.com/terms-and-conditions/" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        and
+        <a href="https://curinos.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.
+      </p>
+      <a class="pd-compare" routerLink="/login">View Curinos design-system version</a>
+    </p-footer>
+  </p-card>
+</div>

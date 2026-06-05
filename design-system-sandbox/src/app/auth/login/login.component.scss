@@ -1,0 +1,268 @@
+// Token consumption:
+//   - Layout / brand colors -> Curinos layer (--curinos-color-*)
+//   - PrimeNG component styling -> global overrides (styles/primeng/_overrides.scss)
+//   - Typography + spacing are app-level literals (Figma "Prime Typography" /
+//     "Prime App" collections are not yet exported as rich token files).
+$font-sans: 'Work Sans', sans-serif;
+$font-serif: 'Source Serif Pro', serif;
+$auth-page-inset: 8px;
+
+body.auth-layout {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+// Layout
+.auth-page {
+  position: fixed;
+  inset: 0;
+  background: var(--curinos-color-background-1);
+  overflow: hidden;
+  font-family: $font-sans;
+  color: var(--curinos-color-semantic-surface-900);
+}
+
+.auth-orb {
+  position: absolute;
+  width: 914px;
+  height: 914px;
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 40%);
+  border-radius: 50%;
+  background: linear-gradient(
+    to top,
+    var(--curinos-color-primitives-orange-500),
+    var(--curinos-color-primitives-yellow-300)
+  );
+  box-shadow: inset 0 -4px 4px rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+
+.auth-panel--left {
+  position: absolute;
+  inset: $auth-page-inset auto $auth-page-inset $auth-page-inset;
+  width: 384px;
+  z-index: 1;
+
+  p-card {
+    display: flex;
+    height: 100%;
+  }
+}
+
+.auth-panel--right {
+  position: absolute;
+  inset: $auth-page-inset $auth-page-inset $auth-page-inset auto;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+
+  p-card {
+    display: flex;
+  }
+}
+
+.auth-card.ui-card {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+
+  .ui-card-header,
+  .ui-card-body,
+  .ui-card-content,
+  .ui-card-footer {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .ui-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .ui-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    flex: 1;
+  }
+
+  p-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.auth-card__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.auth-logo {
+  display: block;
+  color: var(--curinos-color-foreground-1);
+  z-index: 1;
+}
+
+.auth-card.ui-card .auth-logo {
+  width: 90px;
+  height: 24px;
+}
+
+.copilot-card.ui-card .auth-logo {
+  width: 75px;
+  height: 20px;
+}
+
+.auth-headings {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-headings h1 {
+  margin: 0;
+  font-family: $font-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.03rem;
+  color: var(--curinos-color-semantic-surface-900);
+}
+
+.auth-subtitle {
+  margin: 0;
+  font-family: $font-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.84px;
+  color: var(--curinos-color-semantic-surface-500);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  width: 100%;
+
+  .ui-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.auth-label {
+  font-size: 12.25px;
+  letter-spacing: -0.37px;
+  line-height: 1;
+  color: var(--curinos-color-semantic-surface-900);
+}
+
+.auth-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  letter-spacing: -0.42px;
+  line-height: 1.2;
+  color: var(--curinos-color-semantic-surface-900);
+  text-decoration: underline;
+}
+
+.auth-legal {
+  margin: 8px 0 0;
+  font-size: 12.25px;
+  line-height: 1.3;
+  letter-spacing: -0.36px;
+  color: var(--curinos-color-semantic-surface-500);
+
+  a {
+    color: var(--curinos-color-semantic-surface-500);
+    text-decoration: underline;
+  }
+}
+
+.copilot-card.ui-card {
+  position: relative;
+  width: 184px;
+  height: 240px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+
+  .ui-card-body,
+  .ui-card-content {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: contents;
+  }
+}
+
+.copilot-card__blob {
+  position: absolute;
+  width: 152px;
+  height: 152px;
+  top: -20px;
+  right: -30px;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #611aad;
+    mix-blend-mode: plus-lighter;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+}
+
+.copilot-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 156px;
+}
+
+.copilot-card__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copilot-card h2 {
+  margin: 0;
+  font-family: $font-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  color: var(--curinos-color-semantic-surface-900);
+}

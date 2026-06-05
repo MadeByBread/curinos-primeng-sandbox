@@ -1,0 +1,53 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar__container">
+      <header class="sidebar__header">
+        <app-curinos-logo variant="wordmark" class="sidebar__logo"></app-curinos-logo>
+        <button type="button" class="sidebar__collapse" aria-label="Collapse sidebar">
+          <i class="ph ph-caret-double-left" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <nav class="sidebar__nav" aria-label="Main navigation">
+        <p-panelMenu
+          [model]="menuItems"
+          [multiple]="true"
+          styleClass="sidebar-menu">
+        </p-panelMenu>
+      </nav>
+
+      <footer class="sidebar__footer">
+        <p-menu
+          #accountMenu
+          [popup]="true"
+          [model]="accountMenuItems"
+          appendTo="body"
+          styleClass="sidebar-account-menu">
+        </p-menu>
+        <button
+          type="button"
+          class="sidebar-profile"
+          aria-label="Account menu"
+          aria-haspopup="true"
+          (click)="accountMenu.toggle($event)">
+          <span class="sidebar-profile__avatar" aria-hidden="true">
+            <span class="sidebar-profile__initial">P</span>
+            <span class="sidebar-profile__badge">8</span>
+          </span>
+          <span class="sidebar-profile__info">
+            <span class="sidebar-profile__name">Maven Raven</span>
+            <span class="sidebar-profile__role">Head of Retail</span>
+          </span>
+          <i class="ph ph-caret-up-down sidebar-profile__toggle" aria-hidden="true"></i>
+        </button>
+      </footer>
+    </div>
+  </aside>
+
+  <main class="content">
+    <p-menubar *ngIf="showMenubar" [model]="topBarItems"></p-menubar>
+    <div class="page-body">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

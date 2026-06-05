@@ -1,0 +1,10 @@
+<svg width="75" height="20" viewBox="0 0 75 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bar" x1="34" y1="2.2" x2="74" y2="2.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0.05" stop-color="#272220"/>
+      <stop offset="1" stop-color="#272220" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="34" y="1" width="40" height="2.4" fill="url(#bar)"/>
+  <text x="0" y="15" font-family="Work Sans, sans-serif" font-size="13.5" font-weight="500" fill="#272220" letter-spacing="-0.2">curinos</text>
+</svg>

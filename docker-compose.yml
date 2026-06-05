@@ -1,0 +1,10 @@
+services:
+  ng:
+    build: .
+    working_dir: /app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true

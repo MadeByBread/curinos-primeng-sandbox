@@ -1,0 +1,21 @@
+:host {
+  display: inline-block;
+  color: inherit;
+  line-height: 0;
+}
+
+:host.curinos-logo-host--wordmark {
+  width: 90px;
+  height: 24px;
+}
+
+:host.curinos-logo-host--mark {
+  width: 24px;
+  height: 24px;
+}
+
+.curinos-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

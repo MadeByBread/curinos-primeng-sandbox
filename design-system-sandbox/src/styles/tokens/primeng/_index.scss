@@ -1,0 +1,83 @@
+// PrimeNG 7 bridge (Layer 2) — hand-authored, NOT generated.
+//
+// PrimeNG 7 has no native CSS-variable token system (that arrived in a later
+// PrimeNG). These variables follow PrimeNG 7 component anatomy and are consumed
+// by global `.ui-*` overrides in styles/primeng/_overrides.scss. Colors map onto the Curinos layer
+// (Layer 1); component metrics with no Curinos equivalent (paddings, the
+// component font scale, the auth card radius) are literal PrimeNG 7 values.
+//
+// Color convention: consume Curinos role and semantic tokens only.
+//   - Text / icon color  → --curinos-color-foreground-{1,2,3}
+//   - Fill / surface bg  → --curinos-color-background-{1,2,3}
+//   - Border color       → --curinos-color-border-{1,2,3}
+//   - Brand / accent     → --curinos-color-semantic-primary-{1,2,3}
+//
+// The Figma "Prime *" collections describe a newer PrimeNG token shape and are
+// intentionally not mirrored here.
+
+:root {
+  /* inputtext */
+  --primeng-inputtext-background: var(--curinos-color-background-1);
+  --primeng-inputtext-border-color: var(--curinos-color-border-3);
+  --primeng-inputtext-color: var(--curinos-color-foreground-2);
+  --primeng-inputtext-placeholder-color: var(--curinos-color-foreground-3);
+  --primeng-inputtext-hover-border-color: var(--curinos-color-foreground-3);
+  --primeng-inputtext-focus-border-color: var(--curinos-color-semantic-primary-1);
+  --primeng-inputtext-border-radius: var(--curinos-dimensions-radii-inputs);
+  --primeng-inputtext-padding-y: 8.75px;
+  --primeng-inputtext-padding-x: 12.25px;
+  --primeng-inputtext-font-size: 15.75px;
+  --primeng-inputtext-shadow: 0 1px 2px 0 rgba(18, 18, 23, 0.051);
+
+  /* dropdown / select / popup menu items */
+  --primeng-dropdown-item-color: var(--curinos-color-foreground-2);
+  --primeng-dropdown-item-hover-background: var(--curinos-color-background-2);
+  --primeng-dropdown-item-hover-color: var(--curinos-color-foreground-1);
+  --primeng-dropdown-item-selected-background: var(--curinos-color-background-3);
+  --primeng-dropdown-item-selected-color: var(--curinos-color-foreground-1);
+
+  /* button — shared */
+  --primeng-button-border-radius: var(--curinos-dimensions-radii-buttons);
+  --primeng-button-label-font-weight: 500;
+  --primeng-button-lg-font-size: 15.75px;
+  --primeng-button-lg-padding-y: 8.75px;
+  --primeng-button-lg-padding-x: 12.25px;
+  --primeng-button-sm-font-size: 12.25px;
+  --primeng-button-sm-padding-y: 5.25px;
+  --primeng-button-sm-padding-x: 8.75px;
+
+  /* button — primary */
+  --primeng-button-primary-background: var(--curinos-color-foreground-1);
+  --primeng-button-primary-border-color: var(--curinos-color-foreground-1);
+  --primeng-button-primary-color: var(--curinos-color-background-1);
+  --primeng-button-primary-hover-background: var(--curinos-color-semantic-primary-1);
+  --primeng-button-primary-hover-border-color: var(--curinos-color-semantic-primary-1);
+  --primeng-button-primary-hover-color: var(--curinos-color-foreground-1);
+
+  /* button — secondary (outlined) */
+  --primeng-button-secondary-border-color: var(--curinos-color-foreground-2);
+  --primeng-button-secondary-color: var(--curinos-color-foreground-1);
+  --primeng-button-secondary-hover-background: var(--curinos-color-background-1);
+
+  /* button — ghost */
+  --primeng-button-ghost-border-color: var(--curinos-color-border-3);
+  --primeng-button-ghost-color: var(--curinos-color-foreground-1);
+  --primeng-button-ghost-hover-background: var(--curinos-color-background-2);
+  --primeng-button-ghost-hover-color: var(--curinos-color-foreground-1);
+
+  /* card */
+  --primeng-card-border-radius: var(--curinos-dimensions-radii-cards);
+  --primeng-card-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.102), 0 1px 3px 0 rgba(0, 0, 0, 0.102);
+
+  /* panelmenu (sidebar) */
+  --primeng-panelmenu-item-color: var(--curinos-color-foreground-3);
+  --primeng-panelmenu-item-active-background: var(--curinos-color-background-2);
+  --primeng-panelmenu-item-active-color: var(--curinos-color-foreground-1);
+  --primeng-panelmenu-item-hover-background: var(--primeng-panelmenu-item-active-background);
+  --primeng-panelmenu-item-hover-color: var(--curinos-color-foreground-1);
+  --primeng-panelmenu-border-color: var(--curinos-color-border-1);
+  --primeng-panelmenu-icon-color: var(--curinos-color-foreground-3);
+  --primeng-panelmenu-icon-active-fill: var(--curinos-color-semantic-primary-1);
+  --primeng-panelmenu-icon-active-stroke: var(--curinos-color-foreground-1);
+  --primeng-panelmenu-icon-accent: var(--curinos-color-semantic-primary-1);
+}
