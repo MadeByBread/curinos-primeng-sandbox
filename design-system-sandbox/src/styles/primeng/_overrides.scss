@@ -235,7 +235,7 @@ body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-
 }
 
 body:not(.primeng-default) .ui-card {
-  background: var(--curinos-color-background-1);
+  background: var(--primeng-card-background);
   border: 1px solid var(--curinos-color-border-1);
   border-radius: var(--primeng-card-border-radius);
   box-shadow: var(--primeng-card-shadow);

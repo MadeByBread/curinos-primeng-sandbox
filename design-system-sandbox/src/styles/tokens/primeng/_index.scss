@@ -57,7 +57,7 @@
   /* button — secondary (outlined) */
   --primeng-button-secondary-border-color: var(--curinos-color-foreground-2);
   --primeng-button-secondary-color: var(--curinos-color-foreground-1);
-  --primeng-button-secondary-hover-background: var(--curinos-color-background-1);
+  --primeng-button-secondary-hover-background: var(--curinos-color-background-2);
 
   /* button — ghost */
   --primeng-button-ghost-border-color: var(--curinos-color-border-3);
@@ -66,6 +66,7 @@
   --primeng-button-ghost-hover-color: var(--curinos-color-foreground-1);
 
   /* card */
+  --primeng-card-background: var(--curinos-color-semantic-surface-white);
   --primeng-card-border-radius: var(--curinos-dimensions-radii-cards);
   --primeng-card-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.102), 0 1px 3px 0 rgba(0, 0, 0, 0.102);
 
