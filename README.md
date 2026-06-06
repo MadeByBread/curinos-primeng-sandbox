@@ -1,29 +1,7 @@
-# Angular 7 + PrimeNG 7 Sandbox (Dockerized)
+# Curinos Angular 7 + PrimeNG 7 Sandbox (Dockerized)
 
 A fully containerized sandbox for Angular 7 + PrimeNG 7. Everything runs inside
 Docker so **nothing is installed on the host machine**.
-
-## Why Docker?
-
-On a modern Mac (macOS 26), Angular 7's native dependencies (`node-sass`,
-`node-gyp`) cannot compile against the host's Python 3.13 toolchain. The
-container is based on `node:10`, which ships Python 2.7 and the C/C++ build
-toolchain those packages expect.
-
-> These old versions are intentional. Do **not** upgrade Angular, PrimeNG, Node,
-> or Python to "fix" compatibility — the whole point is to reproduce the old
-> stack.
-
-## Files
-
-```
-./Dockerfile
-./docker-compose.yml
-./README.md
-./design-system-sandbox/          (Angular app — scaffolded inside the container)
-  src/styles/tokens/              (Curinos CSS variables — see below)
-  scripts/figma-tokens-to-scss.js (regenerates token SCSS from Figma JSON)
-```
 
 ## Workflow
 
@@ -289,4 +267,16 @@ already running.
 To extend the **PrimeNG bridge**, edit `tokens/primeng/_index.scss` by hand — point
 new component variables at Curinos tokens, or use literals for component metrics that
 have no Curinos equivalent.
-# curinos-primeng-sandbox
+
+---
+
+## Why Docker?
+
+On a modern Mac (macOS 26), Angular 7's native dependencies (`node-sass`,
+`node-gyp`) cannot compile against the host's Python 3.13 toolchain. The
+container is based on `node:10`, which ships Python 2.7 and the C/C++ build
+toolchain those packages expect.
+
+> These old versions are intentional. Do **not** upgrade Angular, PrimeNG, Node,
+> or Python to "fix" compatibility — the whole point is to reproduce the old
+> stack.
