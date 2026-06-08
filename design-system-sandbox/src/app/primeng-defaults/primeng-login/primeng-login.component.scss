@@ -73,6 +73,13 @@
 .pd-compare {
   font-size: 14px;
   color: #007ad9;
+  cursor: pointer;
+}
+
+.pd-link--curinos {
+  color: var(--curinos-color-semantic-surface-900);
+  text-decoration: underline;
+  letter-spacing: -0.42px;
 }
 
 .pd-legal {

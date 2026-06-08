@@ -12,6 +12,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { SharedModule } from '../shared/shared.module';
 import { PrimengLoginComponent } from './primeng-login/primeng-login.component';
 import { PrimengDashboardComponent } from './primeng-dashboard/primeng-dashboard.component';
+import { TransitionDefaultComponent } from './transition-default/transition-default.component';
 
 /**
  * Stock PrimeNG (nova-light) versions of the login & dashboard pages.
@@ -20,7 +21,11 @@ import { PrimengDashboardComponent } from './primeng-dashboard/primeng-dashboard
  * which suppresses the global Curinos overrides in _overrides.scss.
  */
 @NgModule({
-  declarations: [PrimengLoginComponent, PrimengDashboardComponent],
+  declarations: [
+    PrimengLoginComponent,
+    PrimengDashboardComponent,
+    TransitionDefaultComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -33,6 +38,10 @@ import { PrimengDashboardComponent } from './primeng-dashboard/primeng-dashboard
     PanelMenuModule,
     SharedModule
   ],
-  exports: [PrimengLoginComponent, PrimengDashboardComponent]
+  exports: [
+    PrimengLoginComponent,
+    PrimengDashboardComponent,
+    TransitionDefaultComponent
+  ]
 })
 export class PrimengDefaultsModule { }

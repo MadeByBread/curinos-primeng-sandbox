@@ -42,7 +42,15 @@
     </div>
 
     <p-footer>
-      <a class="pd-link" href="#">Forgot password?</a>
+      <a
+        class="pd-link"
+        [class.pd-link--curinos]="showCurinosLinkStyle"
+        href="#"
+        [attr.aria-pressed]="showCurinosLinkStyle"
+        title="Click to toggle between PrimeNG default and Curinos link styles"
+        (click)="toggleForgotPasswordStyle($event)">
+        Forgot password?
+      </a>
       <p class="pd-legal">
         By continuing, you acknowledge that you understand and agree to the
         <a href="https://curinos.com/terms-and-conditions/" target="_blank" rel="noopener">Terms &amp; Conditions</a>

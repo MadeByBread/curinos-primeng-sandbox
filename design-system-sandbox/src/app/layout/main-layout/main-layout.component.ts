@@ -24,6 +24,11 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
       routerLink: ["/dashboard"],
     },
     {
+      label: "Transition",
+      icon: phDuotone("arrows-left-right"),
+      routerLink: ["/transition"],
+    },
+    {
       label: "New Customers",
       icon: phDuotone("perspective"),
       expanded: true,

@@ -1,0 +1,33 @@
+<div class="transition-default-preview">
+  <ng-container [ngSwitch]="componentKey">
+    <div *ngSwitchCase="'button'" class="preview-row">
+      <button pButton type="button" label="Primary"></button>
+      <button pButton type="button" label="Secondary" class="ui-button-secondary"></button>
+    </div>
+
+    <div *ngSwitchCase="'input'" class="preview-row">
+      <input pInputText type="text" placeholder="Placeholder" />
+    </div>
+
+    <div *ngSwitchCase="'dropdown'" class="preview-row">
+      <p-dropdown
+        [options]="products"
+        placeholder="Select"
+        [(ngModel)]="selectedProduct">
+      </p-dropdown>
+    </div>
+
+    <div *ngSwitchCase="'card'" class="preview-row">
+      <p-card>
+        <p-header>Card header</p-header>
+        <p>Card body content</p>
+      </p-card>
+    </div>
+
+    <div *ngSwitchCase="'panelmenu'" class="preview-row preview-row--panelmenu">
+      <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>
+    </div>
+
+    <p *ngSwitchDefault class="preview-empty">Unknown component</p>
+  </ng-container>
+</div>

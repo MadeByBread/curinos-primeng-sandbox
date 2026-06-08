@@ -1,0 +1,139 @@
+<div class="transition-page">
+  <div class="transition-container">
+    <p-card styleClass="transition-hero">
+      <h1 class="transition-heading transition-heading--1">Transition</h1>
+      <p class="transition-lead">
+        Side-by-side comparison of stock PrimeNG 7 (nova-light) components and the
+        Curinos-customized versions. Each section documents the override approach,
+        what is straightforward, and what requires more work.
+      </p>
+    </p-card>
+
+    <p-card
+      *ngFor="let section of sections"
+      styleClass="transition-section-card">
+      <p-header>
+        <h2 class="transition-heading transition-heading--2">{{ section.title }}</h2>
+      </p-header>
+
+      <p class="transition-approach">{{ section.approach }}</p>
+
+      <div class="transition-compare">
+        <div class="transition-compare__col">
+          <span class="transition-compare__label">Curinos (customized)</span>
+          <div class="transition-compare__demo" [ngSwitch]="section.key">
+            <div *ngSwitchCase="'button'" class="demo-row">
+              <app-button label="Primary" variant="primary"></app-button>
+              <app-button label="Secondary" variant="secondary"></app-button>
+              <app-button label="Ghost" variant="ghost"></app-button>
+            </div>
+
+            <div *ngSwitchCase="'input'" class="demo-row">
+              <input pInputText type="text" placeholder="Placeholder" />
+            </div>
+
+            <div *ngSwitchCase="'dropdown'" class="demo-row">
+              <p-dropdown
+                [options]="products"
+                placeholder="Select"
+                [(ngModel)]="selectedProduct">
+              </p-dropdown>
+            </div>
+
+            <div *ngSwitchCase="'card'" class="demo-row">
+              <p-card styleClass="transition-demo-card">
+                <p-header>Card header</p-header>
+                <p>Card body content</p>
+              </p-card>
+            </div>
+
+            <div *ngSwitchCase="'panelmenu'" class="demo-row demo-row--panelmenu">
+              <p-panelMenu
+                [model]="panelMenuItems"
+                [multiple]="true"
+                styleClass="sidebar-menu">
+              </p-panelMenu>
+            </div>
+          </div>
+        </div>
+
+        <div class="transition-compare__col">
+          <span class="transition-compare__label">PrimeNG default (nova-light)</span>
+          <iframe
+            class="transition-compare__iframe"
+            [src]="section.defaultPreviewUrl"
+            [style.height.px]="section.iframeHeight"
+            title="PrimeNG default {{ section.title }}">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="transition-overrides">
+        <div class="transition-overrides__col">
+          <h3 class="transition-heading transition-heading--3">Straightforward overrides</h3>
+          <ul>
+            <li *ngFor="let item of section.straightforward">{{ item }}</li>
+          </ul>
+        </div>
+        <div class="transition-overrides__col">
+          <h3 class="transition-heading transition-heading--3">More complicated overrides</h3>
+          <ul>
+            <li *ngFor="let item of section.complicated">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card styleClass="transition-section-card">
+      <p-header>
+        <h2 class="transition-heading transition-heading--2">Phosphor Icons</h2>
+      </p-header>
+
+      <p class="transition-approach">
+        Curinos uses Phosphor Icons alongside PrimeIcons. Two integration paths exist:
+        webfont CSS classes for PrimeNG's <code>icon</code> input, and a standalone
+        SVG component for custom templates where size, color, and stroke follow design tokens.
+      </p>
+
+      <div class="transition-icons">
+        <div class="transition-icons__block">
+          <h3 class="transition-heading transition-heading--3">Webfont classes (PrimeNG icon input)</h3>
+          <p class="transition-icons__desc">
+            PrimeNG 7 passes the <code>icon</code> input as CSS classes. Use
+            <code>ph()</code> and <code>phDuotone()</code> helpers from
+            <code>phosphor-icons.ts</code>.
+          </p>
+          <div class="demo-row">
+            <button pButton type="button" label="Dashboard" [icon]="phHouse"></button>
+            <button pButton type="button" label="Copilot" [icon]="phSparkle"></button>
+            <button pButton type="button" label="Next" [icon]="phArrowRight" iconPos="right"></button>
+          </div>
+        </div>
+
+        <div class="transition-icons__block">
+          <h3 class="transition-heading transition-heading--3">Standalone SVG component</h3>
+          <p class="transition-icons__desc">
+            <code>&lt;app-ph-icon&gt;</code> loads SVG assets and applies
+            <code>--curinos-dimensions-icons-stroke</code> for regular/light weights.
+          </p>
+          <div class="demo-row demo-row--icons">
+            <app-ph-icon name="arrow-right" weight="regular"></app-ph-icon>
+            <app-ph-icon name="key" weight="light" size="20px"></app-ph-icon>
+            <app-ph-icon name="sparkle" weight="duotone"></app-ph-icon>
+            <app-ph-icon name="house" weight="bold" size="24px"></app-ph-icon>
+          </div>
+        </div>
+
+        <div class="transition-icons__block">
+          <h3 class="transition-heading transition-heading--3">PanelMenu chevron caveat</h3>
+          <p class="transition-icons__desc">
+            PrimeNG 7 PanelMenu renders expand/collapse chevrons as hardcoded PrimeIcons
+            (<code>pi-chevron-right</code>, <code>pi-chevron-down</code>). These cannot be
+            changed via <code>MenuItem.icon</code>. Accept PrimeIcons for those glyphs, or
+            upgrade PrimeNG (out of scope for this sandbox).
+          </p>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

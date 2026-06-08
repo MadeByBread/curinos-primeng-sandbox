@@ -8,10 +8,17 @@ import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } fr
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  showDefaultLinkStyle = false;
+
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
+  toggleForgotPasswordStyle(event: Event) {
+    event.preventDefault();
+    this.showDefaultLinkStyle = !this.showDefaultLinkStyle;
+  }
 
   ngOnInit() {
     this.renderer.addClass(this.document.body, 'auth-layout');
