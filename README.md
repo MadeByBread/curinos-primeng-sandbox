@@ -3,7 +3,10 @@
 A fully containerized sandbox for Angular 7 + PrimeNG 7. Everything runs inside
 Docker so **nothing is installed on the host machine**.
 
-## Workflow
+## Getting Started
+
+The `design-system-sandbox` Angular app is already scaffolded and committed.
+After cloning, install dependencies and serve from inside the Docker container.
 
 ### 1. Build the image
 
@@ -21,53 +24,19 @@ docker compose run --rm --service-ports ng bash
 > `ports:` mapping by default, so without it `localhost:4200` would be
 > unreachable from the host.
 
-### 3. Scaffold and install (inside the container)
-
-The Angular project is created interactively (it has prompts), so it is **not**
-scaffolded for you. Run this inside the container shell:
-
-```bash
-ng new design-system-sandbox
-cd design-system-sandbox
-npm install primeng@7 primeicons@1 @angular/cdk@7 @phosphor-icons/web @phosphor-icons/core
-```
-
-### 4. Styles
-
-`design-system-sandbox/src/styles.scss` should import Curinos tokens first, then
-PrimeNG (this is already set up in the repo):
-
-```scss
-@import 'styles/tokens/index';
-@import "~primeng/resources/themes/nova-light/theme.css";
-@import "~primeng/resources/primeng.min.css";
-@import "~primeicons/primeicons.css";
-@import "~@phosphor-icons/web/src/regular/style.css";
-@import 'styles/icons/phosphor';
-```
-
-### 5. Enable animations
-
-`app.module.ts` needs `BrowserAnimationsModule` imported from
-`@angular/platform-browser/animations`. Without it, several PrimeNG components
-throw at runtime.
-
-```ts
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-@NgModule({
-  imports: [
-    // ...
-    BrowserAnimationsModule,
-  ],
-})
-export class AppModule {}
-```
-
-### 6. Serve
+### 3. Install dependencies (inside the container)
 
 ```bash
 cd design-system-sandbox
+npm install
+```
+
+`package.json` already pins Angular 7, PrimeNG 7, Phosphor Icons, and the rest
+of the stack. You do **not** need to run `ng new` or install packages manually.
+
+### 4. Serve
+
+```bash
 ng serve --host 0.0.0.0 --poll 2000
 ```
 
@@ -82,6 +51,50 @@ Both flags matter:
 
 Then open <http://localhost:4200> on the host.
 
+## Setup
+
+This repository is intentionally frozen on an old stack. A few things are
+unusual compared to a typical Angular project.
+
+### Why Docker?
+
+On a modern Mac, Angular 7's native dependencies (`node-sass`, `node-gyp`)
+cannot compile against the host's current Python and C++ toolchain. The
+container is based on `node:10`, which ships Python 2.7 and the build tools
+those packages expect.
+
+> These old versions are intentional. Do **not** upgrade Angular, PrimeNG, Node,
+> or Python to "fix" compatibility — the whole point is to reproduce the old
+> stack.
+
+Run `npm install` and `ng serve` **inside the container**, not on the host.
+The only host-side Node usage is the token-generation script (see
+[Regenerating Layer 1](#regenerating-layer-1)).
+
+### What's already in the repo
+
+You can start working immediately — no scaffolding step:
+
+- **Angular app** — `design-system-sandbox/` with routing, layout, auth, and
+  PrimeNG demo pages
+- **Dependencies** — `package.json` / `package-lock.json` pin Angular 7,
+  PrimeNG 7, PrimeIcons, `@angular/cdk@7`, and Phosphor Icons
+- **Styles** — `src/styles.scss` imports Curinos tokens, PrimeNG theme CSS, and
+  Phosphor webfonts
+- **Animations** — `BrowserAnimationsModule` is registered in `app.module.ts`
+  (required by several PrimeNG components)
+- **Design tokens** — Layer 1 (Curinos) and Layer 2 (PrimeNG bridge) SCSS under
+  `src/styles/tokens/`
+
+`node_modules` is gitignored, so you still need `npm install` once per clone.
+
+### Bind mount and hot reload
+
+`docker-compose.yml` bind-mounts the repo into `/app` inside the container.
+Edits on the host are visible in the container, but macOS does not forward
+filesystem events across the mount. That is why `ng serve` needs `--poll 2000`
+for live reload to work.
+
 ## Icons
 
 This sandbox uses **Phosphor Icons** alongside **PrimeIcons**. Phosphor is the
@@ -90,9 +103,9 @@ PrimeNG internals that hardcode `pi pi-*` classes.
 
 ### When to use which
 
-| Use Phosphor | Use PrimeIcons |
-|--------------|----------------|
-| New buttons, menus, and custom UI | Existing `pi pi-*` references not yet migrated |
+| Use Phosphor                         | Use PrimeIcons                                              |
+| ------------------------------------ | ----------------------------------------------------------- |
+| New buttons, menus, and custom UI    | Existing `pi pi-*` references not yet migrated              |
 | Standalone icons via `<app-ph-icon>` | PanelMenu expand/collapse chevrons (hardcoded in PrimeNG 7) |
 
 Browse available icons at [phosphoricons.com](https://phosphoricons.com). **Regular**
@@ -150,10 +163,10 @@ on `:root` and imported in `design-system-sandbox/src/styles.scss`.
 
 ### Two layers
 
-| Layer | Prefix | Source | Authoring |
-|-------|--------|--------|-----------|
-| **Layer 1 — Curinos** | `--curinos-*` | The three Figma **Curinos** collections (Colors, Dimensions, Effects) | **Generated** |
-| **Layer 2 — PrimeNG 7 bridge** | `--primeng-*` | Hand-curated to PrimeNG 7 component anatomy | **Hand-authored** |
+| Layer                          | Prefix        | Source                                                                | Authoring         |
+| ------------------------------ | ------------- | --------------------------------------------------------------------- | ----------------- |
+| **Layer 1 — Curinos**          | `--curinos-*` | The three Figma **Curinos** collections (Colors, Dimensions, Effects) | **Generated**     |
+| **Layer 2 — PrimeNG 7 bridge** | `--primeng-*` | Hand-curated to PrimeNG 7 component anatomy                           | **Hand-authored** |
 
 **Layer 1 (Curinos)** is the single source of truth — the real brand foundation.
 Its colors form a three-tier graph (`primitives → semantic → background/foreground/border`)
@@ -161,7 +174,10 @@ that the generator preserves via `var()` references with a literal fallback:
 
 ```css
 --curinos-color-background-1: var(--curinos-color-semantic-surface-50, #fffdfa);
---curinos-color-semantic-surface-50: var(--curinos-color-primitives-gray-50, #fffdfa);
+--curinos-color-semantic-surface-50: var(
+  --curinos-color-primitives-gray-50,
+  #fffdfa
+);
 --curinos-color-primitives-gray-50: #fffdfa;
 ```
 
@@ -173,7 +189,9 @@ component overrides:
 
 ```css
 --primeng-button-primary-background: var(--curinos-color-foreground-1);
---primeng-inputtext-focus-border-color: var(--curinos-color-primitives-yellow-400);
+--primeng-inputtext-focus-border-color: var(
+  --curinos-color-primitives-yellow-400
+);
 --primeng-card-border-radius: 4px; /* component metric, no Curinos equivalent */
 ```
 
@@ -186,12 +204,12 @@ component overrides:
 Figma collection (rich export with `variables[]`, modes, and alias chains), and maps
 1:1 to one generated partial.
 
-| Source (`tokens/sources/`) | Collection | Generated | Prefix |
-|----------------------------|------------|-----------|--------|
-| `curinos-colors.json` | Curinos Colors | `curinos/_color.scss` | `--curinos-color-*` |
-| `curinos-extended-data-colors.json` | Curinos Colors (subset) | — | Extended + data palettes only; for Figma import |
-| `curinos-dimensions.json` | Curinos Dimensions | `curinos/_dimensions.scss` | `--curinos-dimensions-*` |
-| `curinos-effects.json` | Curinos Effects | `curinos/_effects.scss` | `--curinos-effects-*` |
+| Source (`tokens/sources/`)          | Collection              | Generated                  | Prefix                                              |
+| ----------------------------------- | ----------------------- | -------------------------- | --------------------------------------------------- |
+| `curinos-colors.json`               | Curinos Colors          | `curinos/_color.scss`      | `--curinos-color-*`                                 |
+| `curinos-extended-data-colors.json` | Curinos Colors (subset) | —                          | Extended + data palettes only; for Figma import     |
+| `curinos-dimensions.json`           | Curinos Dimensions      | `curinos/_dimensions.scss` | `--curinos-dimensions-*`                            |
+| `curinos-effects.json`              | Curinos Effects         | `curinos/_effects.scss`    | `--curinos-effects-*`                               |
 
 - **Modes** — colors ship Light + Dark; only **Light** is emitted. Other collections
   are single-mode.
@@ -247,6 +265,7 @@ and picked up by the container via the bind mount.
    ```
 
    Prints a per-collection token count and the number of alias references.
+
 3. **Verify**
 
    ```bash
@@ -256,8 +275,9 @@ and picked up by the container via the bind mount.
    Or in browser devtools on any page:
 
    ```js
-   getComputedStyle(document.documentElement)
-     .getPropertyValue('--curinos-color-background-1')
+   getComputedStyle(document.documentElement).getPropertyValue(
+     "--curinos-color-background-1",
+   );
    // → "#fffdfa"
    ```
 
@@ -273,12 +293,12 @@ have no Curinos equivalent.
 Chart color styles from the **Deposit Growth / Performance Report** Figma file live
 in `curinos-colors.json` under the `data/` group (e.g. `data/chart/base/categorical-01`).
 
-| Source | Output | Purpose |
-|--------|--------|---------|
-| `sources/deposit-growth-chart-colors.manifest.json` | Node IDs + known swatches | Sync input |
-| `sources/curinos-colors.json` | `data/chart/base/*` variables | Figma re-import (Curinos Colors collection) |
-| `sources/deposit-growth-chart-colors.tokens.json` | Tokens Studio format | Optional Tokens Studio sidecar |
-| `curinos/_color.scss` | `--curinos-color-data-chart-*` | CSS variables in the app |
+| Source                                              | Output                          | Purpose                                       |
+| --------------------------------------------------- | ------------------------------- | --------------------------------------------- |
+| `sources/deposit-growth-chart-colors.manifest.json` | Node IDs + known swatches       | Sync input                                    |
+| `sources/curinos-colors.json`                       | `data/chart/base/*` variables   | Figma re-import (Curinos Colors collection)   |
+| `sources/deposit-growth-chart-colors.tokens.json`   | Tokens Studio format            | Optional Tokens Studio sidecar                |
+| `curinos/_color.scss`                               | `--curinos-color-data-chart-*`  | CSS variables in the app                      |
 
 **Sync from Figma**
 
@@ -293,16 +313,3 @@ To import **only** the extended palette and data palette into Figma without
 touching existing variables, use the subset export
 `sources/curinos-extended-data-colors.json` — same rich collection format as
 `curinos-colors.json`, but limited to those 206 variables.
-
----
-
-## Why Docker?
-
-On a modern Mac (macOS 26), Angular 7's native dependencies (`node-sass`,
-`node-gyp`) cannot compile against the host's Python 3.13 toolchain. The
-container is based on `node:10`, which ships Python 2.7 and the C/C++ build
-toolchain those packages expect.
-
-> These old versions are intentional. Do **not** upgrade Angular, PrimeNG, Node,
-> or Python to "fix" compatibility — the whole point is to reproduce the old
-> stack.

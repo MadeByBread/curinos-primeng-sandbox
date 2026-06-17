@@ -40,7 +40,13 @@
       </section>
 
       <p-footer>
-        <a class="auth-link" href="#">
+        <a
+          class="auth-link"
+          [class.auth-link--default]="showDefaultLinkStyle"
+          href="#"
+          [attr.aria-pressed]="showDefaultLinkStyle"
+          title="Click to toggle between Curinos and PrimeNG default link styles"
+          (click)="toggleForgotPasswordStyle($event)">
           Forgot password?
         </a>
         <p class="auth-legal">

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.transition-default-preview {
+  padding: 16px;
+  background: transparent;
+}
+
+.preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-row--panelmenu {
+  display: block;
+  max-width: 240px;
+}
+
+.preview-empty {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}

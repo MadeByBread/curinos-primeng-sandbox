@@ -12,6 +12,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: '../pages/pages.module#PagesModule',
         data: { showMenubar: false }
+      },
+      {
+        path: 'transition',
+        loadChildren: '../pages/transition/transition.module#TransitionModule',
+        data: { showMenubar: false }
       }
     ]
   }

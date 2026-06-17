@@ -7,10 +7,17 @@ import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
   styleUrls: ['./primeng-login.component.scss']
 })
 export class PrimengLoginComponent implements OnInit, OnDestroy {
+  showCurinosLinkStyle = false;
+
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
+  toggleForgotPasswordStyle(event: Event) {
+    event.preventDefault();
+    this.showCurinosLinkStyle = !this.showCurinosLinkStyle;
+  }
 
   ngOnInit() {
     this.renderer.addClass(this.document.body, 'auth-layout');

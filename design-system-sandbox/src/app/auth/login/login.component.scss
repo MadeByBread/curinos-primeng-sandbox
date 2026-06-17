@@ -181,6 +181,13 @@ body.auth-layout {
   line-height: 1.2;
   color: var(--curinos-color-semantic-surface-900);
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth-link--default {
+  color: #007ad9;
+  text-decoration: none;
+  letter-spacing: normal;
 }
 
 .auth-legal {
