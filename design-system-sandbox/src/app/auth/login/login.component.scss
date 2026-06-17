@@ -72,15 +72,6 @@ body.auth-layout {
   display: flex;
   flex-direction: column;
 
-  .ui-card-header,
-  .ui-card-body,
-  .ui-card-content,
-  .ui-card-footer {
-    padding: 0;
-    border: 0;
-    background: transparent;
-  }
-
   .ui-card-body {
     display: flex;
     flex-direction: column;
@@ -215,9 +206,6 @@ body.auth-layout {
 
   .ui-card-body,
   .ui-card-content {
-    padding: 0;
-    border: 0;
-    background: transparent;
     display: contents;
   }
 }

@@ -1,0 +1,177 @@
+{
+  "sections": [
+    {
+      "key": "button",
+      "title": "Button",
+      "approach": "Global `.ui-button` selectors in `_overrides.scss`, scoped to `body:not(.primeng-default)`, consume Layer 2 `--primeng-button-*` tokens mapped to Curinos colors and dimensions.",
+      "iframeHeight": 80,
+      "mappings": [
+        {
+          "portion": "Primary — background & border",
+          "bridge": ["--primeng-button-primary-background", "--primeng-button-primary-border-color"]
+        },
+        {
+          "portion": "Primary — label text",
+          "bridge": ["--primeng-button-primary-color"]
+        },
+        {
+          "portion": "Primary — hover/active background & border",
+          "bridge": ["--primeng-button-primary-hover-background", "--primeng-button-primary-hover-border-color"]
+        },
+        {
+          "portion": "Primary — hover/active label",
+          "bridge": ["--primeng-button-primary-hover-color"]
+        },
+        {
+          "portion": "Secondary — border",
+          "bridge": ["--primeng-button-secondary-border-color"]
+        },
+        {
+          "portion": "Secondary — label",
+          "bridge": ["--primeng-button-secondary-color"]
+        },
+        {
+          "portion": "Secondary — hover background",
+          "bridge": ["--primeng-button-secondary-hover-background"]
+        },
+        {
+          "portion": "Ghost — border",
+          "bridge": ["--primeng-button-ghost-border-color"]
+        },
+        {
+          "portion": "Ghost — label",
+          "bridge": ["--primeng-button-ghost-color"]
+        },
+        {
+          "portion": "Ghost — hover background & label",
+          "bridge": ["--primeng-button-ghost-hover-background", "--primeng-button-ghost-hover-color"]
+        },
+        {
+          "portion": "All variants — border radius",
+          "bridge": ["--primeng-button-border-radius"]
+        }
+      ]
+    },
+    {
+      "key": "input",
+      "title": "InputText",
+      "approach": "Single `.ui-inputtext` block in `_overrides.scss` replaces nova-light input chrome with Curinos tokens for background, border, padding, and typography.",
+      "iframeHeight": 72,
+      "mappings": [
+        { "portion": "Field background", "bridge": ["--primeng-inputtext-background"] },
+        { "portion": "Border (default)", "bridge": ["--primeng-inputtext-border-color"] },
+        { "portion": "Text", "bridge": ["--primeng-inputtext-color"] },
+        { "portion": "Placeholder", "bridge": ["--primeng-inputtext-placeholder-color"] },
+        { "portion": "Hover border", "bridge": ["--primeng-inputtext-hover-border-color"] },
+        { "portion": "Focus border", "bridge": ["--primeng-inputtext-focus-border-color"] },
+        { "portion": "Border radius", "bridge": ["--primeng-inputtext-border-radius"] }
+      ]
+    },
+    {
+      "key": "dropdown",
+      "title": "Dropdown",
+      "approach": "Dropdown overrides share input tokens for the closed state, then add panel-specific rules for the trigger, inner label, and popup item states.",
+      "iframeHeight": 72,
+      "mappings": [
+        {
+          "portion": "Closed field — background, border, radius",
+          "bridge": ["--primeng-inputtext-background", "--primeng-inputtext-border-color", "--primeng-inputtext-border-radius"]
+        },
+        {
+          "portion": "Closed field — hover/focus border",
+          "bridge": ["--primeng-inputtext-hover-border-color", "--primeng-inputtext-focus-border-color"]
+        },
+        { "portion": "Placeholder label", "bridge": ["--primeng-inputtext-placeholder-color"] },
+        { "portion": "Selected value label", "bridge": ["--primeng-inputtext-color"] },
+        { "portion": "Chevron trigger icon", "bridge": ["--primeng-dropdown-trigger-color"] },
+        { "portion": "Panel item text", "bridge": ["--primeng-dropdown-item-color"] },
+        {
+          "portion": "Panel item hover background & text",
+          "bridge": ["--primeng-dropdown-item-hover-background", "--primeng-dropdown-item-hover-color"]
+        },
+        {
+          "portion": "Panel item selected background & text",
+          "bridge": ["--primeng-dropdown-item-selected-background", "--primeng-dropdown-item-selected-color"]
+        }
+      ]
+    },
+    {
+      "key": "card",
+      "title": "Card",
+      "approach": "A single `.ui-card` override sets surface, border, radius, shadow, and resets inner part padding to 0. Opt-in layout modifiers (`ui-card--hero`, `ui-card--section`, etc.) in `_overrides.scss` re-apply padding via bridge tokens.",
+      "iframeHeight": 140,
+      "mappings": [
+        { "portion": "Surface background", "bridge": ["--primeng-card-background"] },
+        { "portion": "Border", "bridge": ["--primeng-card-border-color"] },
+        { "portion": "Border radius", "bridge": ["--primeng-card-border-radius"] },
+        { "portion": "Body text color", "bridge": ["--primeng-card-color"] },
+        { "portion": "Shadow", "bridge": ["--primeng-card-shadow"] },
+        { "portion": "Hero body padding (`ui-card--hero`)", "bridge": ["--primeng-card-hero-padding"] },
+        { "portion": "Section header padding (`ui-card--section`)", "bridge": ["--primeng-card-section-header-padding"] },
+        { "portion": "Section content padding", "bridge": ["--primeng-card-section-content-padding"] },
+        { "portion": "Compact body padding (`ui-card--compact`)", "bridge": ["--primeng-card-compact-padding"] }
+      ]
+    },
+    {
+      "key": "panelmenu",
+      "title": "PanelMenu",
+      "approach": "The heaviest override: resets nova-light accordion chrome (blue expanded headers, gray borders) and restyles the sidebar navigation to match Figma, scoped via `.sidebar-menu.ui-panelmenu`.",
+      "iframeHeight": 200,
+      "mappings": [
+        { "portion": "Section header & item text (default)", "bridge": ["--primeng-panelmenu-item-color"] },
+        { "portion": "Header & item hover/active background", "bridge": ["--primeng-panelmenu-item-active-background"] },
+        { "portion": "Header hover text", "bridge": ["--primeng-panelmenu-item-hover-color"] },
+        { "portion": "Active submenu item text", "bridge": ["--primeng-panelmenu-item-active-color"] },
+        {
+          "portion": "Expand icon — plus/minus (::before on .ui-panelmenu-icon)",
+          "bridge": ["--primeng-panelmenu-icon-color"],
+          "curinosNote": "Phosphor regular via CSS swap replaces PrimeIcon chevrons"
+        },
+        { "portion": "Duotone icon active fill (::before)", "bridge": ["--primeng-panelmenu-icon-active-fill"] },
+        { "portion": "Duotone icon active stroke (::after)", "bridge": ["--primeng-panelmenu-icon-active-stroke"] },
+        { "portion": "Submenu left border", "bridge": ["--primeng-panelmenu-border-color"] }
+      ],
+      "notes": [
+        {
+          "title": "PanelMenu expand icon swap",
+          "body": "PrimeNG 7 PanelMenu hardcodes expand/collapse chevrons as PrimeIcons (pi-chevron-right, pi-chevron-down) on .ui-panelmenu-icon — they cannot be changed via MenuItem.icon. In the Curinos sidebar (.sidebar-menu), _overrides.scss replaces the glyph via ::before: Phosphor regular plus when collapsed, minus when the header has ui-state-active (expanded)."
+        }
+      ]
+    },
+    {
+      "key": "datatable",
+      "title": "DataTable",
+      "approach": "Global `.ui-table` selectors in `_overrides.scss` restyle PrimeNG 7 `p-table` chrome — header row, body cells, zebra striping, hover, and sortable column states — via Layer 2 `--primeng-table-*` tokens.",
+      "iframeHeight": 220,
+      "mappings": [
+        { "portion": "Header background", "bridge": ["--primeng-table-header-background"] },
+        { "portion": "Header text", "bridge": ["--primeng-table-header-color"] },
+        { "portion": "Header bottom border", "bridge": ["--primeng-table-header-border-color"] },
+        { "portion": "Body row background", "bridge": ["--primeng-table-body-background"] },
+        { "portion": "Zebra stripe row background", "bridge": ["--primeng-table-row-stripe-background"] },
+        { "portion": "Row hover background", "bridge": ["--primeng-table-row-hover-background"] },
+        { "portion": "Cell text", "bridge": ["--primeng-table-cell-color"] },
+        { "portion": "Cell bottom border", "bridge": ["--primeng-table-border-color"] },
+        { "portion": "Sort icon (default)", "bridge": ["--primeng-table-sort-icon-color"] },
+        { "portion": "Sort icon (active column)", "bridge": ["--primeng-table-sort-icon-active-color"] }
+      ]
+    }
+  ],
+  "iconMappings": [
+    {
+      "portion": "Button icon (inherits label color)",
+      "bridge": "color on .ui-button",
+      "curinos": "--curinos-color-background-1 (primary), --curinos-color-foreground-1 (secondary/ghost)"
+    },
+    {
+      "portion": "SVG icon stroke (regular/light)",
+      "bridge": "stroke-width on <app-ph-icon>",
+      "curinos": "--curinos-dimensions-icons-stroke"
+    },
+    {
+      "portion": "PanelMenu expand icon (plus/minus)",
+      "bridge": "--primeng-panelmenu-icon-color on .ui-panelmenu-icon::before",
+      "curinos": "--curinos-color-foreground-3 (Phosphor regular via CSS swap — see PanelMenu section note)"
+    }
+  ]
+}

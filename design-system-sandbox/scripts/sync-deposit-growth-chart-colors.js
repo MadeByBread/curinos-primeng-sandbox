@@ -2,8 +2,12 @@
  * Sync Deposit Growth chart color styles from Figma into curinos-colors.json
  * under the `data/` group, then regenerate curinos/_color.scss.
  *
+ * This is a Layer 1 preprocessor — it mutates sources/curinos-colors.json, then
+ * invokes figma-tokens-to-scss.js (same as npm run tokens:build). Do not edit
+ * `data/*` variables by hand; re-run this script or restore from git.
+ *
  * Usage:
- *   FIGMA_ACCESS_TOKEN=figd_... node scripts/sync-deposit-growth-chart-colors.js
+ *   FIGMA_ACCESS_TOKEN=figd_... npm run tokens:sync:chart
  *
  * Without a token, uses `knownColors` from the manifest.
  */

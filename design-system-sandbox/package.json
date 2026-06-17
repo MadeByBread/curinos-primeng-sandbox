@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "tokens:build": "node scripts/figma-tokens-to-scss.js",
+    "tokens:sync:chart": "node scripts/sync-deposit-growth-chart-colors.js",
+    "tokens:docs": "node scripts/extract-bridge-mappings.js",
+    "tokens:refresh": "npm run tokens:build && npm run tokens:docs"
   },
   "private": true,
   "dependencies": {

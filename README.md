@@ -189,10 +189,8 @@ component overrides:
 
 ```css
 --primeng-button-primary-background: var(--curinos-color-foreground-1);
---primeng-inputtext-focus-border-color: var(
-  --curinos-color-primitives-yellow-400
-);
---primeng-card-border-radius: 4px; /* component metric, no Curinos equivalent */
+--primeng-inputtext-focus-border-color: var(--curinos-color-semantic-primary-1);
+--primeng-card-border-radius: var(--curinos-dimensions-radii-cards);
 ```
 
 > The Figma "Prime \*" collections (Prime Primitive, Prime Component Common, …) are
@@ -261,10 +259,19 @@ and picked up by the container via the bind mount.
 
    ```bash
    cd design-system-sandbox
-   node scripts/figma-tokens-to-scss.js
+   npm run tokens:build
    ```
 
    Prints a per-collection token count and the number of alias references.
+
+   **Scripts**
+
+   | Script | Purpose |
+   | --- | --- |
+   | `npm run tokens:build` | Regenerate Layer 1 SCSS from `tokens/sources/*.json` |
+   | `npm run tokens:sync:chart` | Merge Deposit Growth chart colors into `curinos-colors.json`, then run `tokens:build` |
+   | `npm run tokens:docs` | Regenerate Transition token tables from the PrimeNG bridge |
+   | `npm run tokens:refresh` | `tokens:build` then `tokens:docs` (after source or bridge edits) |
 
 3. **Verify**
 
@@ -288,6 +295,17 @@ To extend the **PrimeNG bridge**, edit `tokens/primeng/_index.scss` by hand — 
 new component variables at Curinos tokens, or use literals for component metrics that
 have no Curinos equivalent.
 
+After editing the bridge, regenerate Transition token tables:
+
+```bash
+cd design-system-sandbox
+npm run tokens:docs
+```
+
+Portion labels and section metadata live in
+`src/app/pages/transition/transition-sections.manifest.json`. Curinos targets are
+resolved from the bridge by `scripts/extract-bridge-mappings.js`.
+
 ### Deposit Growth data palette
 
 Chart color styles from the **Deposit Growth / Performance Report** Figma file live
@@ -304,10 +322,10 @@ in `curinos-colors.json` under the `data/` group (e.g. `data/chart/base/categori
 
 ```bash
 cd design-system-sandbox
-FIGMA_ACCESS_TOKEN=figd_... node scripts/sync-deposit-growth-chart-colors.js
+FIGMA_ACCESS_TOKEN=figd_... npm run tokens:sync:chart
 ```
 
-Merges swatches into `curinos-colors.json` and regenerates `_color.scss`.
+Merges swatches into `curinos-colors.json` and regenerates `_color.scss` via `tokens:build`.
 
 To import **only** the extended palette and data palette into Figma without
 touching existing variables, use the subset export

@@ -30,6 +30,7 @@
   --primeng-inputtext-shadow: 0 1px 2px 0 rgba(18, 18, 23, 0.051);
 
   /* dropdown / select / popup menu items */
+  --primeng-dropdown-trigger-color: var(--curinos-color-foreground-3);
   --primeng-dropdown-item-color: var(--curinos-color-foreground-2);
   --primeng-dropdown-item-hover-background: var(--curinos-color-background-2);
   --primeng-dropdown-item-hover-color: var(--curinos-color-foreground-1);
@@ -67,8 +68,28 @@
 
   /* card */
   --primeng-card-background: var(--curinos-color-semantic-surface-white);
+  --primeng-card-border-color: var(--curinos-color-border-1);
+  --primeng-card-color: var(--curinos-color-foreground-1);
   --primeng-card-border-radius: var(--curinos-dimensions-radii-cards);
-  --primeng-card-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.102), 0 1px 3px 0 rgba(0, 0, 0, 0.102);
+  --primeng-card-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+  --primeng-card-hero-padding: 32px 24px;
+  --primeng-card-hero-gap: 16px;
+  --primeng-card-hero-gap-tight: 12px;
+  --primeng-card-section-header-padding: 24px 24px 0;
+  --primeng-card-section-content-padding: 24px;
+  --primeng-card-section-content-padding-split: 0 24px 24px;
+  --primeng-card-section-content-padding-stack: 16px 24px 24px;
+  --primeng-card-section-content-gap: 20px;
+  --primeng-card-compact-padding: 16px;
+
+  /* menu (popup account menu) */
+  --primeng-menu-border-color: var(--curinos-color-border-1);
+  --primeng-menu-border-radius: var(--curinos-dimensions-radii-cards);
+  --primeng-menu-background: var(--curinos-color-background-1);
+  --primeng-menu-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --primeng-menu-item-border-radius: var(--curinos-dimensions-radii-buttons);
+  --primeng-menu-item-color: var(--curinos-color-foreground-1);
+  --primeng-menu-item-icon-color: var(--curinos-color-foreground-3);
 
   /* panelmenu (sidebar) */
   --primeng-panelmenu-item-color: var(--curinos-color-foreground-3);
@@ -92,6 +113,7 @@
   --primeng-table-cell-color: var(--curinos-color-foreground-2);
   --primeng-table-border-color: var(--curinos-color-border-1);
   --primeng-table-sort-icon-color: var(--curinos-color-foreground-3);
+  --primeng-table-sort-icon-active-color: var(--curinos-color-foreground-1);
   --primeng-table-cell-padding-y: 10px;
   --primeng-table-cell-padding-x: 12px;
   --primeng-table-header-font-size: 14px;

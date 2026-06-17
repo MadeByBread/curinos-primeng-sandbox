@@ -14,38 +14,6 @@ $font-serif: 'Source Serif Pro', serif;
 
 .transition-page .ui-card {
   width: 100%;
-  background: var(--curinos-color-semantic-surface-white);
-  border: 1px solid var(--curinos-color-border-1);
-  box-shadow:
-    0 1px 1.5px rgba(0, 0, 0, 0.1),
-    0 1px 1px rgba(0, 0, 0, 0.1);
-
-  .ui-card-header,
-  .ui-card-body,
-  .ui-card-content,
-  .ui-card-footer {
-    padding: 0;
-    border: 0;
-    background: transparent;
-  }
-}
-
-.transition-page .transition-hero .ui-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 32px 24px;
-}
-
-.transition-page .transition-section-card .ui-card-header {
-  padding: 24px 24px 0;
-}
-
-.transition-page .transition-section-card .ui-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 16px 24px 24px;
 }
 
 .transition-heading {
@@ -159,10 +127,6 @@ $font-serif: 'Source Serif Pro', serif;
 .transition-page .transition-demo-card.ui-card {
   max-width: 280px;
   box-shadow: none;
-
-  .ui-card-body {
-    padding: 16px;
-  }
 }
 
 .transition-tokens {
@@ -217,6 +181,17 @@ $font-serif: 'Source Serif Pro', serif;
 .transition-tokens__table code {
   font-size: 12px;
   word-break: break-word;
+}
+
+.transition-notes {
+  margin-top: 12px;
+}
+
+.transition-notes__body {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--curinos-color-foreground-2);
 }
 
 .transition-icons {

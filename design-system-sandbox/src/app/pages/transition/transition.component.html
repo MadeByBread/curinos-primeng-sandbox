@@ -1,6 +1,6 @@
 <div class="transition-page">
   <div class="transition-container">
-    <p-card styleClass="transition-hero">
+    <p-card styleClass="ui-card--hero ui-card--hero-tight">
       <h1 class="transition-heading transition-heading--1">Transition</h1>
       <p class="transition-lead">
         Side-by-side comparison of stock PrimeNG 7 (nova-light) components and the
@@ -11,7 +11,7 @@
 
     <p-card
       *ngFor="let section of sections"
-      styleClass="transition-section-card">
+      styleClass="ui-card--section ui-card--content-stack">
       <p-header>
         <h2 class="transition-heading transition-heading--2">{{ section.title }}</h2>
       </p-header>
@@ -41,7 +41,7 @@
             </div>
 
             <div *ngSwitchCase="'card'" class="demo-row">
-              <p-card styleClass="transition-demo-card">
+              <p-card styleClass="ui-card--compact transition-demo-card">
                 <p-header>Card header</p-header>
                 <p>Card body content</p>
               </p-card>
@@ -95,7 +95,9 @@
       <div class="transition-tokens">
         <h3 class="transition-heading transition-heading--3">Curinos token mapping</h3>
         <p class="transition-tokens__note">
-          The middle column is the sandbox-authored Layer 2 bridge (<code>--primeng-*</code>).
+          Token mappings are generated from the Layer 2 bridge (<code>--primeng-*</code>) via
+          <code>npm run tokens:docs</code>. Portion labels are authored in
+          <code>transition-sections.manifest.json</code>.
           PrimeNG 7 ships no native CSS variables — these names follow component anatomy, not an official PrimeNG token set.
         </p>
         <table class="transition-tokens__table">
@@ -114,10 +116,15 @@
             </tr>
           </tbody>
         </table>
+
+        <div *ngFor="let note of section.notes" class="transition-notes">
+          <h4 class="transition-heading transition-heading--3">{{ note.title }}</h4>
+          <p class="transition-notes__body">{{ note.body }}</p>
+        </div>
       </div>
     </p-card>
 
-    <p-card styleClass="transition-section-card">
+    <p-card styleClass="ui-card--section ui-card--content-stack">
       <p-header>
         <h2 class="transition-heading transition-heading--2">Phosphor Icons</h2>
       </p-header>
@@ -168,33 +175,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Button icon (inherits label color)</td>
-                <td><code>color</code> on <code>.ui-button</code></td>
-                <td><code>--curinos-color-background-1</code> (primary), <code>--curinos-color-foreground-1</code> (secondary/ghost)</td>
-              </tr>
-              <tr>
-                <td>SVG icon stroke (regular/light)</td>
-                <td><code>stroke-width</code> on <code>&lt;app-ph-icon&gt;</code></td>
-                <td><code>--curinos-dimensions-icons-stroke</code></td>
-              </tr>
-              <tr>
-                <td>PanelMenu expand chevron</td>
-                <td><code>--primeng-panelmenu-icon-color</code></td>
-                <td><code>--curinos-color-foreground-3</code> (hardcoded PrimeIcon — cannot swap to Phosphor)</td>
+              <tr *ngFor="let row of iconMappings">
+                <td>{{ row.portion }}</td>
+                <td><code>{{ row.bridge }}</code></td>
+                <td><code>{{ row.curinos }}</code></td>
               </tr>
             </tbody>
           </table>
-        </div>
-
-        <div class="transition-icons__block">
-          <h3 class="transition-heading transition-heading--3">PanelMenu chevron caveat</h3>
-          <p class="transition-icons__desc">
-            PrimeNG 7 PanelMenu renders expand/collapse chevrons as hardcoded PrimeIcons
-            (<code>pi-chevron-right</code>, <code>pi-chevron-down</code>). These cannot be
-            changed via <code>MenuItem.icon</code>. Accept PrimeIcons for those glyphs, or
-            upgrade PrimeNG (out of scope for this sandbox).
-          </p>
         </div>
       </div>
     </p-card>

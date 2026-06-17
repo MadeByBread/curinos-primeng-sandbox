@@ -22,7 +22,11 @@
  * "Prime *" collections target a newer PrimeNG token shape and are intentionally
  * not mirrored.
  *
- * Re-run: node scripts/figma-tokens-to-scss.js
+ * Re-run: npm run tokens:build
+ *
+ * Chart data palette (`data/*` variables in curinos-colors.json) is merged by a
+ * separate preprocessor — run `npm run tokens:sync:chart` before tokens:build when
+ * refreshing from Figma. See README § Deposit Growth data palette.
  */
 
 const fs = require('fs');

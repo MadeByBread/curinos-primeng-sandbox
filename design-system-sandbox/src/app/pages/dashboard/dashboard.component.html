@@ -1,17 +1,17 @@
 <div class="dashboard-panel">
   <div class="panel-container">
-    <p-card styleClass="panel-card panel-hero">
+    <p-card styleClass="panel-card ui-card--hero">
       <h1 class="panel-heading panel-heading--1">Header 1</h1>
       <p class="panel-body-copy">Body copy</p>
     </p-card>
 
-    <p-card styleClass="panel-card panel-section">
+    <p-card styleClass="panel-card ui-card--section ui-card--content-split">
       <p-header>
         <h2 class="panel-heading panel-heading--2">Header 2</h2>
       </p-header>
     </p-card>
 
-    <p-card styleClass="panel-card panel-section panel-filter">
+    <p-card styleClass="panel-card ui-card--section ui-card--content-no-top">
       <p-header>
         <h2 class="panel-heading panel-heading--3">Header 3</h2>
       </p-header>
@@ -60,7 +60,7 @@
     </p-card>
 
     <div class="panel-stat-row">
-      <p-card *ngFor="let stat of statCards" styleClass="panel-card panel-stat">
+      <p-card *ngFor="let stat of statCards" styleClass="panel-card ui-card--compact panel-stat">
         <h3 class="panel-heading panel-heading--4">{{ stat }}</h3>
       </p-card>
     </div>
