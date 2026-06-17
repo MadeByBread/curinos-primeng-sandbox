@@ -194,6 +194,66 @@ $font-serif: 'Source Serif Pro', serif;
   color: var(--curinos-color-foreground-2);
 }
 
+.transition-css {
+  margin-top: 12px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-cards);
+  background: var(--curinos-color-background-2);
+}
+
+.transition-css__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.42px;
+  color: var(--curinos-color-foreground-1);
+  cursor: pointer;
+  list-style: none;
+}
+
+.transition-css__summary::-webkit-details-marker {
+  display: none;
+}
+
+.transition-css__summary::before {
+  content: '▸';
+  margin-right: 4px;
+  color: var(--curinos-color-foreground-3);
+  transition: transform 0.15s ease;
+}
+
+.transition-css[open] .transition-css__summary::before {
+  transform: rotate(90deg);
+}
+
+.transition-css__source {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--curinos-color-foreground-3);
+}
+
+.transition-css__pre {
+  margin: 0;
+  padding: 12px;
+  border-top: 1px solid var(--curinos-color-border-1);
+  overflow-x: auto;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--curinos-color-foreground-2);
+  background: var(--curinos-color-background-1);
+}
+
+.transition-css__pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  white-space: pre;
+}
+
 .transition-icons {
   display: flex;
   flex-direction: column;

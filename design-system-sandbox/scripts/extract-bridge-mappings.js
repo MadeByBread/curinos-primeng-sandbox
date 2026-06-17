@@ -3,7 +3,13 @@
  *
  * Reads:
  *   - src/styles/tokens/primeng/_index.scss  (canonical bridge declarations)
+ *   - src/styles/primeng/_overrides.scss  (component override rules)
  *   - src/app/pages/transition/transition-sections.manifest.json  (portion labels + demo metadata)
+ *
+ * CSS regions in SCSS sources are delimited with:
+ *   // @transition css:<section-key>
+ *   ...
+ *   // @transition css:/<section-key>
  *
  * Writes:
  *   - src/app/pages/transition/bridge-mappings.generated.ts
@@ -16,8 +22,14 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const BRIDGE_PATH = path.join(ROOT, 'src/styles/tokens/primeng/_index.scss');
+const OVERRIDES_PATH = path.join(ROOT, 'src/styles/primeng/_overrides.scss');
 const MANIFEST_PATH = path.join(ROOT, 'src/app/pages/transition/transition-sections.manifest.json');
 const OUTPUT_PATH = path.join(ROOT, 'src/app/pages/transition/bridge-mappings.generated.ts');
+
+const CSS_SOURCE_PATHS = {
+  bridge: 'src/styles/tokens/primeng/_index.scss',
+  overrides: 'src/styles/primeng/_overrides.scss'
+};
 
 function parseBridge(scss) {
   const vars = {};
@@ -75,13 +87,75 @@ function resolveCurinosLabel(bridgeVars, bridgeMap) {
   return curinos.join(', ');
 }
 
-function buildSections(manifest, bridgeMap) {
+function parseCssRegions(scss, sourceKey) {
+  const regions = {};
+  const lines = scss.split('\n');
+  let activeKey = null;
+  let activeLines = [];
+  let activeStart = 0;
+
+  const startRegex = /^\s*\/\/ @transition css:([a-z0-9-]+)\s*$/;
+  const endRegex = /^\s*\/\/ @transition css:\/([a-z0-9-]+)\s*$/;
+
+  lines.forEach((line, index) => {
+    const startMatch = line.match(startRegex);
+    if (startMatch) {
+      activeKey = startMatch[1];
+      activeLines = [];
+      activeStart = index + 1;
+      return;
+    }
+
+    const endMatch = line.match(endRegex);
+    if (endMatch && activeKey === endMatch[1]) {
+      regions[activeKey] = {
+        source: CSS_SOURCE_PATHS[sourceKey],
+        css: activeLines.join('\n').trim()
+      };
+      activeKey = null;
+      activeLines = [];
+      return;
+    }
+
+    if (activeKey) {
+      activeLines.push(line);
+    }
+  });
+
+  if (activeKey) {
+    throw new Error(`Unclosed @transition css:${activeKey} region (starts near line ${activeStart})`);
+  }
+
+  return regions;
+}
+
+function mergeCssRegions(...regionMaps) {
+  return Object.assign({}, ...regionMaps);
+}
+
+function resolveSectionCss(section, cssRegions) {
+  const cssKey = section.cssKey || section.key;
+  const region = cssRegions[cssKey];
+
+  if (!region || !region.css) {
+    return null;
+  }
+
+  return {
+    source: region.source,
+    css: region.css
+  };
+}
+
+function buildSections(manifest, bridgeMap, cssRegions) {
   return manifest.sections.map((section) => ({
     key: section.key,
     title: section.title,
     approach: section.approach,
     iframeHeight: section.iframeHeight,
     notes: section.notes || [],
+    documentationOnly: section.documentationOnly === true,
+    css: resolveSectionCss(section, cssRegions),
     tokenMappings: section.mappings.map((row) => {
       const curinos = row.curinosNote
         ? `${resolveCurinosLabel(row.bridge, bridgeMap)} (${row.curinosNote})`
@@ -113,11 +187,18 @@ export interface GeneratedTransitionNote {
   body: string;
 }
 
+export interface GeneratedTransitionCss {
+  source: string;
+  css: string;
+}
+
 export interface GeneratedTransitionSection {
   key: string;
   title: string;
   approach: string;
   iframeHeight: number;
+  documentationOnly?: boolean;
+  css: GeneratedTransitionCss | null;
   tokenMappings: GeneratedTokenMapping[];
   notes: GeneratedTransitionNote[];
 }
@@ -137,8 +218,13 @@ export const generatedTransitionData = ${JSON.stringify(payload, null, 2)} as {
 
 function main() {
   const bridgeScss = fs.readFileSync(BRIDGE_PATH, 'utf8');
+  const overridesScss = fs.readFileSync(OVERRIDES_PATH, 'utf8');
   const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
   const bridgeMap = parseBridge(bridgeScss);
+  const cssRegions = mergeCssRegions(
+    parseCssRegions(bridgeScss, 'bridge'),
+    parseCssRegions(overridesScss, 'overrides')
+  );
 
   manifest.sections.forEach((section) => {
     section.mappings.forEach((row) => {
@@ -148,9 +234,14 @@ function main() {
         }
       });
     });
+
+    const cssKey = section.cssKey || section.key;
+    if (!cssRegions[cssKey]) {
+      throw new Error(`Section "${section.key}": missing @transition css:${cssKey} region in SCSS sources`);
+    }
   });
 
-  const sections = buildSections(manifest, bridgeMap);
+  const sections = buildSections(manifest, bridgeMap, cssRegions);
   const output = emitTypeScript(sections, manifest.iconMappings || []);
 
   fs.writeFileSync(OUTPUT_PATH, output);

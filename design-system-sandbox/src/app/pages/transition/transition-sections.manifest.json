@@ -68,6 +68,37 @@
       ]
     },
     {
+      "key": "control-sizing",
+      "title": "Button & input sizing",
+      "documentationOnly": true,
+      "approach": "Font size and padding for buttons and InputText are PrimeNG 7–specific for now. They are literal values on the Layer 2 bridge (--primeng-button-*-font-size, --primeng-button-*-padding-*, --primeng-inputtext-font-size, --primeng-inputtext-padding-*), not Curinos Typography or Dimensions tokens. The next design-system version will define multiple button sizes in Figma; until then, default and .ui-button-sm map to PrimeNG's two-size anatomy.",
+      "iframeHeight": 0,
+      "mappings": [
+        { "portion": "Button (default / lg) — label font size", "bridge": ["--primeng-button-lg-font-size"] },
+        {
+          "portion": "Button (default / lg) — padding",
+          "bridge": ["--primeng-button-lg-padding-y", "--primeng-button-lg-padding-x"]
+        },
+        { "portion": "Button (.ui-button-sm) — label font size", "bridge": ["--primeng-button-sm-font-size"] },
+        {
+          "portion": "Button (.ui-button-sm) — padding",
+          "bridge": ["--primeng-button-sm-padding-y", "--primeng-button-sm-padding-x"]
+        },
+        { "portion": "Button — label font weight", "bridge": ["--primeng-button-label-font-weight"] },
+        { "portion": "InputText — font size", "bridge": ["--primeng-inputtext-font-size"] },
+        {
+          "portion": "InputText — padding",
+          "bridge": ["--primeng-inputtext-padding-y", "--primeng-inputtext-padding-x"]
+        }
+      ],
+      "notes": [
+        {
+          "title": "PrimeNG bridge literals (for now)",
+          "body": "Layer 1 Typography covers font families and text styles (e.g. styles-control, app-md-font-size), but PrimeNG 7 markup only exposes two button sizes and one input field scale. Padding and component font metrics stay hardcoded in tokens/primeng/_index.scss until Figma ships a full button size scale; then these bridge vars can point at Curinos Dimensions and Typography instead."
+        }
+      ]
+    },
+    {
       "key": "dropdown",
       "title": "Dropdown",
       "approach": "Dropdown overrides share input tokens for the closed state, then add panel-specific rules for the trigger, inner label, and popup item states.",

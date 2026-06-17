@@ -13,11 +13,18 @@ export interface GeneratedTransitionNote {
   body: string;
 }
 
+export interface GeneratedTransitionCss {
+  source: string;
+  css: string;
+}
+
 export interface GeneratedTransitionSection {
   key: string;
   title: string;
   approach: string;
   iframeHeight: number;
+  documentationOnly?: boolean;
+  css: GeneratedTransitionCss | null;
   tokenMappings: GeneratedTokenMapping[];
   notes: GeneratedTransitionNote[];
 }
@@ -36,6 +43,11 @@ export const generatedTransitionData = {
       "approach": "Global `.ui-button` selectors in `_overrides.scss`, scoped to `body:not(.primeng-default)`, consume Layer 2 `--primeng-button-*` tokens mapped to Curinos colors and dimensions.",
       "iframeHeight": 80,
       "notes": [],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .ui-button.ui-state-default {\n  width: fit-content;\n  max-width: 100%;\n  background: var(--primeng-button-primary-background);\n  border: 1px solid var(--primeng-button-primary-border-color);\n  color: var(--primeng-button-primary-color);\n  font-family: $font-sans;\n  font-size: var(--primeng-button-lg-font-size);\n  font-weight: var(--primeng-button-label-font-weight);\n  border-radius: var(--primeng-button-border-radius);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-lg-padding-y) var(--primeng-button-lg-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm {\n  font-size: var(--primeng-button-sm-font-size);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-sm-padding-y) var(--primeng-button-sm-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {\n  background: transparent;\n  border: 1px solid var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:hover,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:focus,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:active,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost {\n  background: transparent;\n  border: 1px solid var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:hover {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:active {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-full-width,\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-width {\n  width: 100%;\n}\n\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {\n  width: fit-content;\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Primary — background & border",
@@ -100,6 +112,11 @@ export const generatedTransitionData = {
       "approach": "Single `.ui-inputtext` block in `_overrides.scss` replaces nova-light input chrome with Curinos tokens for background, border, padding, and typography.",
       "iframeHeight": 72,
       "notes": [],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .ui-inputtext {\n  background: var(--primeng-inputtext-background);\n  border: 1px solid var(--primeng-inputtext-border-color);\n  border-radius: var(--primeng-inputtext-border-radius);\n  padding: var(--primeng-inputtext-padding-y) var(--primeng-inputtext-padding-x);\n  font-family: $font-sans;\n  font-size: var(--primeng-inputtext-font-size);\n  color: var(--primeng-inputtext-color);\n  box-shadow: var(--primeng-inputtext-shadow);\n\n  &::placeholder {\n    color: var(--primeng-inputtext-placeholder-color);\n  }\n}\n\nbody:not(.primeng-default) .ui-inputtext:enabled:hover:not(.ui-state-error) {\n  border-color: var(--primeng-inputtext-hover-border-color);\n}\n\nbody:not(.primeng-default) .ui-inputtext:enabled:focus:not(.ui-state-error) {\n  border-color: var(--primeng-inputtext-focus-border-color);\n  box-shadow: var(--primeng-inputtext-shadow);\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Field background",
@@ -139,11 +156,70 @@ export const generatedTransitionData = {
       ]
     },
     {
+      "key": "control-sizing",
+      "title": "Button & input sizing",
+      "approach": "Font size and padding for buttons and InputText are PrimeNG 7–specific for now. They are literal values on the Layer 2 bridge (--primeng-button-*-font-size, --primeng-button-*-padding-*, --primeng-inputtext-font-size, --primeng-inputtext-padding-*), not Curinos Typography or Dimensions tokens. The next design-system version will define multiple button sizes in Figma; until then, default and .ui-button-sm map to PrimeNG's two-size anatomy.",
+      "iframeHeight": 0,
+      "notes": [
+        {
+          "title": "PrimeNG bridge literals (for now)",
+          "body": "Layer 1 Typography covers font families and text styles (e.g. styles-control, app-md-font-size), but PrimeNG 7 markup only exposes two button sizes and one input field scale. Padding and component font metrics stay hardcoded in tokens/primeng/_index.scss until Figma ships a full button size scale; then these bridge vars can point at Curinos Dimensions and Typography instead."
+        }
+      ],
+      "documentationOnly": true,
+      "css": {
+        "source": "src/styles/tokens/primeng/_index.scss",
+        "css": "/* Padding and font size: PrimeNG 7 literals — see Transition § Button & input sizing. */\n  --primeng-inputtext-padding-y: 8.75px;\n  --primeng-inputtext-padding-x: 12.25px;\n  --primeng-inputtext-font-size: 15.75px;\n  /* Sizing below is PrimeNG 7–specific (lg + sm only). Literal until Layer 1\n     defines a full button size scale — see Transition § Button & input sizing. */\n  --primeng-button-label-font-weight: 500;\n  --primeng-button-lg-font-size: 15.75px;\n  --primeng-button-lg-padding-y: 8.75px;\n  --primeng-button-lg-padding-x: 12.25px;\n  --primeng-button-sm-font-size: 12.25px;\n  --primeng-button-sm-padding-y: 5.25px;\n  --primeng-button-sm-padding-x: 8.75px;"
+      },
+      "tokenMappings": [
+        {
+          "portion": "Button (default / lg) — label font size",
+          "bridge": "--primeng-button-lg-font-size",
+          "curinos": "15.75px"
+        },
+        {
+          "portion": "Button (default / lg) — padding",
+          "bridge": "--primeng-button-lg-padding-y, --primeng-button-lg-padding-x",
+          "curinos": "8.75px, 12.25px"
+        },
+        {
+          "portion": "Button (.ui-button-sm) — label font size",
+          "bridge": "--primeng-button-sm-font-size",
+          "curinos": "12.25px"
+        },
+        {
+          "portion": "Button (.ui-button-sm) — padding",
+          "bridge": "--primeng-button-sm-padding-y, --primeng-button-sm-padding-x",
+          "curinos": "5.25px, 8.75px"
+        },
+        {
+          "portion": "Button — label font weight",
+          "bridge": "--primeng-button-label-font-weight",
+          "curinos": "500"
+        },
+        {
+          "portion": "InputText — font size",
+          "bridge": "--primeng-inputtext-font-size",
+          "curinos": "15.75px"
+        },
+        {
+          "portion": "InputText — padding",
+          "bridge": "--primeng-inputtext-padding-y, --primeng-inputtext-padding-x",
+          "curinos": "8.75px, 12.25px"
+        }
+      ]
+    },
+    {
       "key": "dropdown",
       "title": "Dropdown",
       "approach": "Dropdown overrides share input tokens for the closed state, then add panel-specific rules for the trigger, inner label, and popup item states.",
       "iframeHeight": 72,
       "notes": [],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .ui-dropdown {\n  background: var(--primeng-inputtext-background);\n  border: 1px solid var(--primeng-inputtext-border-color);\n  border-radius: var(--primeng-inputtext-border-radius);\n  box-shadow: var(--primeng-inputtext-shadow);\n}\n\nbody:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled):hover {\n  border-color: var(--primeng-inputtext-hover-border-color);\n}\n\nbody:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled).ui-state-focus {\n  border-color: var(--primeng-inputtext-focus-border-color);\n  box-shadow: var(--primeng-inputtext-shadow);\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext {\n  padding: var(--primeng-inputtext-padding-y) 2.5em var(--primeng-inputtext-padding-y)\n    var(--primeng-inputtext-padding-x);\n  border: 0;\n  background: transparent;\n  box-shadow: none;\n  font-family: $font-sans;\n  font-size: var(--primeng-inputtext-font-size);\n  color: var(--primeng-inputtext-placeholder-color);\n}\n\nbody:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:not(.ui-dropdown-label-empty) {\n  color: var(--primeng-inputtext-color);\n}\n\nbody:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:hover:not(.ui-state-error),\nbody:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:focus:not(.ui-state-error) {\n  border-color: transparent;\n  box-shadow: none;\n}\n\nbody:not(.primeng-default) .ui-dropdown .ui-dropdown-trigger {\n  width: 2.5em;\n  background: transparent;\n  border: 0;\n  line-height: normal;\n  color: var(--primeng-dropdown-trigger-color);\n}\n\nbody:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {\n  color: var(--primeng-dropdown-item-color);\n}\n\nbody:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {\n  background: var(--primeng-dropdown-item-hover-background) !important;\n  color: var(--primeng-dropdown-item-hover-color) !important;\n}\n\nbody:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight {\n  background: var(--primeng-dropdown-item-selected-background) !important;\n  color: var(--primeng-dropdown-item-selected-color) !important;\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Closed field — background, border, radius",
@@ -193,6 +269,11 @@ export const generatedTransitionData = {
       "approach": "A single `.ui-card` override sets surface, border, radius, shadow, and resets inner part padding to 0. Opt-in layout modifiers (`ui-card--hero`, `ui-card--section`, etc.) in `_overrides.scss` re-apply padding via bridge tokens.",
       "iframeHeight": 140,
       "notes": [],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .ui-card {\n  background: var(--primeng-card-background);\n  border: 1px solid var(--primeng-card-border-color);\n  border-radius: var(--primeng-card-border-radius);\n  box-shadow: var(--primeng-card-shadow);\n  color: var(--primeng-card-color);\n\n  .ui-card-header,\n  .ui-card-body,\n  .ui-card-content,\n  .ui-card-footer {\n    padding: 0;\n    border: 0;\n    background: transparent;\n  }\n}\n\n// Card layout modifiers — opt-in padding on top of inner reset (p-card styleClass).\nbody:not(.primeng-default) .ui-card.ui-card--hero .ui-card-body {\n  display: flex;\n  flex-direction: column;\n  gap: var(--primeng-card-hero-gap);\n  padding: var(--primeng-card-hero-padding);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--hero.ui-card--hero-tight .ui-card-body {\n  gap: var(--primeng-card-hero-gap-tight);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--section .ui-card-header {\n  padding: var(--primeng-card-section-header-padding);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--section .ui-card-content {\n  padding: var(--primeng-card-section-content-padding);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-split .ui-card-content {\n  min-height: 85px;\n  padding: var(--primeng-card-section-content-padding-split);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-no-top .ui-card-content {\n  padding-top: 0;\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-stack .ui-card-content {\n  display: flex;\n  flex-direction: column;\n  gap: var(--primeng-card-section-content-gap);\n  padding: var(--primeng-card-section-content-padding-stack);\n}\n\nbody:not(.primeng-default) .ui-card.ui-card--compact .ui-card-body {\n  padding: var(--primeng-card-compact-padding);\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Surface background",
@@ -252,6 +333,11 @@ export const generatedTransitionData = {
           "body": "PrimeNG 7 PanelMenu hardcodes expand/collapse chevrons as PrimeIcons (pi-chevron-right, pi-chevron-down) on .ui-panelmenu-icon — they cannot be changed via MenuItem.icon. In the Curinos sidebar (.sidebar-menu), _overrides.scss replaces the glyph via ::before: Phosphor regular plus when collapsed, minus when the header has ui-state-active (expanded)."
         }
       ],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .sidebar-menu.ui-panelmenu {\n  width: 100%;\n  border: 0;\n  background: transparent;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {\n  border: 0;\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 6px 8px;\n  border: 0 !important;\n  border-radius: 6px;\n  background: transparent !important;\n  font-family: $font-sans;\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 1.2;\n  letter-spacing: -0.42px;\n  color: var(--primeng-panelmenu-item-color);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {\n  background: var(--primeng-panelmenu-item-active-background) !important;\n  color: var(--primeng-panelmenu-item-hover-color);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {\n  background: transparent !important;\n  border: 0 !important;\n  color: var(--primeng-panelmenu-item-color);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {\n  color: var(--primeng-panelmenu-icon-color);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {\n  background: var(--primeng-panelmenu-item-active-background) !important;\n  color: var(--primeng-panelmenu-item-active-color);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {\n  order: 3;\n  margin: 0 0 0 auto;\n  font-size: 14px;\n  color: var(--primeng-panelmenu-icon-color);\n\n  // PrimeNG 7 hardcodes pi-chevron-right/down on expand icons; swap to Phosphor plus/minus.\n  &::before {\n    font-family: 'Phosphor' !important;\n    font-style: normal;\n    font-weight: normal;\n    font-variant: normal;\n    text-transform: none;\n    line-height: 1;\n    speak: none;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header:not(.ui-state-active) .ui-panelmenu-icon::before {\n  content: '\\e3d4'; // ph-plus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header.ui-state-active .ui-panelmenu-icon::before {\n  content: '\\e32a'; // ph-minus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-icon {\n  order: 1;\n  margin: 0;\n  font-size: 18px;\n  line-height: 1;\n  color: currentColor;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-text {\n  order: 2;\n  flex: 1;\n  min-width: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before {\n  color: var(--primeng-panelmenu-icon-active-fill);\n  opacity: 1;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after {\n  color: var(--primeng-panelmenu-icon-active-stroke);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {\n  overflow: hidden;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {\n  padding: 0;\n  margin: 0;\n  border: 0 !important;\n  border-top: 0 !important;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {\n  margin: 0;\n  padding: 2px 0 2px 10px;\n  border-left: 1px solid var(--primeng-panelmenu-border-color);\n  margin-left: 14px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem {\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link {\n  display: flex;\n  align-items: center;\n  min-height: 28px;\n  padding: 0 8px;\n  border-radius: 2px;\n  font-family: $font-sans;\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 1.2;\n  letter-spacing: -0.42px;\n  color: var(--primeng-panelmenu-item-color) !important;\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {\n  color: var(--primeng-panelmenu-item-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover {\n  background: var(--primeng-panelmenu-item-active-background) !important;\n  color: var(--primeng-panelmenu-item-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {\n  color: var(--primeng-panelmenu-item-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {\n  background: transparent !important;\n  color: var(--primeng-panelmenu-item-active-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {\n  color: var(--primeng-panelmenu-item-active-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {\n  .ui-menuitem-text,\n  .ui-panelmenu-icon,\n  .ui-panelmenu-content-wrapper {\n    display: none;\n  }\n\n  .ui-panelmenu-header > a,\n  .ui-panelmenu-header-link {\n    justify-content: center;\n    gap: 0;\n    width: 30px;\n    height: 30px;\n    margin: 0 auto;\n    padding: 0;\n  }\n\n  .ui-menuitem-icon {\n    margin: 0;\n  }\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Section header & item text (default)",
@@ -301,6 +387,11 @@ export const generatedTransitionData = {
       "approach": "Global `.ui-table` selectors in `_overrides.scss` restyle PrimeNG 7 `p-table` chrome — header row, body cells, zebra striping, hover, and sortable column states — via Layer 2 `--primeng-table-*` tokens.",
       "iframeHeight": 220,
       "notes": [],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .ui-table {\n  font-family: $font-sans;\n}\n\nbody:not(.primeng-default) .ui-table table {\n  border-collapse: collapse;\n}\n\nbody:not(.primeng-default) .ui-table .ui-table-thead > tr > th {\n  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);\n  border: 1px solid var(--primeng-table-header-border-color);\n  border-width: 0 0 1px;\n  background: var(--primeng-table-header-background);\n  font-size: var(--primeng-table-header-font-size);\n  font-weight: 500;\n  line-height: 1.2;\n  letter-spacing: -0.42px;\n  color: var(--primeng-table-header-color);\n  text-align: left;\n}\n\nbody:not(.primeng-default) .ui-table .ui-table-tbody > tr {\n  background: var(--primeng-table-body-background);\n  color: var(--primeng-table-cell-color);\n}\n\nbody:not(.primeng-default) .ui-table .ui-table-tbody > tr:nth-child(even) {\n  background: var(--primeng-table-row-stripe-background);\n}\n\nbody:not(.primeng-default) .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr:not(.ui-state-highlight):hover {\n  background: var(--primeng-table-row-hover-background) !important;\n}\n\nbody:not(.primeng-default) .ui-table .ui-table-tbody > tr > td {\n  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);\n  border: 1px solid var(--primeng-table-border-color);\n  border-width: 0 0 1px;\n  font-size: var(--primeng-table-body-font-size);\n  font-weight: 500;\n  line-height: 1.2;\n  letter-spacing: -0.42px;\n  color: var(--primeng-table-cell-color);\n}\n\nbody:not(.primeng-default) .ui-table .ui-sortable-column .ui-sortable-column-icon {\n  color: var(--primeng-table-sort-icon-color);\n}\n\nbody:not(.primeng-default) .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {\n  background: var(--primeng-table-row-hover-background);\n  color: var(--primeng-table-header-color);\n}\n\nbody:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight {\n  background: var(--primeng-table-header-background);\n  color: var(--primeng-table-header-color);\n}\n\nbody:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {\n  color: var(--primeng-table-sort-icon-active-color);\n}"
+      },
       "tokenMappings": [
         {
           "portion": "Header background",

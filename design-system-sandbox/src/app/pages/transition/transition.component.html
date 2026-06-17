@@ -18,7 +18,7 @@
 
       <p class="transition-approach">{{ section.approach }}</p>
 
-      <div class="transition-compare">
+      <div class="transition-compare" *ngIf="!section.documentationOnly">
         <div class="transition-compare__col">
           <span class="transition-compare__label">Curinos (customized)</span>
           <div class="transition-compare__demo" [ngSwitch]="section.key">
@@ -121,6 +121,14 @@
           <h4 class="transition-heading transition-heading--3">{{ note.title }}</h4>
           <p class="transition-notes__body">{{ note.body }}</p>
         </div>
+
+        <details *ngIf="section.css" class="transition-css">
+          <summary class="transition-css__summary">
+            Associated CSS
+            <span class="transition-css__source">{{ section.css.source }}</span>
+          </summary>
+          <pre class="transition-css__pre"><code>{{ section.css.css }}</code></pre>
+        </details>
       </div>
     </p-card>
 

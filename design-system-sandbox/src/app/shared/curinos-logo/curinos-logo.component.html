@@ -45,19 +45,10 @@
   </defs>
 </svg>
 
-<svg
+<img
   *ngIf="variant === 'mark'"
   class="curinos-logo curinos-logo--mark"
-  viewBox="0 0 20 20"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  role="img"
-  [attr.aria-label]="ariaLabel">
-  <title>{{ ariaLabel }}</title>
-  <defs>
-    <mask [attr.id]="maskId" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-      <image href="assets/curinos-mark.png" x="0" y="0" width="20" height="20" />
-    </mask>
-  </defs>
-  <rect width="20" height="20" fill="currentColor" [attr.mask]="'url(#' + maskId + ')'" />
-</svg>
+  src="assets/curinos-mark.svg"
+  width="24"
+  height="24"
+  [attr.alt]="ariaLabel" />

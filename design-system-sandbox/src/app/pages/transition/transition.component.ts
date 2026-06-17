@@ -12,6 +12,11 @@ import {
 
 export interface TokenMapping extends GeneratedTokenMapping {}
 
+export interface TransitionCss {
+  source: string;
+  css: string;
+}
+
 export interface TransitionSection {
   key: string;
   title: string;
@@ -19,6 +24,8 @@ export interface TransitionSection {
   tokenMappings: TokenMapping[];
   notes: GeneratedTransitionNote[];
   iframeHeight: number;
+  documentationOnly?: boolean;
+  css: TransitionCss | null;
   defaultPreviewUrl?: SafeResourceUrl;
 }
 
@@ -78,9 +85,9 @@ export class TransitionComponent implements OnInit {
   ngOnInit() {
     this.sections = this.sections.map(section => ({
       ...section,
-      defaultPreviewUrl: this.sanitizer.bypassSecurityTrustResourceUrl(
-        `/transition-default?c=${section.key}`
-      )
+      defaultPreviewUrl: section.documentationOnly
+        ? undefined
+        : this.sanitizer.bypassSecurityTrustResourceUrl(`/transition-default?c=${section.key}`)
     }));
   }
 }

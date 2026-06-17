@@ -6,9 +6,10 @@
  * collection, exported in the rich format (with `variables[]`, modes, and alias
  * chains). One source file maps 1:1 to one generated SCSS partial.
  *
- *   sources/curinos-colors.json      -> curinos/_color.scss       (--curinos-color-*)
- *   sources/curinos-dimensions.json  -> curinos/_dimensions.scss  (--curinos-dimensions-*)
- *   sources/curinos-effects.json     -> curinos/_effects.scss     (--curinos-effects-*)
+ *   sources/curinos-colors.json       -> curinos/_color.scss       (--curinos-color-*)
+ *   sources/curinos-dimensions.json   -> curinos/_dimensions.scss  (--curinos-dimensions-*)
+ *   sources/curinos-effects.json      -> curinos/_effects.scss     (--curinos-effects-*)
+ *   sources/curinos-typography.json   -> curinos/_typography.scss  (--curinos-typography-*)
  *
  * Inheritance is alias-driven: when a variable aliases another variable in the
  * same collection, we emit `var(--curinos-...-<alias>, <literal>)` so the token
@@ -40,7 +41,8 @@ const CURINOS_DIR = path.join(TOKENS, 'curinos');
 const COLLECTIONS = [
   { file: 'curinos-colors.json', out: '_color.scss', prefix: 'curinos-color' },
   { file: 'curinos-dimensions.json', out: '_dimensions.scss', prefix: 'curinos-dimensions' },
-  { file: 'curinos-effects.json', out: '_effects.scss', prefix: 'curinos-effects' }
+  { file: 'curinos-effects.json', out: '_effects.scss', prefix: 'curinos-effects' },
+  { file: 'curinos-typography.json', out: '_typography.scss', prefix: 'curinos-typography' }
 ];
 
 function slug(name) {
@@ -71,18 +73,74 @@ function floatColorToCss(c) {
   return hex;
 }
 
-function formatValue(type, resolved) {
+function isUnitlessTypography(name) {
+  return (
+    /^font-weight-/.test(name) ||
+    /^line-height-/.test(name) ||
+    /-font-weight$/.test(name) ||
+    /-line-height$/.test(name)
+  );
+}
+
+function isFontFamilyToken(name) {
+  return (
+    /^(sans-serif|serif|monospace|headings|body|buttons|code|numbers)$/.test(name) ||
+    /-font-family$/.test(name)
+  );
+}
+
+function formatFontFamily(name, value) {
+  const normalized = `${name} ${value}`.toLowerCase();
+  if (/monospace|dm mono/.test(normalized)) {
+    return `'${value}', monospace`;
+  }
+  if (/^serif$|families\/serif|headings|serif pro/.test(normalized)) {
+    return `'${value}', serif`;
+  }
+  return `'${value}', sans-serif`;
+}
+
+function formatValue(type, resolved, name) {
   if (resolved && typeof resolved === 'object' && 'r' in resolved) {
     return floatColorToCss(resolved);
   }
+  if (typeof resolved === 'string') {
+    if (isFontFamilyToken(name)) {
+      return formatFontFamily(name, resolved);
+    }
+    return `'${resolved}'`;
+  }
+  if (type === 'STRING') {
+    if (isFontFamilyToken(name)) {
+      return formatFontFamily(name, String(resolved));
+    }
+    return `'${String(resolved)}'`;
+  }
   if (type === 'FLOAT' || typeof resolved === 'number') {
+    if (isUnitlessTypography(name)) {
+      return String(resolved);
+    }
     return `${resolved}px`;
   }
   return String(resolved);
 }
 
 function groupOf(name) {
-  return name.split('/')[0].trim();
+  if (name.includes('/')) {
+    return name.split('/')[0].trim();
+  }
+  if (name.startsWith('styles-')) {
+    const match = name.match(/^(styles-(?:header-[1-4]|body|label|control))-/);
+    return match ? match[1] : 'styles';
+  }
+  if (name.startsWith('app-')) return 'app';
+  if (name.startsWith('font-weight-')) return 'font-weight';
+  if (name.startsWith('line-height-')) return 'line-height';
+  if (name.startsWith('letter-spacing-')) return 'letter-spacing';
+  if (/^(sans-serif|serif|monospace|headings|body|buttons|code|numbers)$/.test(name)) {
+    return 'families';
+  }
+  return name;
 }
 
 function buildEntries(collection, prefix) {
@@ -91,7 +149,7 @@ function buildEntries(collection, prefix) {
 
   return collection.variables.map((v) => {
     const rv = (v.resolvedValuesByMode || {})[modeId] || {};
-    const literal = formatValue(v.type, rv.resolvedValue);
+    const literal = formatValue(v.type, rv.resolvedValue, v.name);
 
     let cssValue = literal;
     // Alias-driven inheritance: only when the alias points within this collection.
@@ -161,7 +219,7 @@ function main() {
 
   fs.writeFileSync(
     path.join(CURINOS_DIR, '_index.scss'),
-    "@import './color';\n@import './dimensions';\n@import './effects';\n"
+    "@import './color';\n@import './dimensions';\n@import './effects';\n@import './typography';\n"
   );
 
   console.log(`Total: ${total} Curinos tokens, ${refs} alias references.`);

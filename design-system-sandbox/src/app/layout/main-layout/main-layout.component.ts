@@ -9,6 +9,65 @@ import { ph, phDuotone } from "../../shared/icons/phosphor-icons";
 /** Placeholder submenu link — use unique routerLink per item in real apps. */
 const subMenuItem = (label: string): MenuItem => ({ label, url: "#" });
 
+const BASE_MENU_ITEMS: MenuItem[] = [
+  {
+    label: "Overview",
+    icon: phDuotone("parallelogram"),
+    routerLink: ["/dashboard"],
+  },
+  {
+    label: "Transition",
+    icon: phDuotone("arrows-left-right"),
+    routerLink: ["/transition"],
+  },
+  {
+    label: "New Customers",
+    icon: phDuotone("perspective"),
+    expanded: true,
+    items: [
+      subMenuItem("Summary"),
+      subMenuItem("Opportunities"),
+      subMenuItem("Campaign Builder"),
+      subMenuItem("Campaign Manager"),
+      subMenuItem("Campaign Reporting"),
+    ],
+  },
+  {
+    label: "Existing Customers",
+    icon: phDuotone("webcam"),
+    expanded: true,
+    items: [
+      subMenuItem("Summary"),
+      subMenuItem("Opportunities"),
+      subMenuItem("Program Builder"),
+      subMenuItem("Program Manager"),
+      subMenuItem("Program Reporting"),
+    ],
+  },
+  {
+    label: "Portfolio Pricing",
+    icon: phDuotone("replit-logo"),
+    expanded: false,
+    items: [subMenuItem("Summary")],
+  },
+  {
+    label: "Reporting",
+    icon: phDuotone("chart-pie"),
+    expanded: true,
+    items: [subMenuItem("Summary"), subMenuItem("Budget & ROI")],
+  },
+  {
+    label: "Data Management",
+    icon: phDuotone("table"),
+    expanded: true,
+    items: [
+      subMenuItem("Segments"),
+      subMenuItem("File Management"),
+      { label: "Settings", routerLink: ["/login"] },
+    ],
+  },
+];
+
 @Component({
   selector: "app-main-layout",
   templateUrl: "./main-layout.component.html",
@@ -16,65 +75,8 @@ const subMenuItem = (label: string): MenuItem => ({ label, url: "#" });
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
   showMenubar = false;
-
-  menuItems: MenuItem[] = [
-    {
-      label: "Overview",
-      icon: phDuotone("parallelogram"),
-      routerLink: ["/dashboard"],
-    },
-    {
-      label: "Transition",
-      icon: phDuotone("arrows-left-right"),
-      routerLink: ["/transition"],
-    },
-    {
-      label: "New Customers",
-      icon: phDuotone("perspective"),
-      expanded: true,
-      items: [
-        subMenuItem("Summary"),
-        subMenuItem("Opportunities"),
-        subMenuItem("Campaign Builder"),
-        subMenuItem("Campaign Manager"),
-        subMenuItem("Campaign Reporting"),
-      ],
-    },
-    {
-      label: "Existing Customers",
-      icon: phDuotone("webcam"),
-      expanded: true,
-      items: [
-        subMenuItem("Summary"),
-        subMenuItem("Opportunities"),
-        subMenuItem("Program Builder"),
-        subMenuItem("Program Manager"),
-        subMenuItem("Program Reporting"),
-      ],
-    },
-    {
-      label: "Portfolio Pricing",
-      icon: phDuotone("replit-logo"),
-      expanded: false,
-      items: [subMenuItem("Summary")],
-    },
-    {
-      label: "Reporting",
-      icon: phDuotone("chart-pie"),
-      expanded: true,
-      items: [subMenuItem("Summary"), subMenuItem("Budget & ROI")],
-    },
-    {
-      label: "Data Management",
-      icon: phDuotone("table"),
-      expanded: true,
-      items: [
-        subMenuItem("Segments"),
-        subMenuItem("File Management"),
-        { label: "Settings", routerLink: ["/login"] },
-      ],
-    },
-  ];
+  sidebarCollapsed = false;
+  menuItems: MenuItem[] = [];
 
   topBarItems: MenuItem[] = [{ label: "Dashboard", icon: "pi pi-chart-bar" }];
 
@@ -100,6 +102,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.menuItems = this.buildMenuItems();
     this.updateMenubar();
     this.routerSub = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -110,6 +113,42 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     if (this.routerSub) {
       this.routerSub.unsubscribe();
     }
+  }
+
+  toggleSidebarCollapsed(): void {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  private buildMenuItems(): MenuItem[] {
+    return BASE_MENU_ITEMS.map((item): MenuItem => {
+      if (!item.items) {
+        return { ...item };
+      }
+
+      const label = item.label as string;
+      return {
+        ...item,
+        command: () => this.onSectionHeaderClick(label),
+      };
+    });
+  }
+
+  private onSectionHeaderClick(label: string): void {
+    if (this.sidebarCollapsed) {
+      this.expandSidebarForSection(label);
+    }
+  }
+
+  private expandSidebarForSection(label: string): void {
+    this.sidebarCollapsed = false;
+    this.setSectionExpanded(label, true);
+    setTimeout(() => this.setSectionExpanded(label, true), 0);
+  }
+
+  private setSectionExpanded(label: string, expanded: boolean): void {
+    this.menuItems = this.menuItems.map((item) =>
+      item.label === label && item.items ? { ...item, expanded } : { ...item },
+    );
   }
 
   private updateMenubar() {

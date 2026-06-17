@@ -1,11 +1,25 @@
 <div class="layout">
-  <aside class="sidebar">
+  <aside class="sidebar" [class.sidebar--collapsed]="sidebarCollapsed">
     <div class="sidebar__container">
       <header class="sidebar__header">
-        <app-curinos-logo variant="wordmark" class="sidebar__logo"></app-curinos-logo>
-        <button type="button" class="sidebar__collapse" aria-label="Collapse sidebar">
-          <i class="ph ph-caret-double-left" aria-hidden="true"></i>
-        </button>
+        <div class="sidebar__header-inner">
+          <app-curinos-logo
+            [variant]="sidebarCollapsed ? 'mark' : 'wordmark'"
+            class="sidebar__logo">
+          </app-curinos-logo>
+          <button
+            type="button"
+            class="sidebar__collapse"
+            [attr.aria-expanded]="!sidebarCollapsed"
+            [attr.aria-label]="sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+            (click)="toggleSidebarCollapsed()">
+            <i
+              class="ph"
+              [class.ph-caret-double-left]="!sidebarCollapsed"
+              [class.ph-caret-double-right]="sidebarCollapsed"
+              aria-hidden="true"></i>
+          </button>
+        </div>
       </header>
 
       <nav class="sidebar__nav" aria-label="Main navigation">

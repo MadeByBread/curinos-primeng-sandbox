@@ -8,12 +8,8 @@ export type CurinosLogoVariant = 'wordmark' | 'mark';
   styleUrls: ['./curinos-logo.component.scss']
 })
 export class CurinosLogoComponent {
-  private static nextId = 0;
-
   @Input() variant: CurinosLogoVariant = 'wordmark';
   @Input() ariaLabel = 'Curinos';
-
-  readonly maskId = `curinos-mark-mask-${CurinosLogoComponent.nextId++}`;
 
   @HostBinding('class.curinos-logo-host--wordmark')
   get isWordmark(): boolean {

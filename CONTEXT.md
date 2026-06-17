@@ -21,3 +21,11 @@ Side-by-side comparison demo showing stock PrimeNG 7 (nova-light) next to Curino
 ## Theme variant
 
 Which styling mode the sandbox is in: **Curinos** (custom overrides active) or **default** (stock nova-light). Toggled via the `primeng-default` body class on default comparison routes.
+
+## App sidebar
+
+Primary navigation shell in the Curinos main layout. Hosts the logo, PanelMenu sections, and account profile.
+
+## Sidebar collapse state
+
+Whether the app sidebar is **expanded** (labels and submenus visible) or **collapsed** (icon-only rail). Clicking a section icon while collapsed expands the sidebar and opens that section's submenu.

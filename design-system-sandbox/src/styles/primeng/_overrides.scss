@@ -7,6 +7,7 @@
 
 $font-sans: 'Work Sans', sans-serif;
 
+// @transition css:input
 body:not(.primeng-default) .ui-inputtext {
   background: var(--primeng-inputtext-background);
   border: 1px solid var(--primeng-inputtext-border-color);
@@ -30,7 +31,9 @@ body:not(.primeng-default) .ui-inputtext:enabled:focus:not(.ui-state-error) {
   border-color: var(--primeng-inputtext-focus-border-color);
   box-shadow: var(--primeng-inputtext-shadow);
 }
+// @transition css:/input
 
+// @transition css:dropdown
 body:not(.primeng-default) .ui-dropdown {
   background: var(--primeng-inputtext-background);
   border: 1px solid var(--primeng-inputtext-border-color);
@@ -90,6 +93,7 @@ body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-it
   background: var(--primeng-dropdown-item-selected-background) !important;
   color: var(--primeng-dropdown-item-selected-color) !important;
 }
+// @transition css:/dropdown
 
 body:not(.primeng-default) .sidebar-account-menu.ui-menu {
   min-width: 160px;
@@ -134,6 +138,7 @@ body:not(.primeng-default) .ui-paginator .ui-dropdown {
   background: transparent;
 }
 
+// @transition css:button
 body:not(.primeng-default) .ui-button.ui-state-default {
   width: fit-content;
   max-width: 100%;
@@ -233,7 +238,9 @@ body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-
 body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {
   width: fit-content;
 }
+// @transition css:/button
 
+// @transition css:card
 body:not(.primeng-default) .ui-card {
   background: var(--primeng-card-background);
   border: 1px solid var(--primeng-card-border-color);
@@ -290,7 +297,9 @@ body:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-stack .ui-
 body:not(.primeng-default) .ui-card.ui-card--compact .ui-card-body {
   padding: var(--primeng-card-compact-padding);
 }
+// @transition css:/card
 
+// @transition css:datatable
 body:not(.primeng-default) .ui-table {
   font-family: $font-sans;
 }
@@ -353,9 +362,11 @@ body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight {
 body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
   color: var(--primeng-table-sort-icon-active-color);
 }
+// @transition css:/datatable
 
 // Sidebar navigation — PrimeNG 7 PanelMenu styled to Figma.
 // Resets nova-light accordion chrome (blue expanded headers, gray borders).
+// @transition css:panelmenu
 body:not(.primeng-default) .sidebar-menu.ui-panelmenu {
   width: 100%;
   border: 0;
@@ -552,3 +563,26 @@ body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state
 body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {
   color: var(--primeng-panelmenu-item-active-color) !important;
 }
+
+body:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {
+  .ui-menuitem-text,
+  .ui-panelmenu-icon,
+  .ui-panelmenu-content-wrapper {
+    display: none;
+  }
+
+  .ui-panelmenu-header > a,
+  .ui-panelmenu-header-link {
+    justify-content: center;
+    gap: 0;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .ui-menuitem-icon {
+    margin: 0;
+  }
+}
+// @transition css:/panelmenu
