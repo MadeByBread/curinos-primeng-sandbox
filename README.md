@@ -268,6 +268,27 @@ To extend the **PrimeNG bridge**, edit `tokens/primeng/_index.scss` by hand — 
 new component variables at Curinos tokens, or use literals for component metrics that
 have no Curinos equivalent.
 
+### Deposit Growth data palette
+
+Chart color styles from the **Deposit Growth / Performance Report** Figma file live
+in `curinos-colors.json` under the `data/` group (e.g. `data/chart/base/categorical-01`).
+
+| Source | Output | Purpose |
+|--------|--------|---------|
+| `sources/deposit-growth-chart-colors.manifest.json` | Node IDs + known swatches | Sync input |
+| `sources/curinos-colors.json` | `data/chart/base/*` variables | Figma re-import (Curinos Colors collection) |
+| `sources/deposit-growth-chart-colors.tokens.json` | Tokens Studio format | Optional Tokens Studio sidecar |
+| `curinos/_color.scss` | `--curinos-color-data-chart-*` | CSS variables in the app |
+
+**Sync from Figma**
+
+```bash
+cd design-system-sandbox
+FIGMA_ACCESS_TOKEN=figd_... node scripts/sync-deposit-growth-chart-colors.js
+```
+
+Merges swatches into `curinos-colors.json` and regenerates `_color.scss`.
+
 ---
 
 ## Why Docker?

@@ -1,0 +1,165 @@
+{
+  "$metadata": {
+    "tokenSetOrder": [
+      "Light"
+    ]
+  },
+  "Light": {
+    "color": {
+      "chart": {
+        "base": {
+          "categorical-01": {
+            "value": "#9071FC",
+            "type": "color",
+            "description": "color.chart.categorical.01"
+          },
+          "categorical-01-hover": {
+            "value": "#7C52FF",
+            "type": "color",
+            "description": "color.chart.categorical.01.hover"
+          },
+          "categorical-01-selected": {
+            "value": "#5023DD",
+            "type": "color",
+            "description": "color.chart.categorical.01.selected"
+          },
+          "categorical-02": {
+            "value": "#FC5EA0",
+            "type": "color",
+            "description": "color.chart.categorical.02"
+          },
+          "categorical-02-hover": {
+            "value": "#FF1BA4",
+            "type": "color",
+            "description": "color.chart.categorical.02.hover"
+          },
+          "categorical-02-selected": {
+            "value": "#BF0A80",
+            "type": "color",
+            "description": "color.chart.categorical.02.selected"
+          },
+          "categorical-03": {
+            "value": "#4AA9EA",
+            "type": "color",
+            "description": "color.chart.categorical.03"
+          },
+          "categorical-03-hover": {
+            "value": "#3B96DF",
+            "type": "color",
+            "description": "color.chart.categorical.03.hover"
+          },
+          "categorical-03-selected": {
+            "value": "#1768C6",
+            "type": "color",
+            "description": "color.chart.categorical.03.selected"
+          },
+          "categorical-04": {
+            "value": "#FF9E0E",
+            "type": "color",
+            "description": "color.chart.categorical.04"
+          },
+          "categorical-04-hover": {
+            "value": "#EA8F07",
+            "type": "color",
+            "description": "color.chart.categorical.04.hover"
+          },
+          "categorical-04-selected": {
+            "value": "#815008",
+            "type": "color",
+            "description": "color.chart.categorical.04.selected"
+          },
+          "categorical-05": {
+            "value": "#52C926",
+            "type": "color",
+            "description": "color.chart.categorical.05"
+          },
+          "categorical-05-hover": {
+            "value": "#2EA834",
+            "type": "color",
+            "description": "color.chart.categorical.05.hover"
+          },
+          "categorical-05-selected": {
+            "value": "#004F2E",
+            "type": "color",
+            "description": "color.chart.categorical.05.selected"
+          },
+          "categorical-06": {
+            "value": "#FB79F3",
+            "type": "color",
+            "description": "color.chart.categorical.06"
+          },
+          "categorical-06-hover": {
+            "value": "#F745EE",
+            "type": "color",
+            "description": "color.chart.categorical.06.hover"
+          },
+          "categorical-06-selected": {
+            "value": "#BF05F0",
+            "type": "color",
+            "description": "color.chart.categorical.06.selected"
+          },
+          "categorical-07": {
+            "value": "#F66437",
+            "type": "color",
+            "description": "color.chart.categorical.07"
+          },
+          "categorical-07-hover": {
+            "value": "#F44710",
+            "type": "color",
+            "description": "color.chart.categorical.07.hover"
+          },
+          "categorical-07-selected": {
+            "value": "#A93009",
+            "type": "color",
+            "description": "color.chart.categorical.07.selected"
+          },
+          "categorical-08": {
+            "value": "#CABF27",
+            "type": "color",
+            "description": "color.chart.categorical.08"
+          },
+          "categorical-08-hover": {
+            "value": "#B6AC25",
+            "type": "color",
+            "description": "color.chart.categorical.08.hover"
+          },
+          "categorical-08-selected": {
+            "value": "#6A652A",
+            "type": "color",
+            "description": "color.chart.categorical.08.selected"
+          },
+          "categorical-09": {
+            "value": "#FF415B",
+            "type": "color",
+            "description": "color.chart.categorical.09"
+          },
+          "categorical-09-hover": {
+            "value": "#FF1356",
+            "type": "color",
+            "description": "color.chart.categorical.09.hover"
+          },
+          "categorical-09-selected": {
+            "value": "#93173A",
+            "type": "color",
+            "description": "color.chart.categorical.09.selected"
+          },
+          "categorical-10": {
+            "value": "#35B7B1",
+            "type": "color",
+            "description": "color.chart.categorical.10"
+          },
+          "categorical-10-hover": {
+            "value": "#2AA7A1",
+            "type": "color",
+            "description": "color.chart.categorical.10.hover"
+          },
+          "categorical-10-selected": {
+            "value": "#114D4A",
+            "type": "color",
+            "description": "color.chart.categorical.10.selected"
+          }
+        }
+      }
+    }
+  }
+}
