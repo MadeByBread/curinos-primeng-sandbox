@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { TableModule } from 'primeng/table';
 
 import { TransitionRoutingModule } from './transition-routing.module';
 import { TransitionComponent } from './transition.component';
@@ -22,6 +23,7 @@ import { SharedModule } from '../../shared/shared.module';
     DropdownModule,
     InputTextModule,
     PanelMenuModule,
+    TableModule,
     SharedModule
   ]
 })

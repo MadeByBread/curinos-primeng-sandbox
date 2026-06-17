@@ -28,6 +28,30 @@
       <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>
     </div>
 
+    <div *ngSwitchCase="'datatable'" class="preview-row preview-row--datatable">
+      <p-table [value]="tableRows" [rowHover]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="product">
+              Product
+              <p-sortIcon field="product"></p-sortIcon>
+            </th>
+            <th>Balance</th>
+            <th>Growth</th>
+            <th>Status</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.product }}</td>
+            <td>{{ row.balance }}</td>
+            <td>{{ row.growth }}</td>
+            <td>{{ row.status }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
     <p *ngSwitchDefault class="preview-empty">Unknown component</p>
   </ng-container>
 </div>

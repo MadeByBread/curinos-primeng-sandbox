@@ -8,6 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { TableModule } from 'primeng/table';
 
 import { SharedModule } from '../shared/shared.module';
 import { PrimengLoginComponent } from './primeng-login/primeng-login.component';
@@ -36,6 +37,7 @@ import { TransitionDefaultComponent } from './transition-default/transition-defa
     InputTextModule,
     MenuModule,
     PanelMenuModule,
+    TableModule,
     SharedModule
   ],
   exports: [

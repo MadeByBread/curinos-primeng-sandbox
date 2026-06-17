@@ -242,6 +242,69 @@ body:not(.primeng-default) .ui-card {
   color: var(--curinos-color-foreground-1);
 }
 
+body:not(.primeng-default) .ui-table {
+  font-family: $font-sans;
+}
+
+body:not(.primeng-default) .ui-table table {
+  border-collapse: collapse;
+}
+
+body:not(.primeng-default) .ui-table .ui-table-thead > tr > th {
+  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);
+  border: 1px solid var(--primeng-table-header-border-color);
+  border-width: 0 0 1px;
+  background: var(--primeng-table-header-background);
+  font-size: var(--primeng-table-header-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--primeng-table-header-color);
+  text-align: left;
+}
+
+body:not(.primeng-default) .ui-table .ui-table-tbody > tr {
+  background: var(--primeng-table-body-background);
+  color: var(--primeng-table-cell-color);
+}
+
+body:not(.primeng-default) .ui-table .ui-table-tbody > tr:nth-child(even) {
+  background: var(--primeng-table-row-stripe-background);
+}
+
+body:not(.primeng-default) .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr:not(.ui-state-highlight):hover {
+  background: var(--primeng-table-row-hover-background) !important;
+}
+
+body:not(.primeng-default) .ui-table .ui-table-tbody > tr > td {
+  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);
+  border: 1px solid var(--primeng-table-border-color);
+  border-width: 0 0 1px;
+  font-size: var(--primeng-table-body-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--primeng-table-cell-color);
+}
+
+body:not(.primeng-default) .ui-table .ui-sortable-column .ui-sortable-column-icon {
+  color: var(--primeng-table-sort-icon-color);
+}
+
+body:not(.primeng-default) .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
+  background: var(--primeng-table-row-hover-background);
+  color: var(--primeng-table-header-color);
+}
+
+body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight {
+  background: var(--primeng-table-header-background);
+  color: var(--primeng-table-header-color);
+}
+
+body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
+  color: var(--curinos-color-foreground-1);
+}
+
 // Sidebar navigation — PrimeNG 7 PanelMenu styled to Figma.
 // Resets nova-light accordion chrome (blue expanded headers, gray borders).
 body:not(.primeng-default) .sidebar-menu.ui-panelmenu {

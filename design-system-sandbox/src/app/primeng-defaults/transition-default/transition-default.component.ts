@@ -21,6 +21,13 @@ export class TransitionDefaultComponent implements OnInit, OnDestroy {
 
   selectedProduct: string;
 
+  tableRows = [
+    { product: 'Personal Checking', balance: '$12,450.00', growth: '+2.4%', status: 'Active' },
+    { product: 'Business Savings', balance: '$84,120.00', growth: '+1.1%', status: 'Active' },
+    { product: 'CD 12-Month', balance: '$25,000.00', growth: '+0.3%', status: 'Matured' },
+    { product: 'Money Market', balance: '$6,780.00', growth: '-0.2%', status: 'Active' }
+  ];
+
   panelMenuItems: MenuItem[] = [
     {
       label: 'Overview',

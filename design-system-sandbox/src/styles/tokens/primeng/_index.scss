@@ -81,4 +81,19 @@
   --primeng-panelmenu-icon-active-fill: var(--curinos-color-semantic-primary-1);
   --primeng-panelmenu-icon-active-stroke: var(--curinos-color-foreground-1);
   --primeng-panelmenu-icon-accent: var(--curinos-color-semantic-primary-1);
+
+  /* table (p-table) */
+  --primeng-table-header-background: var(--curinos-color-background-2);
+  --primeng-table-header-color: var(--curinos-color-foreground-1);
+  --primeng-table-header-border-color: var(--curinos-color-border-1);
+  --primeng-table-body-background: var(--curinos-color-semantic-surface-white);
+  --primeng-table-row-stripe-background: var(--curinos-color-background-1);
+  --primeng-table-row-hover-background: var(--curinos-color-background-2);
+  --primeng-table-cell-color: var(--curinos-color-foreground-2);
+  --primeng-table-border-color: var(--curinos-color-border-1);
+  --primeng-table-sort-icon-color: var(--curinos-color-foreground-3);
+  --primeng-table-cell-padding-y: 10px;
+  --primeng-table-cell-padding-x: 12px;
+  --primeng-table-header-font-size: 14px;
+  --primeng-table-body-font-size: 14px;
 }

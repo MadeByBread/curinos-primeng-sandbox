@@ -19,6 +19,15 @@
   max-width: 240px;
 }
 
+.preview-row--datatable {
+  display: block;
+  width: 100%;
+}
+
+.preview-row--datatable .ui-table {
+  width: 100%;
+}
+
 .preview-empty {
   margin: 0;
   font-size: 14px;

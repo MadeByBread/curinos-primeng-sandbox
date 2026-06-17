@@ -4,8 +4,8 @@
       <h1 class="transition-heading transition-heading--1">Transition</h1>
       <p class="transition-lead">
         Side-by-side comparison of stock PrimeNG 7 (nova-light) components and the
-        Curinos-customized versions. Each section documents the override approach,
-        what is straightforward, and what requires more work.
+        Curinos-customized versions. Each section documents the override approach
+        and Curinos token mapping.
       </p>
     </p-card>
 
@@ -54,6 +54,30 @@
                 styleClass="sidebar-menu">
               </p-panelMenu>
             </div>
+
+            <div *ngSwitchCase="'datatable'" class="demo-row demo-row--datatable">
+              <p-table [value]="tableRows" [rowHover]="true">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="product">
+                      Product
+                      <p-sortIcon field="product"></p-sortIcon>
+                    </th>
+                    <th>Balance</th>
+                    <th>Growth</th>
+                    <th>Status</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row>
+                  <tr>
+                    <td>{{ row.product }}</td>
+                    <td>{{ row.balance }}</td>
+                    <td>{{ row.growth }}</td>
+                    <td>{{ row.status }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
           </div>
         </div>
 
@@ -68,19 +92,28 @@
         </div>
       </div>
 
-      <div class="transition-overrides">
-        <div class="transition-overrides__col">
-          <h3 class="transition-heading transition-heading--3">Straightforward overrides</h3>
-          <ul>
-            <li *ngFor="let item of section.straightforward">{{ item }}</li>
-          </ul>
-        </div>
-        <div class="transition-overrides__col">
-          <h3 class="transition-heading transition-heading--3">More complicated overrides</h3>
-          <ul>
-            <li *ngFor="let item of section.complicated">{{ item }}</li>
-          </ul>
-        </div>
+      <div class="transition-tokens">
+        <h3 class="transition-heading transition-heading--3">Curinos token mapping</h3>
+        <p class="transition-tokens__note">
+          The middle column is the sandbox-authored Layer 2 bridge (<code>--primeng-*</code>).
+          PrimeNG 7 ships no native CSS variables — these names follow component anatomy, not an official PrimeNG token set.
+        </p>
+        <table class="transition-tokens__table">
+          <thead>
+            <tr>
+              <th scope="col">Component portion</th>
+              <th scope="col">Component bridge (hand-authored)</th>
+              <th scope="col">Curinos variable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of section.tokenMappings">
+              <td>{{ row.portion }}</td>
+              <td><code>{{ row.bridge }}</code></td>
+              <td><code>{{ row.curinos }}</code></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </p-card>
 
@@ -122,6 +155,36 @@
             <app-ph-icon name="sparkle" weight="duotone"></app-ph-icon>
             <app-ph-icon name="house" weight="bold" size="24px"></app-ph-icon>
           </div>
+        </div>
+
+        <div class="transition-icons__block">
+          <h3 class="transition-heading transition-heading--3">Curinos token mapping</h3>
+          <table class="transition-tokens__table">
+            <thead>
+              <tr>
+                <th scope="col">Component portion</th>
+                <th scope="col">Component bridge (hand-authored)</th>
+                <th scope="col">Curinos variable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Button icon (inherits label color)</td>
+                <td><code>color</code> on <code>.ui-button</code></td>
+                <td><code>--curinos-color-background-1</code> (primary), <code>--curinos-color-foreground-1</code> (secondary/ghost)</td>
+              </tr>
+              <tr>
+                <td>SVG icon stroke (regular/light)</td>
+                <td><code>stroke-width</code> on <code>&lt;app-ph-icon&gt;</code></td>
+                <td><code>--curinos-dimensions-icons-stroke</code></td>
+              </tr>
+              <tr>
+                <td>PanelMenu expand chevron</td>
+                <td><code>--primeng-panelmenu-icon-color</code></td>
+                <td><code>--curinos-color-foreground-3</code> (hardcoded PrimeIcon — cannot swap to Phosphor)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="transition-icons__block">
