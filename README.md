@@ -39,7 +39,6 @@ PrimeNG (this is already set up in the repo):
 
 ```scss
 @import 'styles/tokens/index';
-
 @import "~primeng/resources/themes/nova-light/theme.css";
 @import "~primeng/resources/primeng.min.css";
 @import "~primeicons/primeicons.css";
@@ -190,6 +189,7 @@ Figma collection (rich export with `variables[]`, modes, and alias chains), and 
 | Source (`tokens/sources/`) | Collection | Generated | Prefix |
 |----------------------------|------------|-----------|--------|
 | `curinos-colors.json` | Curinos Colors | `curinos/_color.scss` | `--curinos-color-*` |
+| `curinos-extended-data-colors.json` | Curinos Colors (subset) | — | Extended + data palettes only; for Figma import |
 | `curinos-dimensions.json` | Curinos Dimensions | `curinos/_dimensions.scss` | `--curinos-dimensions-*` |
 | `curinos-effects.json` | Curinos Effects | `curinos/_effects.scss` | `--curinos-effects-*` |
 
@@ -288,6 +288,11 @@ FIGMA_ACCESS_TOKEN=figd_... node scripts/sync-deposit-growth-chart-colors.js
 ```
 
 Merges swatches into `curinos-colors.json` and regenerates `_color.scss`.
+
+To import **only** the extended palette and data palette into Figma without
+touching existing variables, use the subset export
+`sources/curinos-extended-data-colors.json` — same rich collection format as
+`curinos-colors.json`, but limited to those 206 variables.
 
 ---
 
