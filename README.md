@@ -205,7 +205,6 @@ Figma collection (rich export with `variables[]`, modes, and alias chains), and 
 | Source (`tokens/sources/`)          | Collection              | Generated                  | Prefix                                              |
 | ----------------------------------- | ----------------------- | -------------------------- | --------------------------------------------------- |
 | `curinos-colors.json`               | Curinos Colors          | `curinos/_color.scss`      | `--curinos-color-*`                                 |
-| `curinos-extended-data-colors.json` | Curinos Colors (subset) | —                          | Extended + data palettes only; for Figma import     |
 | `curinos-dimensions.json`           | Curinos Dimensions      | `curinos/_dimensions.scss` | `--curinos-dimensions-*`                            |
 | `curinos-effects.json`              | Curinos Effects         | `curinos/_effects.scss`    | `--curinos-effects-*`                               |
 
@@ -305,29 +304,3 @@ npm run tokens:docs
 Portion labels and section metadata live in
 `src/app/pages/transition/transition-sections.manifest.json`. Curinos targets are
 resolved from the bridge by `scripts/extract-bridge-mappings.js`.
-
-### Deposit Growth data palette
-
-Chart color styles from the **Deposit Growth / Performance Report** Figma file live
-in `curinos-colors.json` under the `data/` group (e.g. `data/chart/base/categorical-01`).
-
-| Source                                              | Output                          | Purpose                                       |
-| --------------------------------------------------- | ------------------------------- | --------------------------------------------- |
-| `sources/deposit-growth-chart-colors.manifest.json` | Node IDs + known swatches       | Sync input                                    |
-| `sources/curinos-colors.json`                       | `data/chart/base/*` variables   | Figma re-import (Curinos Colors collection)   |
-| `sources/deposit-growth-chart-colors.tokens.json`   | Tokens Studio format            | Optional Tokens Studio sidecar                |
-| `curinos/_color.scss`                               | `--curinos-color-data-chart-*`  | CSS variables in the app                      |
-
-**Sync from Figma**
-
-```bash
-cd design-system-sandbox
-FIGMA_ACCESS_TOKEN=figd_... npm run tokens:sync:chart
-```
-
-Merges swatches into `curinos-colors.json` and regenerates `_color.scss` via `tokens:build`.
-
-To import **only** the extended palette and data palette into Figma without
-touching existing variables, use the subset export
-`sources/curinos-extended-data-colors.json` — same rich collection format as
-`curinos-colors.json`, but limited to those 206 variables.
