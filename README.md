@@ -1,5 +1,7 @@
 # Curinos Angular 7 + PrimeNG 7 Sandbox (Dockerized)
 
+**Live demo:** [curinos-primeng-sandbox.surge.sh](https://curinos-primeng-sandbox.surge.sh)
+
 A fully containerized sandbox for Angular 7 + PrimeNG 7. Everything runs inside
 Docker so **nothing is installed on the host machine**.
 
@@ -50,6 +52,25 @@ Both flags matter:
   polling.
 
 Then open <http://localhost:4200> on the host.
+
+## Deploy (Surge)
+
+Production builds run in Docker (same Node 10 toolchain as local dev). The deploy
+script adds `200.html` for Angular client-side routing, then publishes
+`dist/design-system-sandbox/` to Surge.
+
+```bash
+# one-time Surge login (host)
+npx surge login
+
+# build in Docker + deploy (default: curinos-primeng-sandbox.surge.sh)
+cd design-system-sandbox
+npm install   # host — installs surge devDependency for deploy:surge
+npm run deploy:surge
+
+# custom subdomain
+SURGE_DOMAIN=my-demo.surge.sh npm run deploy:surge
+```
 
 ## Setup
 

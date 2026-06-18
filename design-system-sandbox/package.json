@@ -11,7 +11,8 @@
     "tokens:build": "node scripts/figma-tokens-to-scss.js",
     "tokens:sync:chart": "node scripts/sync-deposit-growth-chart-colors.js",
     "tokens:docs": "node scripts/extract-bridge-mappings.js",
-    "tokens:refresh": "npm run tokens:build && npm run tokens:docs"
+    "tokens:refresh": "npm run tokens:build && npm run tokens:docs",
+    "deploy:surge": "bash ../scripts/deploy-surge.sh"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +51,7 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.4.0",
+    "surge": "^0.24.7",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
