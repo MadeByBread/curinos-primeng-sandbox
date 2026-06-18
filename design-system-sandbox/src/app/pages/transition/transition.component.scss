@@ -111,6 +111,101 @@ $font-serif: 'Source Serif Pro', serif;
   max-width: 240px;
 }
 
+.demo-row--sidebar-account {
+  display: block;
+  max-width: 240px;
+}
+
+.demo-row--sidebar-account .sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-buttons);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover {
+    background: var(--curinos-color-background-2);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.demo-row--sidebar-account .sidebar-profile__avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--curinos-color-background-2);
+}
+
+.demo-row--sidebar-account .sidebar-profile__initial {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--curinos-color-semantic-surface-900);
+}
+
+.demo-row--sidebar-account .sidebar-profile__badge {
+  position: absolute;
+  top: -10.5px;
+  right: -3.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 4px;
+  border: 2px solid var(--curinos-color-background-1);
+  border-radius: 10.5px;
+  background: var(--primeng-panelmenu-icon-accent);
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--curinos-color-semantic-surface-white);
+}
+
+.demo-row--sidebar-account .sidebar-profile__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.demo-row--sidebar-account .sidebar-profile__name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--curinos-color-semantic-surface-900);
+}
+
+.demo-row--sidebar-account .sidebar-profile__role {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.36px;
+  color: var(--curinos-color-semantic-surface-500);
+}
+
+.demo-row--sidebar-account .sidebar-profile__toggle {
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--curinos-color-foreground-3);
+}
+
 .demo-row--datatable {
   display: block;
   width: 100%;

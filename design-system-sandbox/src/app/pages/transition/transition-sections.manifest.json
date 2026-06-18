@@ -170,6 +170,50 @@
       ]
     },
     {
+      "key": "sidebar-account",
+      "title": "Sidebar account menu",
+      "approach": "Composite pattern, not a styled PrimeNG widget: a bespoke profile trigger (avatar, notification badge, name, role, caret) opens a PrimeNG 7 p-menu popup. The trigger is plain HTML in main-layout.component.html styled with Layer 1 --curinos-* tokens in main-layout.component.scss. The popup uses p-menu with styleClass sidebar-account-menu; global overrides in _overrides.scss map --primeng-menu-* bridge tokens (item hover reuses dropdown hover tokens). Compare against the simpler reference footer in primeng-dashboard (pd-sidebar-profile).",
+      "iframeHeight": 72,
+      "mappings": [
+        {
+          "portion": "Popup panel — border, radius, background, shadow",
+          "bridge": [
+            "--primeng-menu-border-color",
+            "--primeng-menu-border-radius",
+            "--primeng-menu-background",
+            "--primeng-menu-shadow"
+          ]
+        },
+        {
+          "portion": "Popup item — text & icon (default)",
+          "bridge": ["--primeng-menu-item-color", "--primeng-menu-item-icon-color"]
+        },
+        {
+          "portion": "Popup item — hover background & text",
+          "bridge": ["--primeng-dropdown-item-hover-background", "--primeng-dropdown-item-hover-color"]
+        },
+        {
+          "portion": "Popup item — border radius",
+          "bridge": ["--primeng-menu-item-border-radius"]
+        },
+        {
+          "portion": "Notification badge accent (trigger)",
+          "bridge": ["--primeng-panelmenu-icon-accent"],
+          "curinosNote": "only bridge token on the trigger; rest use Layer 1 directly — see note below"
+        }
+      ],
+      "notes": [
+        {
+          "title": "Profile trigger (custom markup)",
+          "body": "Production markup: app/layout/main-layout/main-layout.component.html (.sidebar-profile*). Styles: main-layout.component.scss — Layer 1 tokens only, no Layer 2 bridge. Toggle: plain button (click) → accountMenu.toggle($event) on a popup p-menu (appendTo=\"body\", styleClass=\"sidebar-account-menu\"). Menu items: main-layout.component.ts (accountMenuItems). Trigger tokens: hover/avatar background → --curinos-color-background-2; trigger radius → --curinos-dimensions-radii-buttons; name → --curinos-color-semantic-surface-900; role → --curinos-color-semantic-surface-500; caret → --curinos-color-foreground-3; badge border → --curinos-color-background-1; badge fill → --primeng-panelmenu-icon-accent; badge label → --curinos-color-semantic-surface-white."
+        },
+        {
+          "title": "Default reference implementation",
+          "body": "primeng-dashboard footer (pd-sidebar-profile + stock p-menu, no badge, hardcoded nova-like colors in primeng-dashboard.component.scss). Shown in the PrimeNG default preview column — not a stock PrimeNG component, but the baseline this sandbox compares against."
+        }
+      ]
+    },
+    {
       "key": "datatable",
       "title": "DataTable",
       "approach": "Global `.ui-table` selectors in `_overrides.scss` restyle PrimeNG 7 `p-table` chrome — header row, body cells, zebra striping, hover, and sortable column states — via Layer 2 `--primeng-table-*` tokens.",

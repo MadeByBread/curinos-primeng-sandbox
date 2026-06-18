@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 
-import { phDuotone } from '../../shared/icons/phosphor-icons';
+import { ph, phDuotone } from '../../shared/icons/phosphor-icons';
 
 @Component({
   selector: 'app-transition-default',
@@ -26,6 +26,12 @@ export class TransitionDefaultComponent implements OnInit, OnDestroy {
     { product: 'Business Savings', balance: '$84,120.00', growth: '+1.1%', status: 'Active' },
     { product: 'CD 12-Month', balance: '$25,000.00', growth: '+0.3%', status: 'Matured' },
     { product: 'Money Market', balance: '$6,780.00', growth: '-0.2%', status: 'Active' }
+  ];
+
+  accountMenuItems: MenuItem[] = [
+    { label: 'Switch to Curinos', icon: ph('swap') },
+    { separator: true },
+    { label: 'Sign out', icon: ph('sign-out') }
   ];
 
   panelMenuItems: MenuItem[] = [

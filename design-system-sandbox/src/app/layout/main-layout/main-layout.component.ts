@@ -21,6 +21,11 @@ const BASE_MENU_ITEMS: MenuItem[] = [
     routerLink: ["/transition"],
   },
   {
+    label: "Curinos Tokens",
+    icon: phDuotone("palette"),
+    routerLink: ["/curinos-tokens"],
+  },
+  {
     label: "New Customers",
     icon: phDuotone("perspective"),
     expanded: true,

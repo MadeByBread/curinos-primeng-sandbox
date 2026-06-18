@@ -53,24 +53,79 @@ Both flags matter:
 
 Then open <http://localhost:4200> on the host.
 
-## Deploy (Surge)
+## Deployment
 
-Production builds run in Docker (same Node 10 toolchain as local dev). The deploy
-script adds `200.html` for Angular client-side routing, then publishes
-`dist/design-system-sandbox/` to Surge.
+Production builds run in Docker (same Node 10 toolchain as local dev), then publish
+the static output to [Surge](https://surge.sh). The deploy script adds `200.html` for
+Angular client-side routing before uploading `dist/design-system-sandbox/`.
+
+**Live demo:** [curinos-primeng-sandbox.surge.sh](https://curinos-primeng-sandbox.surge.sh)
+
+### Prerequisites
+
+- Docker (same setup as [Getting Started](#getting-started))
+- A [Surge](https://surge.sh) account (free tier is fine)
+
+### 1. Build the Docker image
+
+Skip this if you already ran it for local development.
 
 ```bash
-# one-time Surge login (host)
+docker compose build
+```
+
+### 2. Log in to Surge (one-time, on the host)
+
+```bash
 npx surge login
+```
 
-# build in Docker + deploy (default: curinos-primeng-sandbox.surge.sh)
+Surge stores credentials locally after this step.
+
+### 3. Install host dependencies
+
+The deploy script runs from the host and invokes Docker for the build. Install
+dependencies once so `npm run deploy:surge` is available:
+
+```bash
 cd design-system-sandbox
-npm install   # host — installs surge devDependency for deploy:surge
-npm run deploy:surge
+npm install
+```
 
-# custom subdomain
+> Host-side Node is only used to run the deploy script and Surge CLI — the Angular
+> production build still runs inside the container.
+
+### 4. Deploy
+
+```bash
+npm run deploy:surge
+```
+
+This runs `scripts/deploy-surge.sh`, which:
+
+1. Builds the production bundle in Docker (`npm run build -- --prod`)
+2. Copies `index.html` → `200.html` (SPA fallback for client-side routes)
+3. Publishes `dist/design-system-sandbox/` to the default domain
+
+Default URL: <https://curinos-primeng-sandbox.surge.sh>
+
+### 5. Deploy to a custom subdomain (optional)
+
+```bash
 SURGE_DOMAIN=my-demo.surge.sh npm run deploy:surge
 ```
+
+Pick any unclaimed `*.surge.sh` subdomain, or use a custom domain you have configured
+in Surge.
+
+### Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| `Build output not found` | Ensure Docker is running and `docker compose build` succeeded |
+| Surge auth error | Re-run `npx surge login` |
+| 404 on deep links | Confirm `200.html` exists in the build output (the script adds it automatically) |
+| Build fails in Docker | Same fixes as local dev — run builds inside the container, not on the host |
 
 ## Setup
 

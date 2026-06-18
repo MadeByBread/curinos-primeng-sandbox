@@ -51,6 +51,12 @@ export class TransitionComponent implements OnInit {
     { product: 'Money Market', balance: '$6,780.00', growth: '-0.2%', status: 'Active' }
   ];
 
+  accountMenuItems: MenuItem[] = [
+    { label: 'Switch to Default', icon: ph('swap') },
+    { separator: true },
+    { label: 'Sign out', icon: ph('sign-out') }
+  ];
+
   panelMenuItems: MenuItem[] = [
     {
       label: 'Overview',

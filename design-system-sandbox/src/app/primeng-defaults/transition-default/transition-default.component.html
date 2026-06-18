@@ -28,6 +28,23 @@
       <p-panelMenu [model]="panelMenuItems" [multiple]="true"></p-panelMenu>
     </div>
 
+    <div *ngSwitchCase="'sidebar-account'" class="preview-row preview-row--sidebar-account">
+      <p-menu #accountMenu [popup]="true" [model]="accountMenuItems" appendTo="body"></p-menu>
+      <button
+        type="button"
+        class="pd-sidebar-profile"
+        aria-label="Account menu"
+        aria-haspopup="true"
+        (click)="accountMenu.toggle($event)">
+        <span class="pd-sidebar-profile__avatar" aria-hidden="true">P</span>
+        <span class="pd-sidebar-profile__info">
+          <span class="pd-sidebar-profile__name">Maven Raven</span>
+          <span class="pd-sidebar-profile__role">Head of Retail</span>
+        </span>
+        <i class="ph ph-caret-up-down" aria-hidden="true"></i>
+      </button>
+    </div>
+
     <div *ngSwitchCase="'datatable'" class="preview-row preview-row--datatable">
       <p-table [value]="tableRows" [rowHover]="true">
         <ng-template pTemplate="header">

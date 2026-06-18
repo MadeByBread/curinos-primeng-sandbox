@@ -17,6 +17,11 @@ const routes: Routes = [
         path: 'transition',
         loadChildren: '../pages/transition/transition.module#TransitionModule',
         data: { showMenubar: false }
+      },
+      {
+        path: 'curinos-tokens',
+        loadChildren: '../pages/curinos-tokens/curinos-tokens.module#CurinosTokensModule',
+        data: { showMenubar: false }
       }
     ]
   }

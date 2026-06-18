@@ -1,0 +1,161 @@
+<div class="tokens-page">
+  <div class="tokens-container">
+    <p-card styleClass="ui-card--hero ui-card--hero-tight">
+      <h1 class="tokens-heading tokens-heading--1">Curinos Tokens</h1>
+      <p class="tokens-lead">
+        Layer 1 is the brand foundation — <code>--curinos-*</code> custom properties generated
+        from Figma collection exports. For how these tokens connect to PrimeNG 7 components,
+        see the <a routerLink="/transition">Transition</a> page (Layer 2 bridge).
+      </p>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="tokens-heading tokens-heading--2">Figma export format</h2>
+      </p-header>
+
+      <p class="tokens-body">
+        The generator expects the <strong>rich export</strong> format from Figma variable
+        collections — not the flat token list. Each source file is one collection with
+        <code>variables[]</code>, mode definitions, and resolved alias chains.
+      </p>
+
+      <ul class="tokens-list">
+        <li>Top-level: <code>name</code>, <code>modes</code>, <code>variables[]</code></li>
+        <li>
+          Per variable: <code>name</code>, <code>type</code>,
+          <code>resolvedValuesByMode</code> with <code>resolvedValue</code> and optional
+          <code>aliasName</code>
+        </li>
+      </ul>
+
+      <h3 class="tokens-heading tokens-heading--3">Example (alias chain)</h3>
+      <pre class="tokens-pre"><code>{{ figmaExportSnippet }}</code></pre>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="tokens-heading tokens-heading--2">Source file mapping</h2>
+      </p-header>
+
+      <p class="tokens-body">
+        One Figma collection export maps 1:1 to one generated SCSS partial under
+        <code>src/styles/tokens/sources/</code>.
+      </p>
+
+      <table class="tokens-table">
+        <thead>
+          <tr>
+            <th scope="col">Source file</th>
+            <th scope="col">Figma collection</th>
+            <th scope="col">Generated partial</th>
+            <th scope="col">CSS prefix</th>
+            <th scope="col">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>curinos-colors.json</code></td>
+            <td>Curinos Colors</td>
+            <td><code>_color.scss</code></td>
+            <td><code>--curinos-color-*</code></td>
+            <td>396</td>
+          </tr>
+          <tr>
+            <td><code>curinos-dimensions.json</code></td>
+            <td>Curinos Dimensions</td>
+            <td><code>_dimensions.scss</code></td>
+            <td><code>--curinos-dimensions-*</code></td>
+            <td>13</td>
+          </tr>
+          <tr>
+            <td><code>curinos-effects.json</code></td>
+            <td>Curinos Effects</td>
+            <td><code>_effects.scss</code></td>
+            <td><code>--curinos-effects-*</code></td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td><code>curinos-typography.json</code></td>
+            <td>Curinos Typography</td>
+            <td><code>_typography.scss</code></td>
+            <td><code>--curinos-typography-*</code></td>
+            <td>57</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="tokens-note">
+        Figma "Prime *" collections (Prime Primitive, Prime Component Common, …) are
+        intentionally <strong>not</strong> exported here — they target a newer PrimeNG token
+        shape. See the PrimeNG bridge (Layer 2) on the Transition page.
+      </p>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="tokens-heading tokens-heading--2">Generator rules</h2>
+      </p-header>
+
+      <p class="tokens-body">
+        <code>scripts/figma-tokens-to-scss.js</code> is collection-driven. Re-run via
+        <code>npm run tokens:build</code>.
+      </p>
+
+      <ul class="tokens-list">
+        <li><strong>Collection-driven</strong> — one JSON file → one SCSS partial</li>
+        <li>
+          <strong>Light mode only</strong> — colors ship Light + Dark; only Light is emitted
+        </li>
+        <li>
+          <strong>Alias inheritance</strong> — same-collection aliases become
+          <code>var(--curinos-…-&lt;alias&gt;, &lt;literal&gt;)</code>
+        </li>
+        <li>
+          <strong>Naming</strong> — full Figma path slugged to kebab-case
+          (<code>semantic/surface/50</code> → <code>--curinos-color-semantic-surface-50</code>)
+        </li>
+        <li>
+          <strong>Type formatting</strong> — colors → hex; floats → <code>px</code> (except
+          unitless typography); font families → quoted stack
+        </li>
+      </ul>
+
+      <h3 class="tokens-heading tokens-heading--3">Alias chain output</h3>
+      <pre class="tokens-pre"><code>{{ aliasChainSnippet }}</code></pre>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="tokens-heading tokens-heading--2">Output</h2>
+      </p-header>
+
+      <h3 class="tokens-heading tokens-heading--3">File structure</h3>
+      <pre class="tokens-pre"><code>{{ outputTreeSnippet }}</code></pre>
+
+      <h3 class="tokens-heading tokens-heading--3">Using tokens in CSS</h3>
+      <pre class="tokens-pre"><code>{{ usageSnippet }}</code></pre>
+
+      <h3 class="tokens-heading tokens-heading--3">Verify in DevTools</h3>
+      <pre class="tokens-pre"><code>{{ devtoolsSnippet }}</code></pre>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="tokens-heading tokens-heading--2">Regenerate</h2>
+      </p-header>
+
+      <p class="tokens-body">
+        Generated SCSS is committed to the repo. Run the build script on the host (Node); the
+        Docker bind mount picks up changes automatically.
+      </p>
+
+      <pre class="tokens-pre"><code>{{ regenerateSnippet }}</code></pre>
+
+      <p class="tokens-body">
+        For PrimeNG bridge mapping and component overrides, see
+        <a routerLink="/transition">Transition</a>.
+      </p>
+    </p-card>
+  </div>
+</div>

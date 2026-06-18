@@ -95,6 +95,7 @@ body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-it
 }
 // @transition css:/dropdown
 
+// @transition css:sidebar-account
 body:not(.primeng-default) .sidebar-account-menu.ui-menu {
   min-width: 160px;
   padding: 4px;
@@ -131,6 +132,7 @@ body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {
   font-size: 16px;
   color: var(--primeng-menu-item-icon-color);
 }
+// @transition css:/sidebar-account
 
 body:not(.primeng-default) .ui-paginator .ui-dropdown {
   border: 0;

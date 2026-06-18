@@ -5,6 +5,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { TableModule } from 'primeng/table';
 
@@ -22,6 +23,7 @@ import { SharedModule } from '../../shared/shared.module';
     ButtonModule,
     DropdownModule,
     InputTextModule,
+    MenuModule,
     PanelMenuModule,
     TableModule,
     SharedModule

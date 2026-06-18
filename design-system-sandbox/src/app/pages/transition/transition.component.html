@@ -55,6 +55,32 @@
               </p-panelMenu>
             </div>
 
+            <div *ngSwitchCase="'sidebar-account'" class="demo-row demo-row--sidebar-account">
+              <p-menu
+                #accountMenu
+                [popup]="true"
+                [model]="accountMenuItems"
+                appendTo="body"
+                styleClass="sidebar-account-menu">
+              </p-menu>
+              <button
+                type="button"
+                class="sidebar-profile"
+                aria-label="Account menu"
+                aria-haspopup="true"
+                (click)="accountMenu.toggle($event)">
+                <span class="sidebar-profile__avatar" aria-hidden="true">
+                  <span class="sidebar-profile__initial">P</span>
+                  <span class="sidebar-profile__badge">8</span>
+                </span>
+                <span class="sidebar-profile__info">
+                  <span class="sidebar-profile__name">Maven Raven</span>
+                  <span class="sidebar-profile__role">Head of Retail</span>
+                </span>
+                <i class="ph ph-caret-up-down sidebar-profile__toggle" aria-hidden="true"></i>
+              </button>
+            </div>
+
             <div *ngSwitchCase="'datatable'" class="demo-row demo-row--datatable">
               <p-table [value]="tableRows" [rowHover]="true">
                 <ng-template pTemplate="header">

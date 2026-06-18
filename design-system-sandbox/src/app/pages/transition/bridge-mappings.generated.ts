@@ -46,7 +46,7 @@ export const generatedTransitionData = {
       "documentationOnly": false,
       "css": {
         "source": "src/styles/primeng/_overrides.scss",
-        "css": "body:not(.primeng-default) .ui-button.ui-state-default {\n  width: fit-content;\n  max-width: 100%;\n  background: var(--primeng-button-primary-background);\n  border: 1px solid var(--primeng-button-primary-border-color);\n  color: var(--primeng-button-primary-color);\n  font-family: $font-sans;\n  font-size: var(--primeng-button-lg-font-size);\n  font-weight: var(--primeng-button-label-font-weight);\n  border-radius: var(--primeng-button-border-radius);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-lg-padding-y) var(--primeng-button-lg-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm {\n  font-size: var(--primeng-button-sm-font-size);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-sm-padding-y) var(--primeng-button-sm-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {\n  background: transparent;\n  border: 1px solid var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:hover,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:focus,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:active,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost {\n  background: transparent;\n  border: 1px solid var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:hover {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:active {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-full-width,\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-width {\n  width: 100%;\n}\n\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {\n  width: fit-content;\n}"
+        "css": "body:not(.primeng-default) .ui-button.ui-state-default {\n  width: fit-content;\n  max-width: 100%;\n  background: var(--primeng-button-primary-background);\n  border: 1px solid var(--primeng-button-primary-border-color);\n  color: var(--primeng-button-primary-color);\n  font-family: $font-sans;\n  font-size: var(--primeng-button-lg-font-size);\n  font-weight: var(--primeng-button-label-font-weight);\n  border-radius: var(--primeng-button-border-radius);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n  box-shadow: var(--primeng-button-primary-hover-shadow);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-primary-hover-background);\n  border-color: var(--primeng-button-primary-hover-border-color);\n  color: var(--primeng-button-primary-hover-color);\n  box-shadow: var(--primeng-button-primary-hover-shadow);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-lg-padding-y) var(--primeng-button-lg-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm {\n  font-size: var(--primeng-button-sm-font-size);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm.ui-button-text-only .ui-button-text {\n  padding: var(--primeng-button-sm-padding-y) var(--primeng-button-sm-padding-x);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {\n  background: transparent;\n  border: 1px solid var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:hover,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:focus,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:active,\nbody:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {\n  background: var(--primeng-button-secondary-hover-background);\n  border-color: var(--primeng-button-secondary-border-color);\n  color: var(--primeng-button-secondary-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost {\n  background: transparent;\n  border: 1px solid var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:hover {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:focus {\n  box-shadow: none;\n  outline: none;\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:active {\n  background: var(--primeng-button-ghost-hover-background);\n  border-color: var(--primeng-button-ghost-border-color);\n  color: var(--primeng-button-ghost-hover-color);\n}\n\nbody:not(.primeng-default) .ui-button.ui-state-default.ui-button-full-width,\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-width {\n  width: 100%;\n}\n\nbody:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {\n  width: fit-content;\n}"
       },
       "tokenMappings": [
         {
@@ -62,12 +62,12 @@ export const generatedTransitionData = {
         {
           "portion": "Primary — hover/active background & border",
           "bridge": "--primeng-button-primary-hover-background, --primeng-button-primary-hover-border-color",
-          "curinos": "--curinos-color-semantic-primary-1"
+          "curinos": "--curinos-color-foreground-1"
         },
         {
           "portion": "Primary — hover/active label",
           "bridge": "--primeng-button-primary-hover-color",
-          "curinos": "--curinos-color-foreground-1"
+          "curinos": "--curinos-color-semantic-primary-1"
         },
         {
           "portion": "Secondary — border",
@@ -378,6 +378,54 @@ export const generatedTransitionData = {
           "portion": "Submenu left border",
           "bridge": "--primeng-panelmenu-border-color",
           "curinos": "--curinos-color-border-1"
+        }
+      ]
+    },
+    {
+      "key": "sidebar-account",
+      "title": "Sidebar account menu",
+      "approach": "Composite pattern, not a styled PrimeNG widget: a bespoke profile trigger (avatar, notification badge, name, role, caret) opens a PrimeNG 7 p-menu popup. The trigger is plain HTML in main-layout.component.html styled with Layer 1 --curinos-* tokens in main-layout.component.scss. The popup uses p-menu with styleClass sidebar-account-menu; global overrides in _overrides.scss map --primeng-menu-* bridge tokens (item hover reuses dropdown hover tokens). Compare against the simpler reference footer in primeng-dashboard (pd-sidebar-profile).",
+      "iframeHeight": 72,
+      "notes": [
+        {
+          "title": "Profile trigger (custom markup)",
+          "body": "Production markup: app/layout/main-layout/main-layout.component.html (.sidebar-profile*). Styles: main-layout.component.scss — Layer 1 tokens only, no Layer 2 bridge. Toggle: plain button (click) → accountMenu.toggle($event) on a popup p-menu (appendTo=\"body\", styleClass=\"sidebar-account-menu\"). Menu items: main-layout.component.ts (accountMenuItems). Trigger tokens: hover/avatar background → --curinos-color-background-2; trigger radius → --curinos-dimensions-radii-buttons; name → --curinos-color-semantic-surface-900; role → --curinos-color-semantic-surface-500; caret → --curinos-color-foreground-3; badge border → --curinos-color-background-1; badge fill → --primeng-panelmenu-icon-accent; badge label → --curinos-color-semantic-surface-white."
+        },
+        {
+          "title": "Default reference implementation",
+          "body": "primeng-dashboard footer (pd-sidebar-profile + stock p-menu, no badge, hardcoded nova-like colors in primeng-dashboard.component.scss). Shown in the PrimeNG default preview column — not a stock PrimeNG component, but the baseline this sandbox compares against."
+        }
+      ],
+      "documentationOnly": false,
+      "css": {
+        "source": "src/styles/primeng/_overrides.scss",
+        "css": "body:not(.primeng-default) .sidebar-account-menu.ui-menu {\n  min-width: 160px;\n  padding: 4px;\n  border: 1px solid var(--primeng-menu-border-color);\n  border-radius: var(--primeng-menu-border-radius);\n  background: var(--primeng-menu-background);\n  box-shadow: var(--primeng-menu-shadow);\n  font-family: $font-sans;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link {\n  padding: 8px 12px;\n  border-radius: var(--primeng-menu-item-border-radius);\n  color: var(--primeng-menu-item-color);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover {\n  background: var(--primeng-dropdown-item-hover-background) !important;\n  color: var(--primeng-dropdown-item-hover-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {\n  color: var(--primeng-dropdown-item-hover-color) !important;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-text {\n  font-size: 14px;\n  font-weight: 500;\n  line-height: 1.2;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {\n  margin-right: 8px;\n  font-size: 16px;\n  color: var(--primeng-menu-item-icon-color);\n}"
+      },
+      "tokenMappings": [
+        {
+          "portion": "Popup panel — border, radius, background, shadow",
+          "bridge": "--primeng-menu-border-color, --primeng-menu-border-radius, --primeng-menu-background, --primeng-menu-shadow",
+          "curinos": "--curinos-color-border-1, --curinos-dimensions-radii-cards, --curinos-color-background-1, 0 4px 16px rgba(0, 0, 0, 0.08)"
+        },
+        {
+          "portion": "Popup item — text & icon (default)",
+          "bridge": "--primeng-menu-item-color, --primeng-menu-item-icon-color",
+          "curinos": "--curinos-color-foreground-1, --curinos-color-foreground-3"
+        },
+        {
+          "portion": "Popup item — hover background & text",
+          "bridge": "--primeng-dropdown-item-hover-background, --primeng-dropdown-item-hover-color",
+          "curinos": "--curinos-color-background-2, --curinos-color-foreground-1"
+        },
+        {
+          "portion": "Popup item — border radius",
+          "bridge": "--primeng-menu-item-border-radius",
+          "curinos": "--curinos-dimensions-radii-buttons"
+        },
+        {
+          "portion": "Notification badge accent (trigger)",
+          "bridge": "--primeng-panelmenu-icon-accent",
+          "curinos": "--curinos-color-semantic-primary-1 (only bridge token on the trigger; rest use Layer 1 directly — see note below)"
         }
       ]
     },

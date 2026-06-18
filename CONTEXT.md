@@ -18,6 +18,10 @@ Global `.ui-*` CSS wiring in `_overrides.scss` that applies the bridge to stock 
 
 Side-by-side comparison demo showing stock PrimeNG 7 (nova-light) next to Curinos-customized components. Documents override approach and token mapping for each component section.
 
+## Curinos Tokens page
+
+In-app documentation for Layer 1: what Figma collections are exported, how the generator converts them, and where `--curinos-*` custom properties land.
+
 ## Theme variant
 
 Which styling mode the sandbox is in: **Curinos** (custom overrides active) or **default** (stock nova-light). Toggled via the `primeng-default` body class on default comparison routes.

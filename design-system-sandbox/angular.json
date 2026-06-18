@@ -34,21 +34,6 @@
                 "glob": "Phosphor-Duotone.*",
                 "input": "node_modules/@phosphor-icons/web/src/duotone",
                 "output": "/assets/fonts/phosphor-duotone"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@phosphor-icons/core/assets/regular",
-                "output": "/assets/phosphor/regular"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@phosphor-icons/core/assets/light",
-                "output": "/assets/phosphor/light"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@phosphor-icons/core/assets/duotone",
-                "output": "/assets/phosphor/duotone"
               }
             ],
             "styles": [
