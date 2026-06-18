@@ -57,9 +57,10 @@
   --primeng-button-primary-background: var(--curinos-color-foreground-1);
   --primeng-button-primary-border-color: var(--curinos-color-foreground-1);
   --primeng-button-primary-color: var(--curinos-color-background-1);
-  --primeng-button-primary-hover-background: var(--curinos-color-semantic-primary-1);
-  --primeng-button-primary-hover-border-color: var(--curinos-color-semantic-primary-1);
-  --primeng-button-primary-hover-color: var(--curinos-color-foreground-1);
+  --primeng-button-primary-hover-background: var(--primeng-button-primary-background);
+  --primeng-button-primary-hover-border-color: var(--primeng-button-primary-border-color);
+  --primeng-button-primary-hover-color: var(--curinos-color-semantic-primary-1);
+  --primeng-button-primary-hover-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 
   /* button — secondary (outlined) */
   --primeng-button-secondary-border-color: var(--curinos-color-foreground-2);

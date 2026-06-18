@@ -155,6 +155,7 @@ body:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {
   background: var(--primeng-button-primary-hover-background);
   border-color: var(--primeng-button-primary-hover-border-color);
   color: var(--primeng-button-primary-hover-color);
+  box-shadow: var(--primeng-button-primary-hover-shadow);
 }
 
 body:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {
@@ -166,6 +167,7 @@ body:not(.primeng-default) .ui-button.ui-state-default:enabled:active {
   background: var(--primeng-button-primary-hover-background);
   border-color: var(--primeng-button-primary-hover-border-color);
   color: var(--primeng-button-primary-hover-color);
+  box-shadow: var(--primeng-button-primary-hover-shadow);
 }
 
 body:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {
