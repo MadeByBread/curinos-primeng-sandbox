@@ -1,0 +1,5 @@
+<span class="avatar" [ngClass]="['avatar--' + size, 'avatar--' + shape]">
+  <img *ngIf="image" class="avatar__image" [src]="image" [alt]="label || ''">
+  <i *ngIf="!image && icon" class="avatar__icon" [ngClass]="icon"></i>
+  <span *ngIf="!image && !icon" class="avatar__initials">{{ initials }}</span>
+</span>

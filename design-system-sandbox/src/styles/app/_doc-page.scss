@@ -1,41 +1,52 @@
+// Shared chrome for the written documentation pages — Overview and Curinos
+// Tokens. These read as prose rather than as an application screen, so they use
+// the serif display face and a wider measure than the component pages.
+//
+// Global rather than component-scoped because both pages are lazily loaded and
+// neither should depend on the other's stylesheet having been fetched.
+
 $font-sans: 'Work Sans', sans-serif;
 $font-serif: 'Source Serif Pro', serif;
 
-.tokens-page {
+.doc-page {
+  // `.page-body` deliberately carries no padding, so each page insets itself.
+  // Matches the catalogue's measure so the two read as the same document.
+  max-width: 1100px;
+  padding: 24px;
   font-family: $font-sans;
   color: var(--curinos-color-semantic-surface-900);
 }
 
-.tokens-container {
+.doc-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.tokens-page .ui-card {
+.doc-page .ui-card {
   width: 100%;
 }
 
-.tokens-heading {
+.doc-heading {
   margin: 0;
   font-family: $font-serif;
   font-weight: 400;
   color: var(--curinos-color-semantic-surface-900);
 }
 
-.tokens-heading--1 {
+.doc-heading--1 {
   font-size: 40px;
   line-height: 1.05;
   letter-spacing: -0.8px;
 }
 
-.tokens-heading--2 {
+.doc-heading--2 {
   font-size: 28px;
   line-height: 1.2;
   letter-spacing: -0.56px;
 }
 
-.tokens-heading--3 {
+.doc-heading--3 {
   font-family: $font-sans;
   font-size: 16px;
   font-weight: 500;
@@ -44,9 +55,9 @@ $font-serif: 'Source Serif Pro', serif;
   margin-top: 16px;
 }
 
-.tokens-lead,
-.tokens-body,
-.tokens-note {
+.doc-lead,
+.doc-body,
+.doc-note {
   margin: 0;
   font-size: 14px;
   font-weight: 500;
@@ -55,8 +66,8 @@ $font-serif: 'Source Serif Pro', serif;
   color: var(--curinos-color-foreground-2);
 }
 
-.tokens-lead a,
-.tokens-body a {
+.doc-lead a,
+.doc-body a {
   color: var(--curinos-color-semantic-primary-1);
   text-decoration: none;
 
@@ -65,10 +76,10 @@ $font-serif: 'Source Serif Pro', serif;
   }
 }
 
-.tokens-lead code,
-.tokens-body code,
-.tokens-list code,
-.tokens-note code {
+.doc-lead code,
+.doc-body code,
+.doc-list code,
+.doc-note code {
   font-size: 13px;
   padding: 1px 4px;
   border-radius: 3px;
@@ -76,7 +87,7 @@ $font-serif: 'Source Serif Pro', serif;
   color: var(--curinos-color-foreground-1);
 }
 
-.tokens-list {
+.doc-list {
   margin: 12px 0 0;
   padding-left: 20px;
   font-size: 14px;
@@ -86,17 +97,17 @@ $font-serif: 'Source Serif Pro', serif;
   color: var(--curinos-color-foreground-2);
 }
 
-.tokens-list li + li {
+.doc-list li + li {
   margin-top: 6px;
 }
 
-.tokens-note {
+.doc-note {
   margin-top: 12px;
   font-size: 13px;
   color: var(--curinos-color-foreground-3);
 }
 
-.tokens-table {
+.doc-table {
   width: 100%;
   margin-top: 12px;
   border-collapse: collapse;
@@ -104,15 +115,15 @@ $font-serif: 'Source Serif Pro', serif;
   line-height: 1.4;
 }
 
-.tokens-table th,
-.tokens-table td {
+.doc-table th,
+.doc-table td {
   padding: 8px 10px;
   border: 1px solid var(--curinos-color-border-1);
   text-align: left;
   vertical-align: top;
 }
 
-.tokens-table th {
+.doc-table th {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -121,20 +132,20 @@ $font-serif: 'Source Serif Pro', serif;
   background: var(--curinos-color-background-2);
 }
 
-.tokens-table td {
+.doc-table td {
   color: var(--curinos-color-foreground-2);
 }
 
-.tokens-table code {
+.doc-table code {
   font-size: 12px;
   word-break: break-word;
 }
 
-.tokens-pre {
+.doc-pre {
   margin: 8px 0 0;
   padding: 12px;
   border: 1px solid var(--curinos-color-border-1);
-  border-radius: var(--curinos-dimensions-radii-cards);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
   overflow-x: auto;
   font-size: 12px;
   line-height: 1.5;
@@ -142,7 +153,7 @@ $font-serif: 'Source Serif Pro', serif;
   background: var(--curinos-color-background-2);
 }
 
-.tokens-pre code {
+.doc-pre code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
   white-space: pre;

@@ -1,256 +1,662 @@
-// PrimeNG 7 theme overrides — consumes Layer 2 bridge tokens (--primeng-*).
+@import 'scope';
+
+// PrimeNG 7 component overrides — consumes Curinos tokens (--curinos-*) directly.
 // Loaded after nova-light so Curinos styling replaces default PrimeNG colors.
 //
-// All selectors are scoped to `body:not(.primeng-default)` so that pages which
+// There is no bridge layer between these rules and Figma. See
+// docs/adr/0003-single-layer-token-architecture.md.
+//
+// All selectors are scoped to `#{$curinos}` so that pages which
 // add the `primeng-default` class to <body> fall back to stock nova-light
-// styling (used by the PrimeNG-default comparison pages).
+// styling (used by the stock comparison previews in the component catalogue).
+//
+// `// @component css:<key>` markers delimit the block belonging to each
+// catalogue entry. scripts/extract-component-catalogue.js reads them to build
+// the per-component token tables — a key may appear more than once.
 
-$font-sans: 'Work Sans', sans-serif;
+// Values with no Curinos source. Collected here rather than scattered inline so
+// the gaps in the token set stay countable. Spacing and elevation scales are
+// deliberately deferred; see the ADR.
+$control-padding-x: 12px;
+$control-padding-x-sm: 8px;
+$control-shadow: 0 1px 2px 0 rgba(18, 18, 23, 0.051);
+$button-hover-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+$card-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+$menu-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+$table-cell-padding: 10px 12px;
+// Figma spaces surfaces on the 14px-rem scale (14 x 1.125, x 0.875, x 0.75,
+// x 0.5, x 0.375). Curinos ships no spacing collection, so the steps are named
+// here rather than repeated as bare numbers across the file.
+$space-lg: 15.75px;
+$space-md: 12.25px;
+$space-sm: 10.5px;
+$space-xs: 7px;
+$space-2xs: 5.25px;
+// Fieldset's frame inset. The one Figma value not on the scale above.
+$fieldset-padding: 16.75px;
+// Panel's toggle button is a fixed 32px hit area.
+$panel-toggler-size: 32px;
+// Curinos line heights stop at 1.2, which is a label scale, not a prose one.
+$prose-line-height: 1.625;
+// The typography collection ships regular and medium only; Figma sets the
+// accordion and panel headers in semibold.
+$heading-weight: 600;
+// Curinos dropped letter-spacing when the type composites were removed.
+$text-tracking: -0.42px;
+// Figma large buttons use a 24px glyph; the sizing scale jumps from 20 to 28.
+$button-icon-size-lg: 24px;
+// Chip Examples are a 16px capsule. No radii token is that round.
+$chip-radius: 16px;
 
-// @transition css:input
-body:not(.primeng-default) .ui-inputtext {
-  background: var(--primeng-inputtext-background);
-  border: 1px solid var(--primeng-inputtext-border-color);
-  border-radius: var(--primeng-inputtext-border-radius);
-  padding: var(--primeng-inputtext-padding-y) var(--primeng-inputtext-padding-x);
-  font-family: $font-sans;
-  font-size: var(--primeng-inputtext-font-size);
-  color: var(--primeng-inputtext-color);
-  box-shadow: var(--primeng-inputtext-shadow);
+// @component css:inputs
+// Controls are sized by height, not vertical padding, so Button, Inputs and
+// Selects line up at the same `controls/sizing` step. Textarea is excluded —
+// it has to grow with its content.
+#{$curinos} .ui-inputtext {
+  background: var(--curinos-color-background-1);
+  border: 1px solid var(--curinos-color-border-3);
+  border-radius: var(--curinos-dimensions-radii-semantic-inputs);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+  box-shadow: $control-shadow;
 
   &::placeholder {
-    color: var(--primeng-inputtext-placeholder-color);
+    color: var(--curinos-color-foreground-3);
   }
 }
 
-body:not(.primeng-default) .ui-inputtext:enabled:hover:not(.ui-state-error) {
-  border-color: var(--primeng-inputtext-hover-border-color);
+#{$curinos} .ui-inputtext:not(.ui-inputtextarea):not(textarea):not(ul) {
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  padding: 0 $control-padding-x;
 }
 
-body:not(.primeng-default) .ui-inputtext:enabled:focus:not(.ui-state-error) {
-  border-color: var(--primeng-inputtext-focus-border-color);
-  box-shadow: var(--primeng-inputtext-shadow);
-}
-// @transition css:/input
-
-// @transition css:dropdown
-body:not(.primeng-default) .ui-dropdown {
-  background: var(--primeng-inputtext-background);
-  border: 1px solid var(--primeng-inputtext-border-color);
-  border-radius: var(--primeng-inputtext-border-radius);
-  box-shadow: var(--primeng-inputtext-shadow);
+#{$curinos} .ui-inputtext:enabled:hover:not(.ui-state-error) {
+  border-color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled):hover {
-  border-color: var(--primeng-inputtext-hover-border-color);
+#{$curinos} .ui-inputtext:enabled:focus:not(.ui-state-error) {
+  border-color: var(--curinos-color-semantic-primary-1);
+  box-shadow: $control-shadow;
+}
+// @component css:/inputs
+
+// @component css:textarea
+#{$curinos} textarea.ui-inputtext,
+#{$curinos} .ui-inputtextarea {
+  min-height: var(--curinos-dimensions-controls-sizing-2xl);
+  padding: 8px $control-padding-x;
+  line-height: var(--curinos-typography-line-height-tight);
+  resize: vertical;
+}
+// @component css:/textarea
+
+// @component css:selects
+#{$curinos} .ui-dropdown {
+  display: inline-flex;
+  align-items: center;
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  background: var(--curinos-color-background-1);
+  border: 1px solid var(--curinos-color-border-3);
+  border-radius: var(--curinos-dimensions-radii-semantic-inputs);
+  box-shadow: $control-shadow;
 }
 
-body:not(.primeng-default) .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
-  border-color: var(--primeng-inputtext-focus-border-color);
-  box-shadow: var(--primeng-inputtext-shadow);
+#{$curinos} .ui-dropdown:not(.ui-state-disabled):hover {
+  border-color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  border-color: var(--curinos-color-semantic-primary-1);
+  box-shadow: $control-shadow;
   outline: none;
 }
 
-body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext {
-  padding: var(--primeng-inputtext-padding-y) 2.5em var(--primeng-inputtext-padding-y)
-    var(--primeng-inputtext-padding-x);
+#{$curinos} .ui-dropdown .ui-dropdown-label.ui-inputtext {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 2.5em 0 $control-padding-x;
   border: 0;
   background: transparent;
   box-shadow: none;
-  font-family: $font-sans;
-  font-size: var(--primeng-inputtext-font-size);
-  color: var(--primeng-inputtext-placeholder-color);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:not(.ui-dropdown-label-empty) {
-  color: var(--primeng-inputtext-color);
+#{$curinos} .ui-dropdown .ui-dropdown-label.ui-inputtext:not(.ui-dropdown-label-empty) {
+  color: var(--curinos-color-foreground-2);
 }
 
-body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:hover:not(.ui-state-error),
-body:not(.primeng-default) .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:focus:not(.ui-state-error) {
+#{$curinos} .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:hover:not(.ui-state-error),
+#{$curinos} .ui-dropdown .ui-dropdown-label.ui-inputtext:enabled:focus:not(.ui-state-error) {
   border-color: transparent;
   box-shadow: none;
 }
 
-body:not(.primeng-default) .ui-dropdown .ui-dropdown-trigger {
+#{$curinos} .ui-dropdown .ui-dropdown-trigger {
   width: 2.5em;
   background: transparent;
   border: 0;
   line-height: normal;
-  color: var(--primeng-dropdown-trigger-color);
+  color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
-  color: var(--primeng-dropdown-item-color);
+#{$curinos} .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
+  color: var(--curinos-color-foreground-2);
 }
 
-body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
-  background: var(--primeng-dropdown-item-hover-background) !important;
-  color: var(--primeng-dropdown-item-hover-color) !important;
+#{$curinos} .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highlight):not(.ui-state-disabled):hover {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1) !important;
 }
 
-body:not(.primeng-default) .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight {
-  background: var(--primeng-dropdown-item-selected-background) !important;
-  color: var(--primeng-dropdown-item-selected-color) !important;
-}
-// @transition css:/dropdown
-
-// @transition css:sidebar-account
-body:not(.primeng-default) .sidebar-account-menu.ui-menu {
-  min-width: 160px;
-  padding: 4px;
-  border: 1px solid var(--primeng-menu-border-color);
-  border-radius: var(--primeng-menu-border-radius);
-  background: var(--primeng-menu-background);
-  box-shadow: var(--primeng-menu-shadow);
-  font-family: $font-sans;
+#{$curinos} .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight {
+  background: var(--curinos-color-background-3) !important;
+  color: var(--curinos-color-foreground-1) !important;
 }
 
-body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link {
-  padding: 8px 12px;
-  border-radius: var(--primeng-menu-item-border-radius);
-  color: var(--primeng-menu-item-color);
+// MultiSelect and Listbox share the control surface and the panel item states.
+#{$curinos} .ui-multiselect {
+  display: inline-flex;
+  align-items: center;
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  background: var(--curinos-color-background-1);
+  border: 1px solid var(--curinos-color-border-3);
+  border-radius: var(--curinos-dimensions-radii-semantic-inputs);
+  box-shadow: $control-shadow;
 }
 
-body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover {
-  background: var(--primeng-dropdown-item-hover-background) !important;
-  color: var(--primeng-dropdown-item-hover-color) !important;
+#{$curinos} .ui-multiselect:not(.ui-state-disabled):hover {
+  border-color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {
-  color: var(--primeng-dropdown-item-hover-color) !important;
+#{$curinos} .ui-multiselect:not(.ui-state-disabled).ui-state-focus {
+  border-color: var(--curinos-color-semantic-primary-1);
+  outline: none;
 }
 
-body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-text {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
+#{$curinos} .ui-multiselect .ui-multiselect-label {
+  padding: 0 $control-padding-x;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
 }
 
-body:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {
-  margin-right: 8px;
-  font-size: 16px;
-  color: var(--primeng-menu-item-icon-color);
-}
-// @transition css:/sidebar-account
-
-body:not(.primeng-default) .ui-paginator .ui-dropdown {
-  border: 0;
-  box-shadow: none;
+#{$curinos} .ui-multiselect .ui-multiselect-trigger {
+  width: 2.5em;
   background: transparent;
+  border: 0;
+  color: var(--curinos-color-foreground-3);
 }
 
-// @transition css:button
-body:not(.primeng-default) .ui-button.ui-state-default {
+#{$curinos} .ui-multiselect-panel .ui-multiselect-header,
+#{$curinos} .ui-listbox .ui-listbox-header {
+  padding: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--curinos-color-border-1);
+  border-radius: 0;
+  background: var(--curinos-color-background-2);
+}
+
+// Nova paints these #007ad9; they are affordances, not accents.
+#{$curinos} .ui-multiselect-panel .ui-multiselect-filter-icon,
+#{$curinos} .ui-multiselect-panel .ui-multiselect-close,
+#{$curinos} .ui-listbox .ui-listbox-filter-icon {
+  color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-multiselect-panel .ui-multiselect-item,
+#{$curinos} .ui-listbox .ui-listbox-item {
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):hover,
+#{$curinos} .ui-listbox .ui-listbox-item:not(.ui-state-highlight):hover {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1) !important;
+}
+
+#{$curinos} .ui-multiselect-panel .ui-multiselect-item.ui-state-highlight,
+#{$curinos} .ui-listbox .ui-listbox-item.ui-state-highlight {
+  background: var(--curinos-color-background-3) !important;
+  color: var(--curinos-color-foreground-1) !important;
+}
+// @component css:/selects
+
+// @component css:checkbox-radios
+#{$curinos} .ui-chkbox .ui-chkbox-box,
+#{$curinos} .ui-radiobutton .ui-radiobutton-box {
+  width: var(--curinos-dimensions-controls-sizing-xs);
+  height: var(--curinos-dimensions-controls-sizing-xs);
+  background: var(--curinos-color-background-1);
+  border: 1px solid var(--curinos-color-border-3);
+  box-shadow: $control-shadow;
+  transition: none;
+}
+
+#{$curinos} .ui-chkbox .ui-chkbox-box {
+  border-radius: var(--curinos-dimensions-radii-semantic-inputs);
+}
+
+#{$curinos} .ui-radiobutton .ui-radiobutton-box {
+  border-radius: 50%;
+}
+
+#{$curinos} .ui-chkbox .ui-chkbox-box:not(.ui-state-disabled):hover,
+#{$curinos} .ui-radiobutton .ui-radiobutton-box:not(.ui-state-disabled):hover {
+  border-color: var(--curinos-color-foreground-3);
+}
+
+// Selected fill matches the primary button: ink, not brand. Brand is reserved
+// for focus and active-nav accents.
+#{$curinos} .ui-chkbox .ui-chkbox-box.ui-state-active,
+#{$curinos} .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+  background: var(--curinos-color-foreground-1);
+  border-color: var(--curinos-color-foreground-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-chkbox .ui-chkbox-box.ui-state-focus,
+#{$curinos} .ui-radiobutton .ui-radiobutton-box.ui-state-focus {
+  border-color: var(--curinos-color-semantic-primary-1);
+  box-shadow: none;
+  outline: none;
+}
+
+#{$curinos} .ui-radiobutton .ui-radiobutton-box.ui-state-active .ui-radiobutton-icon {
+  background: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-chkbox-label,
+#{$curinos} .ui-radiobutton-label {
+  margin: 0 0 0 8px;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-2);
+}
+// @component css:/checkbox-radios
+
+// @component css:chips
+// The tokens inside p-chips are inferred from Chip on the Chip & Tag page:
+// background-3 fill, foreground-1 label, capsule radius, remove on the right.
+// The field itself is an input — same chrome as Inputs — because Figma did not
+// draw a separate chips field.
+#{$curinos} .ui-chips > ul.ui-inputtext {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-xs;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: var(--curinos-dimensions-controls-sizing-lg);
+  padding: $space-2xs $control-padding-x;
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext:not(.ui-state-disabled):hover {
+  border-color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext.ui-state-focus {
+  border-color: var(--curinos-color-semantic-primary-1);
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-token,
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-token.ui-state-highlight {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: $space-xs;
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 $space-sm;
+  margin: 0;
+  background: var(--curinos-color-background-3);
+  border: 0;
+  border-radius: $chip-radius;
+  color: var(--curinos-color-foreground-1);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  line-height: var(--curinos-typography-line-height-none);
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-token .ui-chips-token-label {
+  display: inline;
+  margin: 0;
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-token .ui-chips-token-icon {
+  position: static;
+  top: auto;
+  right: auto;
+  margin: 0;
+  color: currentColor;
+  opacity: var(--curinos-effects-opacity-80);
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-token .ui-chips-token-icon:hover {
+  opacity: 1;
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-input-token {
+  padding: 0;
+  margin: 0;
+}
+
+#{$curinos} .ui-chips > ul.ui-inputtext .ui-chips-input-token input {
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+// @component css:/chips
+
+// @component css:button
+// Primary is an ink fill: foreground-1 as the background, background-1 as the
+// label. Reads inverted next to the other components, and is deliberate.
+//
+// Default height is controls/sizing/md (32) — Figma's default button, not the
+// 40px input row. Icons sit in the flex row; nova's absolute slots and the
+// dummy "ui-btn" label on icon-only buttons are what made every icon button
+// look broken once we switched .ui-button to inline-flex / width: fit-content.
+#{$curinos} .ui-button.ui-state-default {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2xs;
   width: fit-content;
   max-width: 100%;
-  background: var(--primeng-button-primary-background);
-  border: 1px solid var(--primeng-button-primary-border-color);
-  color: var(--primeng-button-primary-color);
-  font-family: $font-sans;
-  font-size: var(--primeng-button-lg-font-size);
-  font-weight: var(--primeng-button-label-font-weight);
-  border-radius: var(--primeng-button-border-radius);
+  height: var(--curinos-dimensions-controls-sizing-md);
+  padding: 0 $space-xs;
+  background: var(--curinos-color-foreground-1);
+  border: 1px solid var(--curinos-color-foreground-1);
+  color: var(--curinos-color-background-1);
+  font-family: var(--curinos-typography-families-buttons);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default:enabled:hover {
-  background: var(--primeng-button-primary-hover-background);
-  border-color: var(--primeng-button-primary-hover-border-color);
-  color: var(--primeng-button-primary-hover-color);
-  box-shadow: var(--primeng-button-primary-hover-shadow);
+// Hover keeps the fill and recolors the label to brand, rather than inverting.
+#{$curinos} .ui-button.ui-state-default:enabled:hover,
+#{$curinos} .ui-button.ui-state-default:enabled:active {
+  background: var(--curinos-color-foreground-1);
+  border-color: var(--curinos-color-foreground-1);
+  color: var(--curinos-color-semantic-primary-1);
+  box-shadow: $button-hover-shadow;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default:enabled:focus {
+#{$curinos} .ui-button.ui-state-default:enabled:focus {
   box-shadow: none;
   outline: none;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default:enabled:active {
-  background: var(--primeng-button-primary-hover-background);
-  border-color: var(--primeng-button-primary-hover-border-color);
-  color: var(--primeng-button-primary-hover-color);
-  box-shadow: var(--primeng-button-primary-hover-shadow);
+// Nova absolutely positions icons and pads the label around that slot. With
+// flex those rules leave the glyph floating and the dummy icon-only label
+// stretching the button. Put both children back in flow and reset the pad.
+#{$curinos} .ui-button.ui-state-default .ui-button-icon-left,
+#{$curinos} .ui-button.ui-state-default .ui-button-icon-right {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 0;
+  width: auto;
+  height: auto;
+  font-size: var(--curinos-dimensions-controls-sizing-xs);
+  line-height: 1;
+  color: currentColor;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-text-only .ui-button-text {
-  padding: var(--primeng-button-lg-padding-y) var(--primeng-button-lg-padding-x);
+#{$curinos} .ui-button.ui-state-default .ui-button-text {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  line-height: 1;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm {
-  font-size: var(--primeng-button-sm-font-size);
+#{$curinos} .ui-button.ui-state-default.ui-button-text-only {
+  padding: 0 $control-padding-x;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-sm.ui-button-text-only .ui-button-text {
-  padding: var(--primeng-button-sm-padding-y) var(--primeng-button-sm-padding-x);
+#{$curinos} .ui-button.ui-state-default.ui-button-icon-only {
+  width: var(--curinos-dimensions-controls-sizing-md);
+  min-width: var(--curinos-dimensions-controls-sizing-md);
+  padding: 0;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary,
-body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
+// PrimeNG still emits a "ui-btn" span on icon-only buttons. Hide it without
+// the text-indent that blew the flex width out.
+#{$curinos} .ui-button.ui-state-default.ui-button-icon-only .ui-button-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  text-indent: 0;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-sm {
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 $space-2xs;
+  font-size: var(--curinos-typography-font-size-xs);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-sm.ui-button-text-only {
+  padding: 0 $control-padding-x-sm;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-sm.ui-button-icon-only {
+  width: var(--curinos-dimensions-controls-sizing-sm);
+  min-width: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-lg {
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  padding: 0 $space-sm;
+  font-size: var(--curinos-typography-font-size-md);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-lg .ui-button-icon-left,
+#{$curinos} .ui-button.ui-state-default.ui-button-lg .ui-button-icon-right {
+  font-size: $button-icon-size-lg;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-lg.ui-button-text-only {
+  padding: 0 $control-padding-x;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-lg.ui-button-icon-only {
+  width: var(--curinos-dimensions-controls-sizing-lg);
+  min-width: var(--curinos-dimensions-controls-sizing-lg);
+  padding: 0;
+}
+
+#{$curinos} .ui-buttonset .ui-button.ui-state-default:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+#{$curinos} .ui-buttonset .ui-button.ui-state-default:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#{$curinos} .ui-buttonset .ui-button.ui-state-default:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-secondary,
+#{$curinos} .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
   background: transparent;
-  border: 1px solid var(--primeng-button-secondary-border-color);
-  color: var(--primeng-button-secondary-color);
+  border: 1px solid var(--curinos-color-foreground-2);
+  color: var(--curinos-color-foreground-1);
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:hover,
-body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {
-  background: var(--primeng-button-secondary-hover-background);
-  border-color: var(--primeng-button-secondary-border-color);
-  color: var(--primeng-button-secondary-color);
+#{$curinos} .ui-button.ui-state-default.ui-button-secondary:enabled:hover,
+#{$curinos} .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-secondary:enabled:active,
+#{$curinos} .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
+  background: var(--curinos-color-background-2);
+  border-color: var(--curinos-color-foreground-2);
+  color: var(--curinos-color-foreground-1);
+  box-shadow: none;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:focus,
-body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
+#{$curinos} .ui-button.ui-state-default.ui-button-secondary:enabled:focus,
+#{$curinos} .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
   box-shadow: none;
   outline: none;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-secondary:enabled:active,
-body:not(.primeng-default) .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
-  background: var(--primeng-button-secondary-hover-background);
-  border-color: var(--primeng-button-secondary-border-color);
-  color: var(--primeng-button-secondary-color);
+#{$curinos} .ui-button.ui-state-default.ui-button-success {
+  background: var(--curinos-color-semantic-success-1);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-background-1);
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost {
+#{$curinos} .ui-button.ui-state-default.ui-button-success:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-success:enabled:active {
+  background: var(--curinos-color-semantic-success-1);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-background-1);
+  box-shadow: $button-hover-shadow;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-success:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-info {
+  background: var(--curinos-color-semantic-info-1);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-info:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-info:enabled:active {
+  background: var(--curinos-color-semantic-info-1);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-background-1);
+  box-shadow: $button-hover-shadow;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-info:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-warning {
+  background: var(--curinos-color-semantic-warning-1);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-warning:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-warning:enabled:active {
+  background: var(--curinos-color-semantic-warning-1);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-background-1);
+  box-shadow: $button-hover-shadow;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-warning:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-danger {
+  background: var(--curinos-color-semantic-danger-1);
+  border-color: var(--curinos-color-semantic-danger-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-danger:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-danger:enabled:active {
+  background: var(--curinos-color-semantic-danger-1);
+  border-color: var(--curinos-color-semantic-danger-1);
+  color: var(--curinos-color-background-1);
+  box-shadow: $button-hover-shadow;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-danger:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+// Figma's purple "secondary" severity. .ui-button-secondary is already the
+// outlined treatment, so this hue uses .ui-button-accent.
+#{$curinos} .ui-button.ui-state-default.ui-button-accent {
+  background: var(--curinos-color-semantic-secondary-1);
+  border-color: var(--curinos-color-semantic-secondary-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-accent:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-accent:enabled:active {
+  background: var(--curinos-color-semantic-secondary-1);
+  border-color: var(--curinos-color-semantic-secondary-1);
+  color: var(--curinos-color-background-1);
+  box-shadow: $button-hover-shadow;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-accent:enabled:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+#{$curinos} .ui-button.ui-state-default.ui-button-ghost {
   background: transparent;
-  border: 1px solid var(--primeng-button-ghost-border-color);
-  color: var(--primeng-button-ghost-color);
+  border: 1px solid var(--curinos-color-border-3);
+  color: var(--curinos-color-foreground-1);
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:hover {
-  background: var(--primeng-button-ghost-hover-background);
-  border-color: var(--primeng-button-ghost-border-color);
-  color: var(--primeng-button-ghost-hover-color);
+#{$curinos} .ui-button.ui-state-default.ui-button-ghost:enabled:hover,
+#{$curinos} .ui-button.ui-state-default.ui-button-ghost:enabled:active {
+  background: var(--curinos-color-background-2);
+  border-color: var(--curinos-color-border-3);
+  color: var(--curinos-color-foreground-1);
+  box-shadow: none;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:focus {
+#{$curinos} .ui-button.ui-state-default.ui-button-ghost:enabled:focus {
   box-shadow: none;
   outline: none;
 }
 
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-ghost:enabled:active {
-  background: var(--primeng-button-ghost-hover-background);
-  border-color: var(--primeng-button-ghost-border-color);
-  color: var(--primeng-button-ghost-hover-color);
-}
-
-body:not(.primeng-default) .ui-button.ui-state-default.ui-button-full-width,
-body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default.ui-button-full-width {
+#{$curinos} .ui-button.ui-state-default.ui-button-full-width,
+#{$curinos} .ui-fluid .ui-button.ui-state-default.ui-button-full-width {
   width: 100%;
 }
 
-body:not(.primeng-default) .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {
+#{$curinos} .ui-fluid .ui-button.ui-state-default:not(.ui-button-full-width) {
   width: fit-content;
 }
-// @transition css:/button
+// @component css:/button
 
-// @transition css:card
-body:not(.primeng-default) .ui-card {
-  background: var(--primeng-card-background);
-  border: 1px solid var(--primeng-card-border-color);
-  border-radius: var(--primeng-card-border-radius);
-  box-shadow: var(--primeng-card-shadow);
-  color: var(--primeng-card-color);
+// @component css:card
+// Surface only. Card is a container, not a design system component with
+// variants — the hero/section/compact layouts live in styles/app/_layout.scss.
+#{$curinos} .ui-card {
+  background: var(--curinos-color-semantic-surface-white);
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  box-shadow: $card-shadow;
+  color: var(--curinos-color-foreground-1);
 
   .ui-card-header,
   .ui-card-body,
@@ -261,187 +667,182 @@ body:not(.primeng-default) .ui-card {
     background: transparent;
   }
 }
+// @component css:/card
 
-// Card layout modifiers — opt-in padding on top of inner reset (p-card styleClass).
-body:not(.primeng-default) .ui-card.ui-card--hero .ui-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--primeng-card-hero-gap);
-  padding: var(--primeng-card-hero-padding);
+// @component css:datatable
+#{$curinos} .ui-table {
+  font-family: var(--curinos-typography-families-body);
 }
 
-body:not(.primeng-default) .ui-card.ui-card--hero.ui-card--hero-tight .ui-card-body {
-  gap: var(--primeng-card-hero-gap-tight);
-}
-
-body:not(.primeng-default) .ui-card.ui-card--section .ui-card-header {
-  padding: var(--primeng-card-section-header-padding);
-}
-
-body:not(.primeng-default) .ui-card.ui-card--section .ui-card-content {
-  padding: var(--primeng-card-section-content-padding);
-}
-
-body:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-split .ui-card-content {
-  min-height: 85px;
-  padding: var(--primeng-card-section-content-padding-split);
-}
-
-body:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-no-top .ui-card-content {
-  padding-top: 0;
-}
-
-body:not(.primeng-default) .ui-card.ui-card--section.ui-card--content-stack .ui-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--primeng-card-section-content-gap);
-  padding: var(--primeng-card-section-content-padding-stack);
-}
-
-body:not(.primeng-default) .ui-card.ui-card--compact .ui-card-body {
-  padding: var(--primeng-card-compact-padding);
-}
-// @transition css:/card
-
-// @transition css:datatable
-body:not(.primeng-default) .ui-table {
-  font-family: $font-sans;
-}
-
-body:not(.primeng-default) .ui-table table {
+#{$curinos} .ui-table table {
   border-collapse: collapse;
 }
 
-body:not(.primeng-default) .ui-table .ui-table-thead > tr > th {
-  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);
-  border: 1px solid var(--primeng-table-header-border-color);
+#{$curinos} .ui-table .ui-table-thead > tr > th {
+  padding: $table-cell-padding;
+  border: 1px solid var(--curinos-color-border-1);
   border-width: 0 0 1px;
-  background: var(--primeng-table-header-background);
-  font-size: var(--primeng-table-header-font-size);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.42px;
-  color: var(--primeng-table-header-color);
+  background: var(--curinos-color-background-2);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-1);
   text-align: left;
 }
 
-body:not(.primeng-default) .ui-table .ui-table-tbody > tr {
-  background: var(--primeng-table-body-background);
-  color: var(--primeng-table-cell-color);
+#{$curinos} .ui-table .ui-table-tbody > tr {
+  background: var(--curinos-color-semantic-surface-white);
+  color: var(--curinos-color-foreground-2);
 }
 
-body:not(.primeng-default) .ui-table .ui-table-tbody > tr:nth-child(even) {
-  background: var(--primeng-table-row-stripe-background);
+#{$curinos} .ui-table .ui-table-tbody > tr:nth-child(even) {
+  background: var(--curinos-color-background-1);
 }
 
-body:not(.primeng-default) .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr:not(.ui-state-highlight):hover {
-  background: var(--primeng-table-row-hover-background) !important;
+#{$curinos} .ui-table.ui-table-hoverable-rows .ui-table-tbody > tr:not(.ui-state-highlight):hover {
+  background: var(--curinos-color-background-2) !important;
 }
 
-body:not(.primeng-default) .ui-table .ui-table-tbody > tr > td {
-  padding: var(--primeng-table-cell-padding-y) var(--primeng-table-cell-padding-x);
-  border: 1px solid var(--primeng-table-border-color);
+#{$curinos} .ui-table .ui-table-tbody > tr > td {
+  padding: $table-cell-padding;
+  border: 1px solid var(--curinos-color-border-1);
   border-width: 0 0 1px;
-  font-size: var(--primeng-table-body-font-size);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.42px;
-  color: var(--primeng-table-cell-color);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-2);
 }
 
-body:not(.primeng-default) .ui-table .ui-sortable-column .ui-sortable-column-icon {
-  color: var(--primeng-table-sort-icon-color);
+#{$curinos} .ui-table .ui-sortable-column .ui-sortable-column-icon {
+  color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
-  background: var(--primeng-table-row-hover-background);
-  color: var(--primeng-table-header-color);
+#{$curinos} .ui-table .ui-sortable-column:not(.ui-state-highlight):hover {
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
 }
 
-body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight {
-  background: var(--primeng-table-header-background);
-  color: var(--primeng-table-header-color);
+#{$curinos} .ui-table .ui-sortable-column.ui-state-highlight {
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
 }
 
-body:not(.primeng-default) .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
-  color: var(--primeng-table-sort-icon-active-color);
+#{$curinos} .ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
+  color: var(--curinos-color-foreground-1);
 }
-// @transition css:/datatable
+// @component css:/datatable
 
-// Sidebar navigation — PrimeNG 7 PanelMenu styled to Figma.
-// Resets nova-light accordion chrome (blue expanded headers, gray borders).
-// @transition css:panelmenu
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu {
+// @component css:menus
+// Popup menu — the sidebar account menu is the production instance.
+#{$curinos} .sidebar-account-menu.ui-menu {
+  min-width: 160px;
+  padding: 4px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+  box-shadow: $menu-shadow;
+  font-family: var(--curinos-typography-families-body);
+}
+
+#{$curinos} .sidebar-account-menu.ui-menu .ui-menuitem-link {
+  padding: 8px 12px;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .sidebar-account-menu.ui-menu .ui-menuitem-link:hover,
+#{$curinos} .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1) !important;
+}
+
+#{$curinos} .sidebar-account-menu.ui-menu .ui-menuitem-text {
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+}
+
+#{$curinos} .sidebar-account-menu.ui-menu .ui-menuitem-icon {
+  margin-right: 8px;
+  font-size: var(--curinos-typography-font-size-md);
+  color: var(--curinos-color-foreground-3);
+}
+
+// Sidebar navigation — PanelMenu styled to Figma. Resets nova-light accordion
+// chrome (blue expanded headers, gray borders).
+#{$curinos} .sidebar-menu.ui-panelmenu {
   width: 100%;
   border: 0;
   background: transparent;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {
   border: 0;
   margin: 0;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header {
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {
   background: transparent !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 6px 8px;
   border: 0 !important;
-  border-radius: 6px;
+  border-radius: var(--curinos-dimensions-radii-md);
   background: transparent !important;
-  font-family: $font-sans;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.42px;
-  color: var(--primeng-panelmenu-item-color);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-3);
   text-decoration: none;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {
-  background: var(--primeng-panelmenu-item-active-background) !important;
-  color: var(--primeng-panelmenu-item-hover-color);
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1);
   border: 0 !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
   background: transparent !important;
   border: 0 !important;
-  color: var(--primeng-panelmenu-item-color);
+  color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {
-  color: var(--primeng-panelmenu-icon-color);
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {
+  color: var(--curinos-color-foreground-3);
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {
-  background: var(--primeng-panelmenu-item-active-background) !important;
-  color: var(--primeng-panelmenu-item-active-color);
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1);
   border: 0 !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {
   order: 3;
   margin: 0 0 0 auto;
-  font-size: 14px;
-  color: var(--primeng-panelmenu-icon-color);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
 
   // PrimeNG 7 hardcodes pi-chevron-right/down on expand icons; swap to Phosphor plus/minus.
   &::before {
@@ -457,54 +858,54 @@ body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {
   }
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-panelmenu-header:not(.ui-state-active) .ui-panelmenu-icon::before {
   content: '\e3d4'; // ph-plus
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-panelmenu-header.ui-state-active .ui-panelmenu-icon::before {
   content: '\e32a'; // ph-minus
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-icon {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-icon {
   order: 1;
   margin: 0;
-  font-size: 18px;
-  line-height: 1;
+  font-size: var(--curinos-typography-font-size-lg);
+  line-height: var(--curinos-typography-line-height-none);
   color: currentColor;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-text {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-text {
   order: 2;
   flex: 1;
   min-width: 0;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-panelmenu-header-link.ui-state-active
   .ui-menuitem-icon.ph-duotone::before,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-menuitem-link.ui-state-active
   .ui-menuitem-icon.ph-duotone::before {
-  color: var(--primeng-panelmenu-icon-active-fill);
+  color: var(--curinos-color-semantic-primary-1);
   opacity: 1;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-panelmenu-header-link.ui-state-active
   .ui-menuitem-icon.ph-duotone::after,
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu
+#{$curinos} .sidebar-menu.ui-panelmenu
   .ui-menuitem-link.ui-state-active
   .ui-menuitem-icon.ph-duotone::after {
-  color: var(--primeng-panelmenu-icon-active-stroke);
+  color: var(--curinos-color-foreground-1);
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {
   overflow: hidden;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-content {
   padding: 0;
   margin: 0;
   border: 0 !important;
@@ -512,63 +913,60 @@ body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {
   background: transparent !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {
   margin: 0;
   padding: 2px 0 2px 10px;
-  border-left: 1px solid var(--primeng-panelmenu-border-color);
+  border-left: 1px solid var(--curinos-color-border-1);
   margin-left: 14px;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem {
   margin: 0;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {
   margin-top: 4px;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {
   margin-top: 4px;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link {
   display: flex;
   align-items: center;
-  min-height: 28px;
+  min-height: var(--curinos-dimensions-controls-sizing-sm);
   padding: 0 8px;
-  border-radius: 2px;
-  font-family: $font-sans;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.42px;
-  color: var(--primeng-panelmenu-item-color) !important;
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-3) !important;
   text-decoration: none;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {
-  color: var(--primeng-panelmenu-item-color) !important;
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {
+  color: var(--curinos-color-foreground-3) !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover {
-  background: var(--primeng-panelmenu-item-active-background) !important;
-  color: var(--primeng-panelmenu-item-color) !important;
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover,
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-3) !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {
-  color: var(--primeng-panelmenu-item-color) !important;
-}
-
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {
   background: transparent !important;
-  color: var(--primeng-panelmenu-item-active-color) !important;
+  color: var(--curinos-color-foreground-1) !important;
 }
 
-body:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {
-  color: var(--primeng-panelmenu-item-active-color) !important;
+#{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {
+  color: var(--curinos-color-foreground-1) !important;
 }
 
-body:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {
+#{$curinos} .sidebar--collapsed .sidebar-menu.ui-panelmenu {
   .ui-menuitem-text,
   .ui-panelmenu-icon,
   .ui-panelmenu-content-wrapper {
@@ -589,4 +987,841 @@ body:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {
     margin: 0;
   }
 }
-// @transition css:/panelmenu
+// @component css:/menus
+
+// @component css:paginator
+#{$curinos} .ui-paginator {
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-paginator .ui-paginator-page,
+#{$curinos} .ui-paginator .ui-paginator-first,
+#{$curinos} .ui-paginator .ui-paginator-prev,
+#{$curinos} .ui-paginator .ui-paginator-next,
+#{$curinos} .ui-paginator .ui-paginator-last {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--curinos-dimensions-controls-sizing-sm);
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  margin: 0 2px;
+  border: 1px solid transparent;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  background: transparent;
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-paginator .ui-paginator-page:not(.ui-state-active):hover,
+#{$curinos} .ui-paginator .ui-paginator-first:hover,
+#{$curinos} .ui-paginator .ui-paginator-prev:hover,
+#{$curinos} .ui-paginator .ui-paginator-next:hover,
+#{$curinos} .ui-paginator .ui-paginator-last:hover {
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+// Current page uses the same ink fill as the primary button.
+#{$curinos} .ui-paginator .ui-paginator-page.ui-state-active {
+  background: var(--curinos-color-foreground-1);
+  border-color: var(--curinos-color-foreground-1);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-paginator .ui-paginator-current {
+  color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-paginator .ui-dropdown {
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  border: 1px solid var(--curinos-color-border-1);
+  box-shadow: none;
+  background: transparent;
+}
+// @component css:/paginator
+
+// @component css:tree
+#{$curinos} .ui-tree {
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+}
+
+#{$curinos} .ui-tree .ui-treenode-content {
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+}
+
+// Nodes read as navigation, so they borrow the menu item treatment.
+#{$curinos} .ui-tree .ui-treenode-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 8px;
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-tree .ui-treenode-content .ui-treenode-label:not(.ui-state-highlight):hover {
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tree .ui-treenode-label.ui-state-highlight {
+  background: var(--curinos-color-background-3);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tree .ui-tree-toggler,
+#{$curinos} .ui-tree .ui-treenode-icon {
+  color: var(--curinos-color-foreground-3);
+}
+// @component css:/tree
+
+// @component css:treetable
+#{$curinos} .ui-treetable {
+  font-family: var(--curinos-typography-families-body);
+}
+
+#{$curinos} .ui-treetable table {
+  border-collapse: collapse;
+}
+
+#{$curinos} .ui-treetable .ui-treetable-thead > tr > th {
+  padding: $table-cell-padding;
+  border: 1px solid var(--curinos-color-border-1);
+  border-width: 0 0 1px;
+  background: var(--curinos-color-background-2);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-1);
+  text-align: left;
+}
+
+#{$curinos} .ui-treetable .ui-treetable-tbody > tr {
+  background: var(--curinos-color-semantic-surface-white);
+}
+
+#{$curinos} .ui-treetable .ui-treetable-tbody > tr > td {
+  padding: $table-cell-padding;
+  border: 1px solid var(--curinos-color-border-1);
+  border-width: 0 0 1px;
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-treetable .ui-treetable-toggler {
+  color: var(--curinos-color-foreground-3);
+}
+
+// nova tints hovered rows #eaeaea from a .ui-treetable-hoverable-rows rule that
+// carries one more class than the row rule above, so it has to be met head on.
+#{$curinos} .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-state-highlight):hover {
+  background: var(--curinos-color-background-3);
+}
+// @component css:/treetable
+
+// @component css:tabs
+// Figma models the strip as a background/2 bar closed by a border/1 rule, and
+// gives every tab its own bottom border — border/1 idle, border/2 hover,
+// foreground/1 active. The active marker is 1px like the others, not a thicker
+// underline; it reads as a state change on a line that is always there.
+// The strip's rule is an inset shadow rather than a border so it occupies no
+// layout height. A border would sit below the tabs' own bottom borders and read
+// as a 2px line under the tabs and 1px beyond them; the inset lands on the same
+// row as the tab borders, which is how Figma draws it.
+#{$curinos} .ui-tabview.ui-tabview-top > .ui-tabview-nav {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: inset 0 -1px 0 var(--curinos-color-border-1);
+  background: var(--curinos-color-background-2);
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li {
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li > a {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  padding: 0 $space-lg 1px;
+  border: 0;
+  border-bottom: 1px solid var(--curinos-color-border-1);
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-3);
+  text-decoration: none;
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li:not(.ui-state-active):not(.ui-state-disabled):hover {
+  background: transparent;
+  border: 0;
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li:not(.ui-state-active):not(.ui-state-disabled):hover > a {
+  border-bottom-color: var(--curinos-color-border-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+// nova fills the active tab with #007ad9 and inverts the label.
+#{$curinos} .ui-tabview .ui-tabview-nav > li.ui-state-active,
+#{$curinos} .ui-tabview .ui-tabview-nav > li.ui-state-active:hover {
+  background: transparent;
+  border: 0;
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li.ui-state-active > a,
+#{$curinos} .ui-tabview .ui-tabview-nav > li.ui-state-active:hover > a {
+  border-bottom-color: var(--curinos-color-foreground-1);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tabview .ui-tabview-nav > li > a .ui-tabview-left-icon,
+#{$curinos} .ui-tabview .ui-tabview-nav > li > a .ui-tabview-right-icon {
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-lg);
+}
+
+#{$curinos} .ui-tabview.ui-tabview-top > .ui-tabview-panels {
+  padding: $space-md $space-lg $space-lg;
+  border: 0;
+  background: var(--curinos-color-background-2);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: $prose-line-height;
+  color: var(--curinos-color-foreground-1);
+}
+// @component css:/tabs
+
+// @component css:breadcrumb
+#{$curinos} .ui-breadcrumb {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+}
+
+#{$curinos} .ui-breadcrumb ul li .ui-menuitem-link,
+#{$curinos} .ui-breadcrumb ul li .ui-menuitem-text {
+  color: var(--curinos-color-foreground-3);
+  text-decoration: none;
+}
+
+#{$curinos} .ui-breadcrumb ul li .ui-menuitem-link:hover .ui-menuitem-text {
+  color: var(--curinos-color-foreground-1);
+}
+
+// Last crumb is the current page.
+#{$curinos} .ui-breadcrumb ul li:last-child .ui-menuitem-text {
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-breadcrumb .ui-breadcrumb-chevron {
+  margin: 0 4px;
+  font-size: var(--curinos-typography-font-size-xs);
+  color: var(--curinos-color-border-3);
+}
+// @component css:/breadcrumb
+
+// @component css:accordions
+// PrimeNG treats Accordion, Panel and Fieldset as one header-plus-content
+// pattern. Figma does not: they are three separate pages with three different
+// frames, so they get three rule sets here.
+//
+// Accordion has no outer frame at all. Panels are divided by a single border-1
+// hairline and the group's outer corners are the only ones that round.
+#{$curinos} .ui-accordion {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  // Clipping the group rounds the first header's top and the last panel's
+  // bottom without either needing to know where it sits.
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  overflow: hidden;
+}
+
+// The divider belongs to the panel as a whole, so it sits under the header
+// while collapsed and under the content once open. Held as a transparent
+// border rather than removed, so opening does not shift the row by a pixel.
+#{$curinos} .ui-accordion .ui-accordion-header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--curinos-color-border-1);
+  border-radius: 0;
+}
+
+#{$curinos} .ui-accordion .ui-accordion-header.ui-state-active {
+  border-bottom-color: transparent;
+}
+
+// nova paints the header's surface on the anchor rather than the row, and
+// repaints it #007ad9 for the active state. The reset has to land on the same
+// element: a background on the row is simply covered up by the anchor.
+#{$curinos} .ui-accordion .ui-accordion-header > a {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-lg;
+  border: 0;
+  background: var(--curinos-color-background-2);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: $heading-weight;
+  line-height: var(--curinos-typography-line-height-none);
+  color: var(--curinos-color-foreground-3);
+  text-decoration: none;
+}
+
+#{$curinos} .ui-accordion .ui-accordion-header-text {
+  order: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+// PrimeNG emits the chevron before the label; Figma puts it at the trailing
+// edge. The anchor is named in the selector because nova recolours the chevron
+// per state from `... .ui-state-active:hover a .ui-accordion-toggle-icon`, and
+// a shorter selector here loses to it.
+#{$curinos} .ui-accordion .ui-accordion-header > a .ui-accordion-toggle-icon {
+  order: 2;
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: currentColor;
+}
+
+// Figma points the chevron up while collapsed and down while open. That is the
+// inverse of PrimeNG's default, and of the usual convention, but it is
+// consistent across all nine states on the Figma page. The open direction
+// already matches, so only the collapsed glyph is repointed.
+#{$curinos} .ui-accordion .ui-accordion-header:not(.ui-state-active) .ui-accordion-toggle-icon::before {
+  content: '\e13c'; // ph-caret-up
+}
+
+// Hover leaves the surface alone and only lifts the label out of foreground-3.
+#{$curinos} .ui-accordion .ui-accordion-header:not(.ui-state-disabled):hover > a,
+#{$curinos} .ui-accordion .ui-accordion-header.ui-state-active > a {
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-accordion .ui-accordion-header.ui-state-disabled {
+  opacity: var(--curinos-effects-opacity-80);
+}
+
+// A primary-1 ring held off the label by a background-2 gap.
+#{$curinos} .ui-accordion .ui-accordion-header > a:focus {
+  outline: 0;
+  box-shadow:
+    inset 0 0 0 3px var(--curinos-color-semantic-primary-1),
+    inset 0 0 0 5px var(--curinos-color-background-2);
+}
+
+#{$curinos} .ui-accordion .ui-accordion-content-wrapper {
+  background: var(--curinos-color-background-2);
+}
+
+#{$curinos} .ui-accordion .ui-accordion-content {
+  padding: 0 $space-lg $space-lg;
+  border: 0;
+  border-bottom: 1px solid var(--curinos-color-border-1);
+  background: var(--curinos-color-background-2);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: $prose-line-height;
+  color: var(--curinos-color-foreground-1);
+}
+
+// Panel is a bordered card, and its header is a title strip inside that frame
+// rather than a surface of its own — hence the transparent fill.
+#{$curinos} .ui-panel {
+  padding: 0;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-2);
+}
+
+#{$curinos} .ui-panel .ui-panel-titlebar {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  margin: 0;
+  padding: $space-2xs $space-lg;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  color: var(--curinos-color-foreground-1) !important;
+}
+
+#{$curinos} .ui-panel .ui-panel-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: $heading-weight;
+  line-height: var(--curinos-typography-line-height-none);
+}
+
+#{$curinos} .ui-panel .ui-panel-titlebar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $panel-toggler-size;
+  height: $panel-toggler-size;
+  margin: 0;
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-xs);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-panel .ui-panel-titlebar-icon:hover {
+  background: var(--curinos-color-background-3);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-panel .ui-panel-content {
+  padding: 0 $space-lg $space-lg;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: $prose-line-height;
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-panel .ui-panel-footer {
+  padding: $space-2xs $space-lg $space-lg;
+  border: 0;
+  border-top: 1px solid var(--curinos-color-border-1);
+  background: transparent;
+}
+
+// Fieldset is the same card, but the legend straddles the top border. The
+// browser positions a real <legend> there, so it only needs the frame's fill
+// behind it to punch the border out.
+#{$curinos} .ui-fieldset {
+  padding: $fieldset-padding;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-2);
+}
+
+#{$curinos} .ui-fieldset .ui-fieldset-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  height: 26px;
+  margin: 0;
+  padding: 0 $space-sm;
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-2) !important;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-1) !important;
+}
+
+#{$curinos} .ui-fieldset .ui-fieldset-legend a {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  color: inherit;
+  text-decoration: none;
+}
+
+#{$curinos} .ui-fieldset .ui-fieldset-toggler {
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
+}
+
+// nova darkens the toggler to #333333 from a .ui-fieldset-toggleable rule.
+#{$curinos} .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend a:hover .ui-fieldset-toggler {
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-fieldset .ui-fieldset-content {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: $prose-line-height;
+  color: var(--curinos-color-foreground-1);
+}
+// @component css:/accordions
+
+// @component css:overlays
+// Dialog, Drawer and Popover share PrimeNG's overlay backdrop, so they are
+// styled together.
+#{$curinos} .ui-widget-overlay {
+  background: var(--curinos-color-foreground-1);
+  opacity: var(--curinos-effects-opacity-40);
+}
+
+#{$curinos} .ui-dialog {
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-semantic-surface-white);
+  box-shadow: $menu-shadow;
+  font-family: var(--curinos-typography-families-body);
+}
+
+#{$curinos} .ui-dialog .ui-dialog-titlebar {
+  padding: $control-padding-x;
+  border: 0;
+  border-bottom: 1px solid var(--curinos-color-border-1);
+  border-radius: 0;
+  background: var(--curinos-color-background-2);
+  font-size: var(--curinos-typography-font-size-md);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-dialog .ui-dialog-titlebar-icon {
+  color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-dialog .ui-dialog-content {
+  padding: $control-padding-x;
+  border: 0;
+  background: transparent;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-dialog .ui-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: $control-padding-x;
+  border: 0;
+  border-top: 1px solid var(--curinos-color-border-1);
+  background: transparent;
+}
+
+// Drawer (p-sidebar) is edge-anchored, so it takes a border rather than a radius.
+#{$curinos} .ui-sidebar {
+  padding: $control-padding-x;
+  border: 0;
+  background: var(--curinos-color-semantic-surface-white);
+  box-shadow: $menu-shadow;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-sidebar-left {
+  border-right: 1px solid var(--curinos-color-border-1);
+}
+
+#{$curinos} .ui-sidebar-right {
+  border-left: 1px solid var(--curinos-color-border-1);
+}
+
+#{$curinos} .ui-sidebar .ui-sidebar-close {
+  color: var(--curinos-color-foreground-3);
+}
+
+// Popover is anchored to a trigger, so it uses the lighter menu surface.
+#{$curinos} .ui-overlaypanel {
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+  box-shadow: $menu-shadow;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+}
+
+#{$curinos} .ui-overlaypanel .ui-overlaypanel-content {
+  padding: $control-padding-x;
+}
+
+#{$curinos} .ui-overlaypanel:after,
+#{$curinos} .ui-overlaypanel:before {
+  display: none;
+}
+// @component css:/overlays
+
+// @component css:feedback
+// Severity uses the semantic scale: tier 2 is the tint, tier 3 the text on it,
+// tier 1 the accent. Dark mode swaps 2 and 3 in Figma, so this inverts for free.
+#{$curinos} .ui-toast .ui-toast-message,
+#{$curinos} .ui-messages,
+#{$curinos} .ui-message {
+  border: 1px solid transparent;
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  box-shadow: none;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+}
+
+#{$curinos} .ui-toast .ui-toast-message-success,
+#{$curinos} .ui-messages.ui-messages-success,
+#{$curinos} .ui-message.ui-message-success {
+  background: var(--curinos-color-semantic-success-2);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-semantic-success-3);
+}
+
+#{$curinos} .ui-toast .ui-toast-message-info,
+#{$curinos} .ui-messages.ui-messages-info,
+#{$curinos} .ui-message.ui-message-info {
+  background: var(--curinos-color-semantic-info-2);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-semantic-info-3);
+}
+
+#{$curinos} .ui-toast .ui-toast-message-warn,
+#{$curinos} .ui-messages.ui-messages-warn,
+#{$curinos} .ui-message.ui-message-warn {
+  background: var(--curinos-color-semantic-warning-2);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-semantic-warning-3);
+}
+
+#{$curinos} .ui-toast .ui-toast-message-error,
+#{$curinos} .ui-messages.ui-messages-error,
+#{$curinos} .ui-message.ui-message-error {
+  background: var(--curinos-color-semantic-danger-2);
+  border-color: var(--curinos-color-semantic-danger-1);
+  color: var(--curinos-color-semantic-danger-3);
+}
+
+#{$curinos} .ui-toast .ui-toast-message-content {
+  padding: $control-padding-x;
+}
+
+#{$curinos} .ui-toast .ui-toast-summary {
+  font-weight: var(--curinos-typography-font-weight-medium);
+}
+
+#{$curinos} .ui-toast .ui-toast-detail {
+  font-weight: var(--curinos-typography-font-weight-regular);
+}
+
+// Tooltip inverts, matching the primary button pairing.
+#{$curinos} .ui-tooltip .ui-tooltip-text {
+  padding: 6px 8px;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  background: var(--curinos-color-foreground-1);
+  box-shadow: none;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-xs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-background-1);
+}
+
+#{$curinos} .ui-tooltip.ui-tooltip-right .ui-tooltip-arrow {
+  border-right-color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tooltip.ui-tooltip-left .ui-tooltip-arrow {
+  border-left-color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tooltip.ui-tooltip-top .ui-tooltip-arrow {
+  border-top-color: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-tooltip.ui-tooltip-bottom .ui-tooltip-arrow {
+  border-bottom-color: var(--curinos-color-foreground-1);
+}
+// @component css:/feedback
+
+// @component css:loading
+// Nova cycles the spinner through four hues; flatten it to one brand stroke.
+#{$curinos} .ui-progress-spinner-circle {
+  stroke: var(--curinos-color-semantic-primary-1) !important;
+  animation: ui-progress-spinner-dash 1.5s ease-in-out infinite;
+}
+
+#{$curinos} .ui-progressbar {
+  height: 8px;
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  background: var(--curinos-color-background-3);
+}
+
+#{$curinos} .ui-progressbar .ui-progressbar-value {
+  border: 0;
+  background: var(--curinos-color-foreground-1);
+}
+
+#{$curinos} .ui-progressbar .ui-progressbar-label {
+  display: none;
+}
+// @component css:/loading
+
+// @component css:menus
+// Shared chrome for the standalone menu components. The scoped sidebar rules
+// above win on specificity where both apply.
+#{$curinos} .ui-menu,
+#{$curinos} .ui-menubar,
+#{$curinos} .ui-tieredmenu,
+#{$curinos} .ui-contextmenu,
+#{$curinos} .ui-panelmenu {
+  padding: 4px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+  font-family: var(--curinos-typography-families-body);
+}
+
+#{$curinos} .ui-menubar {
+  padding: 4px 8px;
+}
+
+#{$curinos} .ui-menu .ui-menuitem-link,
+#{$curinos} .ui-menubar .ui-menuitem-link,
+#{$curinos} .ui-tieredmenu .ui-menuitem-link,
+#{$curinos} .ui-contextmenu .ui-menuitem-link,
+#{$curinos} .ui-panelmenu .ui-menuitem-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 8px;
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-2);
+  text-decoration: none;
+}
+
+#{$curinos} .ui-menu .ui-menuitem-link:hover,
+#{$curinos} .ui-menubar .ui-menuitem-link:hover,
+#{$curinos} .ui-tieredmenu .ui-menuitem-link:hover,
+#{$curinos} .ui-contextmenu .ui-menuitem-link:hover,
+#{$curinos} .ui-panelmenu .ui-menuitem-link:hover {
+  background: var(--curinos-color-background-2) !important;
+  color: var(--curinos-color-foreground-1) !important;
+}
+
+#{$curinos} .ui-menu .ui-menuitem-icon,
+#{$curinos} .ui-menubar .ui-menuitem-icon,
+#{$curinos} .ui-tieredmenu .ui-menuitem-icon,
+#{$curinos} .ui-contextmenu .ui-menuitem-icon,
+#{$curinos} .ui-panelmenu .ui-menuitem-icon {
+  color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-menu .ui-submenu-header {
+  padding: 6px 8px;
+  border: 0;
+  background: transparent;
+  font-size: var(--curinos-typography-font-size-xs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-3);
+}
+
+// PanelMenu is a menu that happens to fold, so its headers reuse the menu-item
+// metrics above and only differ in weight. nova instead treats it as an
+// accordion: raised gray headers, a #007ad9 fill once expanded, and a bordered
+// content panel. All of that is removed.
+#{$curinos} .ui-panelmenu .ui-panelmenu-panel {
+  margin: 0;
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {
+  margin-top: 2px;
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-header {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-header > a,
+#{$curinos} .ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 8px;
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);
+  background: transparent;
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: $text-tracking;
+  color: var(--curinos-color-foreground-1);
+  text-decoration: none;
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,
+#{$curinos} .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {
+  border: 0;
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+// PrimeNG emits the expand caret as the first child; it belongs at the far end.
+#{$curinos} .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon,
+#{$curinos} .ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,
+#{$curinos} .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover .ui-panelmenu-icon,
+#{$curinos} .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {
+  order: 3;
+  margin: 0 0 0 auto;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-header > a .ui-menuitem-text {
+  order: 2;
+  flex: 1;
+  min-width: 0;
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-content {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+// A rule down the left ties the children to the header they belong to.
+#{$curinos} .ui-panelmenu .ui-panelmenu-content .ui-submenu-list {
+  margin: 2px 0 2px 14px;
+  padding: 0 0 0 10px;
+  border-left: 1px solid var(--curinos-color-border-1);
+}
+
+#{$curinos} .ui-panelmenu .ui-panelmenu-content .ui-menuitem {
+  margin: 0;
+}
+
+// nova colours the label span separately, so the link rule above cannot reach it.
+#{$curinos} .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-text,
+#{$curinos} .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-icon {
+  color: var(--curinos-color-foreground-1);
+}
+// @component css:/menus

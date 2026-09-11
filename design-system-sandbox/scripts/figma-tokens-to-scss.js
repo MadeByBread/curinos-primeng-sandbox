@@ -1,6 +1,6 @@
 /**
- * Generates the Curinos design-token layer (Layer 1) from Figma variable
- * collection exports.
+ * Generates the Curinos design-token layer from Figma variable collection
+ * exports.
  *
  * This generator is COLLECTION-DRIVEN: each source file is one Figma variable
  * collection, exported in the rich format (with `variables[]`, modes, and alias
@@ -15,19 +15,19 @@
  * same collection, we emit `var(--curinos-...-<alias>, <literal>)` so the token
  * graph mirrors Figma exactly, with the resolved value as a CSS fallback.
  *
- * Only the "Light" mode is emitted (colors ship Light + Dark; the rest are
- * single-mode).
+ * Multi-mode collections (colors ship Light + Dark) emit two blocks: `:root`
+ * for the light mode and `[data-theme="dark"]` for the dark one. The dark block
+ * carries only the tokens that actually differ — a variable that aliases the
+ * same target in both modes is omitted, because CSS custom properties resolve
+ * at use time and it will pick up the overridden target automatically. In
+ * practice that means dark overrides the palette leaves and the semantic tier
+ * re-resolves for free.
  *
- * The PrimeNG override layer (Layer 2) is NOT generated here — it is a curated
- * PrimeNG 7 bridge hand-authored in src/styles/tokens/primeng/. The Figma
- * "Prime *" collections target a newer PrimeNG token shape and are intentionally
- * not mirrored.
+ * Curinos is the only token layer. There is no PrimeNG bridge: component
+ * overrides in styles/primeng/_overrides.scss consume `--curinos-*` directly.
+ * See docs/adr/0003-single-layer-token-architecture.md.
  *
  * Re-run: npm run tokens:build
- *
- * Chart data palette (`data/*` variables in curinos-colors.json) is merged by a
- * separate preprocessor — run `npm run tokens:sync:chart` before tokens:build when
- * refreshing from Figma. See README § Deposit Growth data palette.
  */
 
 const fs = require('fs');
@@ -37,6 +37,8 @@ const ROOT = path.join(__dirname, '..');
 const SOURCES = path.join(ROOT, 'src/styles/tokens/sources');
 const TOKENS = path.join(ROOT, 'src/styles/tokens');
 const CURINOS_DIR = path.join(TOKENS, 'curinos');
+
+const DARK_SELECTOR = '[data-theme="dark"]';
 
 const COLLECTIONS = [
   { file: 'curinos-colors.json', out: '_color.scss', prefix: 'curinos-color' },
@@ -57,11 +59,21 @@ function varName(prefix, name) {
   return `--${prefix}-${slug(name)}`;
 }
 
-function pickMode(collection) {
-  const modes = collection.modes || {};
-  const entries = Object.entries(modes);
+/**
+ * Figma mode ids are opaque; resolve them by label. Light is the `:root`
+ * baseline, Dark (when present) becomes the themed block.
+ */
+function resolveModes(collection) {
+  const entries = Object.entries(collection.modes || {});
+  if (!entries.length) {
+    return { base: '0', dark: null };
+  }
   const light = entries.find(([, label]) => /light/i.test(label));
-  return (light || entries[0] || ['0'])[0];
+  const dark = entries.find(([, label]) => /dark/i.test(label));
+  return {
+    base: (light || entries[0])[0],
+    dark: dark ? dark[0] : null
+  };
 }
 
 function floatColorToCss(c) {
@@ -73,19 +85,40 @@ function floatColorToCss(c) {
   return hex;
 }
 
-function isUnitlessTypography(name) {
+/** Figma exports float32, so 1.05 arrives as 1.0499999523162842. */
+function trimFloat(n) {
+  return String(Number(n.toFixed(4)));
+}
+
+/**
+ * Numeric tokens default to px. These are the ratios and multipliers where a
+ * unit would be wrong: font weights and unitless line heights.
+ */
+function isUnitless(name) {
+  const s = slug(name);
   return (
-    /^font-weight-/.test(name) ||
-    /^line-height-/.test(name) ||
-    /-font-weight$/.test(name) ||
-    /-line-height$/.test(name)
+    /^font-weight(-|$)/.test(s) ||
+    /^line-height(-|$)/.test(s) ||
+    /-font-weight$/.test(s) ||
+    /-line-height$/.test(s)
   );
 }
 
+/**
+ * Figma stores opacity on a 0-100 scale. CSS `opacity` clamps to 0-1, so
+ * `opacity/90` has to land as 0.9 or every step above 1 collapses to fully
+ * opaque.
+ */
+function isOpacity(name) {
+  return /^opacity(-|$)/.test(slug(name));
+}
+
 function isFontFamilyToken(name) {
+  const s = slug(name);
   return (
-    /^(sans-serif|serif|monospace|headings|body|buttons|code|numbers)$/.test(name) ||
-    /-font-family$/.test(name)
+    /^families(-|$)/.test(s) ||
+    /^(sans-serif|serif|monospace|headings|body|buttons|code|numbers)$/.test(s) ||
+    /-font-family$/.test(s)
   );
 }
 
@@ -94,7 +127,7 @@ function formatFontFamily(name, value) {
   if (/monospace|dm mono/.test(normalized)) {
     return `'${value}', monospace`;
   }
-  if (/^serif$|families\/serif|headings|serif pro/.test(normalized)) {
+  if (/(^|\/)serif$|headings|serif pro/.test(normalized)) {
     return `'${value}', serif`;
   }
   return `'${value}', sans-serif`;
@@ -117,10 +150,13 @@ function formatValue(type, resolved, name) {
     return `'${String(resolved)}'`;
   }
   if (type === 'FLOAT' || typeof resolved === 'number') {
-    if (isUnitlessTypography(name)) {
-      return String(resolved);
+    if (isOpacity(name)) {
+      return trimFloat(resolved / 100);
     }
-    return `${resolved}px`;
+    if (isUnitless(name)) {
+      return trimFloat(resolved);
+    }
+    return `${trimFloat(resolved)}px`;
   }
   return String(resolved);
 }
@@ -143,58 +179,101 @@ function groupOf(name) {
   return name;
 }
 
+/**
+ * Resolve one variable in one mode into the CSS value we would emit, keeping
+ * the alias name separate so callers can tell "same alias, different literal"
+ * (inert — skip in dark) from "different alias" (must be emitted).
+ */
+function resolveInMode(variable, modeId, prefix, siblingNames) {
+  const rv = (variable.resolvedValuesByMode || {})[modeId] || {};
+  const literal = formatValue(variable.type, rv.resolvedValue, variable.name);
+  const alias = rv.aliasName && siblingNames.has(rv.aliasName) ? rv.aliasName : null;
+  return {
+    alias,
+    literal,
+    css: alias ? `var(${varName(prefix, alias)}, ${literal})` : literal
+  };
+}
+
 function buildEntries(collection, prefix) {
-  const modeId = pickMode(collection);
+  const { base, dark } = resolveModes(collection);
   const names = new Set(collection.variables.map((v) => v.name));
 
   return collection.variables.map((v) => {
-    const rv = (v.resolvedValuesByMode || {})[modeId] || {};
-    const literal = formatValue(v.type, rv.resolvedValue, v.name);
-
-    let cssValue = literal;
-    // Alias-driven inheritance: only when the alias points within this collection.
-    if (rv.aliasName && names.has(rv.aliasName)) {
-      cssValue = `var(${varName(prefix, rv.aliasName)}, ${literal})`;
-    }
-
-    return {
+    const light = resolveInMode(v, base, prefix, names);
+    const entry = {
       name: v.name,
       group: groupOf(v.name),
       varName: varName(prefix, v.name),
-      cssValue
+      cssValue: light.css,
+      darkValue: null
     };
+
+    if (dark) {
+      const night = resolveInMode(v, dark, prefix, names);
+      // An alias that points at the same target in both modes re-resolves on
+      // its own once the target is overridden — emitting it again would be noise.
+      const inert = light.alias
+        ? night.alias === light.alias
+        : !night.alias && night.literal === light.literal;
+      if (!inert) {
+        entry.darkValue = night.css;
+      }
+    }
+
+    return entry;
   });
 }
 
-function writeScss(outPath, entries) {
+function renderBlock(selector, entries, pick) {
   const groups = new Map();
   entries.forEach((e) => {
+    const value = pick(e);
+    if (value === null || value === undefined) {
+      return;
+    }
     if (!groups.has(e.group)) {
       groups.set(e.group, []);
     }
-    groups.get(e.group).push(e);
+    groups.get(e.group).push({ varName: e.varName, value });
   });
 
-  const lines = [
-    '// Generated by scripts/figma-tokens-to-scss.js — do not edit by hand',
-    '// Re-run: node scripts/figma-tokens-to-scss.js',
-    '',
-    ':root {'
-  ];
+  if (!groups.size) {
+    return [];
+  }
 
+  const lines = [`${selector} {`];
   Array.from(groups.entries())
     .sort(([a], [b]) => a.localeCompare(b))
     .forEach(([group, items]) => {
       lines.push(`  /* ${group} */`);
       items
         .sort((a, b) => a.varName.localeCompare(b.varName))
-        .forEach((e) => lines.push(`  ${e.varName}: ${e.cssValue};`));
+        .forEach((e) => lines.push(`  ${e.varName}: ${e.value};`));
       lines.push('');
     });
-
   lines.push('}');
+  return lines;
+}
+
+function writeScss(outPath, entries) {
+  const lines = [
+    '// Generated by scripts/figma-tokens-to-scss.js — do not edit by hand',
+    '// Re-run: npm run tokens:build',
+    ''
+  ];
+
+  lines.push(...renderBlock(':root', entries, (e) => e.cssValue));
+
+  const darkLines = renderBlock(DARK_SELECTOR, entries, (e) => e.darkValue);
+  if (darkLines.length) {
+    lines.push('');
+    lines.push(...darkLines);
+  }
+
   lines.push('');
   fs.writeFileSync(outPath, lines.join('\n'));
+  return darkLines.length ? entries.filter((e) => e.darkValue !== null).length : 0;
 }
 
 function main() {
@@ -210,11 +289,12 @@ function main() {
     }
     const collection = JSON.parse(fs.readFileSync(src, 'utf8'));
     const entries = buildEntries(collection, prefix);
-    writeScss(path.join(CURINOS_DIR, out), entries);
+    const darkCount = writeScss(path.join(CURINOS_DIR, out), entries);
 
     total += entries.length;
     refs += entries.filter((e) => e.cssValue.startsWith('var(')).length;
-    console.log(`${collection.name || file}: ${entries.length} tokens -> curinos/${out}`);
+    const darkNote = darkCount ? `, ${darkCount} dark overrides` : '';
+    console.log(`${collection.name || file}: ${entries.length} tokens${darkNote} -> curinos/${out}`);
   });
 
   fs.writeFileSync(
@@ -223,7 +303,6 @@ function main() {
   );
 
   console.log(`Total: ${total} Curinos tokens, ${refs} alias references.`);
-  console.log('PrimeNG bridge (Layer 2) is hand-authored in tokens/primeng/.');
 }
 
 main();

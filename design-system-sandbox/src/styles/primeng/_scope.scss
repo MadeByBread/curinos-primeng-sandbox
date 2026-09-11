@@ -1,0 +1,19 @@
+// The selector prefix every Curinos component override is scoped with.
+//
+// Pages that add `primeng-default` to <body> fall back to stock nova-light,
+// which is what the catalogue's stock previews rely on.
+//
+// The class is repeated to buy specificity. nova-light prefixes every one of
+// its theme rules with `body ` and frequently adds a positional class we
+// deliberately omit — `.ui-tabview.ui-tabview-top`, `.ui-treetable-tbody`,
+// `.ui-multiselect-panel .ui-multiselect-items` — so a plain
+// `body:not(.primeng-default)` loses to nova on about a third of the components
+// even though it loads afterwards. That is how nova's blue active tab survived
+// an override that set the background to transparent.
+//
+// Three repeats covers the widest gap nova opens. Raising the scope can only
+// make these rules win more often, never fewer, and every rule gains equally so
+// their order relative to each other is unchanged.
+//
+// `npm run styles:audit` re-checks this against the installed nova theme.
+$curinos: 'body:not(.primeng-default):not(.primeng-default):not(.primeng-default)';

@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
-export type CurinosLogoVariant = 'wordmark' | 'mark';
+export type CurinosLogoVariant = 'wordmark' | 'one' | 'one-alt' | 'mark' | 'one-mark';
 
 @Component({
   selector: 'app-curinos-logo',
@@ -16,8 +16,23 @@ export class CurinosLogoComponent {
     return this.variant === 'wordmark';
   }
 
+  @HostBinding('class.curinos-logo-host--one')
+  get isOne(): boolean {
+    return this.variant === 'one';
+  }
+
+  @HostBinding('class.curinos-logo-host--one-alt')
+  get isOneAlt(): boolean {
+    return this.variant === 'one-alt';
+  }
+
   @HostBinding('class.curinos-logo-host--mark')
   get isMark(): boolean {
     return this.variant === 'mark';
+  }
+
+  @HostBinding('class.curinos-logo-host--one-mark')
+  get isOneMark(): boolean {
+    return this.variant === 'one-mark';
   }
 }

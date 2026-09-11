@@ -1,0 +1,109 @@
+:host {
+  display: block;
+}
+
+.demo__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.demo__row--stack {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.demo__section-title {
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-1);
+}
+
+.demo__empty {
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
+}
+
+// Compact illustration of the real app shell rather than an embedded copy of it.
+.demo__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: var(--curinos-dimensions-app-sidebar-width);
+  padding: 12px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+}
+
+.demo__sidebar-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--curinos-color-border-1);
+}
+
+.demo__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--curinos-color-semantic-danger-1);
+  font-size: var(--curinos-typography-font-size-xxs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-background-1);
+}
+
+.demo__badge--dot {
+  min-width: 8px;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+}
+
+.demo__tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-2);
+
+  strong {
+    font-weight: var(--curinos-typography-font-weight-medium);
+    color: var(--curinos-color-foreground-1);
+  }
+}
+
+.demo__tile--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.demo__sidebar-name {
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-1);
+}

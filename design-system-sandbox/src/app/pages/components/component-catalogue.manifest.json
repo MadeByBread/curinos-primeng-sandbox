@@ -1,0 +1,1153 @@
+{
+  "_comment": [
+    "Authored source of truth for the component catalogue.",
+    "Figma page names are canonical; the PrimeNG selector is the implementation detail.",
+    "Token tables are NOT authored here — scripts/extract-component-catalogue.js scans",
+    "styles/primeng/_overrides.scss for the `// @component css:<cssKey>` region and reads",
+    "the --curinos-* variables actually applied. Set figmaFileKey to enable deep links.",
+    "status: styled | stock (PrimeNG 7 component, Curinos styling not written yet)",
+    "        built  | planned (new components with no PrimeNG 7 counterpart)",
+    "        gap (PrimeNG 7 component the design system has no Figma page for)"
+  ],
+  "figmaFileKey": "",
+  "groups": [
+    {
+      "id": "customized-primeng",
+      "title": "Customized PrimeNG",
+      "blurb": "Stock PrimeNG 7 components restyled to Curinos through global .ui-* overrides. The markup stays vanilla PrimeNG — no wrappers, no forked templates."
+    },
+    {
+      "id": "new-components",
+      "title": "New components",
+      "blurb": "Components with no PrimeNG 7 counterpart, authored in this repo. PrimeNG gained Avatar, Chip, Tag and Badge in later versions; Stepper and the app shell never existed. Chip, Tag and Badge share a Figma page with Chips, which is a PrimeNG 7 input and lives under Customized PrimeNG."
+    },
+    {
+      "id": "primeng7-gap",
+      "title": "PrimeNG 7 gap",
+      "blurb": "PrimeNG 7 components with no Curinos design. Nothing here is styled, so each renders as stock nova-light wherever it appears. Components Figma already draws on another page live on those entries instead — including Chips, which is on the Chip & Tag page. Two kinds of component are deliberately left out: behaviour-only directives with no surface to design (Defer, DragDrop, KeyFilter, CodeHighlighter), and the components PrimeNG 7 had already superseded (DataTable, DataGrid, DataList, Schedule, Lightbox, Growl)."
+    }
+  ],
+  "components": [
+    {
+      "key": "button",
+      "name": "Button",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Button",
+        "nodeId": "6738:49717"
+      },
+      "primeng": {
+        "selectors": [
+          "pButton",
+          "p-button",
+          "p-toggleButton",
+          "p-splitButton"
+        ],
+        "modules": [
+          "ButtonModule",
+          "ToggleButtonModule",
+          "SplitButtonModule"
+        ]
+      },
+      "cssKey": "button",
+      "iframeHeight": 520,
+      "approach": "Figma models each size as its own component; in code they collapse to one .ui-button with a size class. Default height is controls/sizing/md (32), matching the Button page. .ui-button-sm drops to 28 and .ui-button-lg rises to 40 — Figma's large is 42, which this scale does not have. Icons sit in the flex row next to the label; icon-only buttons are a square of the same height. Primary is an ink fill (foreground-1) whose label turns brand on hover while keeping the fill. The Button page also designs ToggleButton and SplitButton, so those selectors live here rather than as their own entries.",
+      "notes": [
+        {
+          "title": "Variants",
+          "body": "Default is the ink fill. Add .ui-button-secondary for the outlined treatment, .ui-button-ghost for the low-emphasis border, .ui-button-success / .ui-button-info / .ui-button-warning / .ui-button-danger for the status fills, and .ui-button-accent for Figma's purple secondary severity (.ui-button-secondary is already the outline). .ui-button-sm / .ui-button-lg change height. Icon-only is a pButton with icon and no label."
+        },
+        {
+          "title": "Toggle and split",
+          "body": "Figma draws ToggleButton and SplitButton on the Button page. They still use PrimeNG 7's own markup (p-toggleButton, p-splitButton). The button surface rules cover what they share; the split divider and pressed toggle have not been reviewed against the page yet."
+        }
+      ]
+    },
+    {
+      "key": "inputs",
+      "name": "Inputs",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Inputs",
+        "nodeId": "6738:22644"
+      },
+      "primeng": {
+        "selectors": [
+          "pInputText",
+          "p-inputMask",
+          "p-password",
+          "p-spinner",
+          "p-calendar",
+          "p-fileUpload",
+          "p-slider"
+        ],
+        "modules": [
+          "InputTextModule",
+          "InputMaskModule",
+          "PasswordModule",
+          "SpinnerModule",
+          "CalendarModule",
+          "FileUploadModule",
+          "SliderModule"
+        ]
+      },
+      "cssKey": "inputs",
+      "iframeHeight": 280,
+      "approach": "One .ui-inputtext rule covers every single-line text control, since PrimeNG 7 routes InputMask, Password, Spinner and Calendar through the same class. Fixed height from controls/sizing/lg with horizontal padding only. The Inputs page also designs FileUpload and Slider.",
+      "notes": [
+        {
+          "title": "Textarea is excluded",
+          "body": "The height rule carries :not(.ui-inputtextarea):not(textarea) so multi-line controls can still grow with their content."
+        },
+        {
+          "title": "File upload and slider",
+          "body": "Both sit on the Inputs page in Figma. FileUpload is a composite (drop zone, file row, progress) and Slider has its own handle and track, so they share this entry by page, not because .ui-inputtext covers them."
+        }
+      ]
+    },
+    {
+      "key": "textarea",
+      "name": "Textarea",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Textarea",
+        "nodeId": "6738:22647"
+      },
+      "primeng": {
+        "selectors": [
+          "pInputTextarea",
+          "p-editor"
+        ],
+        "modules": [
+          "InputTextareaModule",
+          "EditorModule"
+        ]
+      },
+      "cssKey": "textarea",
+      "iframeHeight": 200,
+      "approach": "Inherits the .ui-inputtext surface, then opts out of fixed height. The only control sized by padding, because content height is not knowable up front. Floor is controls/sizing/2xl. The Textarea page also designs Editor — the same surface with a toolbar.",
+      "notes": [
+        {
+          "title": "Editor",
+          "body": "Figma places Editor on the Textarea page: the field reuses the textarea surface and the toolbar is a row of icon buttons. PrimeNG 7's p-editor is a Quill wrapper, so the toolbar is Quill markup and needs its own override region before it can match."
+        }
+      ]
+    },
+    {
+      "key": "selects",
+      "name": "Selects",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Selects",
+        "nodeId": "6738:22646"
+      },
+      "primeng": {
+        "selectors": [
+          "p-dropdown",
+          "p-multiSelect",
+          "p-listbox",
+          "p-selectButton",
+          "p-autoComplete"
+        ],
+        "modules": [
+          "DropdownModule",
+          "MultiSelectModule",
+          "ListboxModule",
+          "SelectButtonModule",
+          "AutoCompleteModule"
+        ]
+      },
+      "cssKey": "selects",
+      "iframeHeight": 140,
+      "approach": "Dropdown carries the control surface and the panel item states. The label is a nested .ui-inputtext, so it is flattened to transparent and stretched to the parent height instead of being padded independently. The Selects page also designs AutoComplete.",
+      "notes": [
+        {
+          "title": "Coverage",
+          "body": "p-dropdown is styled. MultiSelect, Listbox and SelectButton share the panel item rules but have not had their own triggers reviewed."
+        },
+        {
+          "title": "AutoComplete",
+          "body": "Figma draws AutoComplete on the Selects page — a text field plus a suggestion panel. The field can reuse the input surface; the panel should follow the same item rules as Dropdown."
+        }
+      ]
+    },
+    {
+      "key": "checkbox-radios",
+      "name": "Checkbox & Radios",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Checkbox & Radios",
+        "nodeId": "6738:22640"
+      },
+      "primeng": {
+        "selectors": [
+          "p-checkbox",
+          "p-radioButton",
+          "p-triStateCheckbox",
+          "p-inputSwitch"
+        ],
+        "modules": [
+          "CheckboxModule",
+          "RadioButtonModule",
+          "TriStateCheckboxModule",
+          "InputSwitchModule"
+        ]
+      },
+      "cssKey": "checkbox-radios",
+      "iframeHeight": 88,
+      "approach": "Box and radio share one rule and differ only by radius. Sized from controls/sizing/xs so they line up with label text. The selected fill is ink, not brand — brand stays reserved for focus and active navigation.",
+      "notes": []
+    },
+    {
+      "key": "chips",
+      "name": "Chips",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Chip & Tag",
+        "nodeId": "6738:55109"
+      },
+      "primeng": {
+        "selectors": [
+          "p-chips"
+        ],
+        "modules": [
+          "ChipsModule"
+        ]
+      },
+      "cssKey": "chips",
+      "iframeHeight": 88,
+      "approach": "PrimeNG 7's p-chips is the multi-value field: type, confirm, get a removable token. Figma never drew that field — Chip & Tag is Chip, Tag and Badge — so the tokens are inferred from Chip (background-3, capsule, remove on the right) and the chrome from Inputs.",
+      "notes": [
+        {
+          "title": "Inferred from Chip",
+          "body": "Each .ui-chips-token is restyled to match Chip. Pill on the Figma page is Tag with Rounded=True, not this token and not a PrimeNG component."
+        }
+      ]
+    },
+    {
+      "key": "card",
+      "name": "Card",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-card"
+        ],
+        "modules": [
+          "CardModule"
+        ]
+      },
+      "cssKey": "card",
+      "iframeHeight": 140,
+      "approach": "Surface only: background, border, radius, shadow, and a reset of PrimeNG's inner padding. Figma has no Card page and that is treated as correct.",
+      "notes": [
+        {
+          "title": "Layout modifiers are not variants",
+          "body": "The hero, section and compact treatments live in styles/app/_layout.scss because they describe page scaffolding, not a component. They are app compositions that happen to use p-card as a container."
+        }
+      ]
+    },
+    {
+      "key": "datatable",
+      "name": "DataTable",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "DataTable",
+        "nodeId": "6738:49721"
+      },
+      "primeng": {
+        "selectors": [
+          "p-table"
+        ],
+        "modules": [
+          "TableModule"
+        ]
+      },
+      "cssKey": "datatable",
+      "iframeHeight": 260,
+      "approach": "Header sits on background-2, body on surface-white with background-1 zebra striping. Borders collapse to a single bottom rule per row. Cell padding stays literal — Curinos has no spacing scale.",
+      "notes": []
+    },
+    {
+      "key": "paginator",
+      "name": "Paginator",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Paginator",
+        "nodeId": "6738:49725"
+      },
+      "primeng": {
+        "selectors": [
+          "p-paginator"
+        ],
+        "modules": [
+          "PaginatorModule"
+        ]
+      },
+      "cssKey": "paginator",
+      "iframeHeight": 96,
+      "approach": "Page links are sized from controls/sizing/sm and reuse the ink-fill treatment for the current page, so pagination reads as a row of small buttons rather than PrimeNG's tinted chips.",
+      "notes": []
+    },
+    {
+      "key": "tree",
+      "name": "Tree",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Tree",
+        "nodeId": "6738:49728"
+      },
+      "primeng": {
+        "selectors": [
+          "p-tree"
+        ],
+        "modules": [
+          "TreeModule"
+        ]
+      },
+      "cssKey": "tree",
+      "iframeHeight": 220,
+      "approach": "Container chrome is removed entirely so the tree sits directly on the page surface. Node labels adopt the menu item treatment — same radius, same hover background — since they behave like navigation.",
+      "notes": []
+    },
+    {
+      "key": "treetable",
+      "name": "TreeTable",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "TreeTable",
+        "nodeId": "6738:49729"
+      },
+      "primeng": {
+        "selectors": [
+          "p-treeTable"
+        ],
+        "modules": [
+          "TreeTableModule"
+        ]
+      },
+      "cssKey": "treetable",
+      "iframeHeight": 240,
+      "approach": "Mirrors DataTable exactly — same header, striping, borders and cell padding — with the toggler recolored to foreground-3. Kept as its own region because PrimeNG uses a separate class tree.",
+      "notes": []
+    },
+    {
+      "key": "tabs",
+      "name": "Tabs",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Tabs",
+        "nodeId": "6738:49740"
+      },
+      "primeng": {
+        "selectors": [
+          "p-tabView",
+          "p-tabMenu"
+        ],
+        "modules": [
+          "TabViewModule",
+          "TabMenuModule"
+        ]
+      },
+      "cssKey": "tabs",
+      "iframeHeight": 180,
+      "approach": "Taken from the Figma Tabs page. The strip is a background-2 bar closed by a border-1 rule, and every tab carries its own 1px bottom border: border-1 idle, border-2 hover, foreground-1 active. Labels move foreground-3 to foreground-1 on hover and when active. nova's raised, brand-blue active tab is removed.",
+      "notes": []
+    },
+    {
+      "key": "breadcrumb",
+      "name": "Breadcrumb",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Breadcrumb",
+        "nodeId": "6738:52933"
+      },
+      "primeng": {
+        "selectors": [
+          "p-breadcrumb"
+        ],
+        "modules": [
+          "BreadcrumbModule"
+        ]
+      },
+      "cssKey": "breadcrumb",
+      "iframeHeight": 80,
+      "approach": "Backgroundless and borderless. Ancestors are foreground-3, the current page is foreground-1, and the separator drops to a lighter weight so the trail reads as one line of text.",
+      "notes": []
+    },
+    {
+      "key": "accordions",
+      "name": "Accordions",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Accordions",
+        "nodeId": "6738:49732"
+      },
+      "primeng": {
+        "selectors": [
+          "p-accordion",
+          "p-panel",
+          "p-fieldset"
+        ],
+        "modules": [
+          "AccordionModule",
+          "PanelModule",
+          "FieldsetModule"
+        ]
+      },
+      "cssKey": "accordions",
+      "iframeHeight": 420,
+      "approach": "Three separate Figma pages, despite PrimeNG treating all three as one header-plus-content pattern, so they get three rule sets. Accordion has no outer frame: panels are divided by a border-1 hairline, only the group's outer corners round, and hover lifts the label from foreground-3 to foreground-1 without touching the surface. Panel and Fieldset are both background-2 cards with a border-1 frame, Fieldset's legend straddling the top border. nova's blue active header is removed.",
+      "notes": [
+        {
+          "title": "The chevron points the other way",
+          "body": "Figma shows the accordion chevron up while collapsed and down while open — the inverse of PrimeNG's default and of the usual convention. It is consistent across all nine states on the Figma page, so it is implemented as drawn rather than corrected here."
+        }
+      ]
+    },
+    {
+      "key": "menus",
+      "name": "Menus",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Menus",
+        "nodeId": "6738:52936"
+      },
+      "primeng": {
+        "selectors": [
+          "p-menu",
+          "p-menubar",
+          "p-panelMenu",
+          "p-tieredMenu",
+          "p-contextMenu",
+          "p-megaMenu",
+          "p-slideMenu"
+        ],
+        "modules": [
+          "MenuModule",
+          "MenubarModule",
+          "PanelMenuModule",
+          "TieredMenuModule",
+          "ContextMenuModule"
+        ]
+      },
+      "cssKey": "menus",
+      "iframeHeight": 420,
+      "approach": "One Figma page fans out to seven PrimeNG components — the inverse of Button, where several Figma components collapse to one. Shared item chrome is applied across all of them; PanelMenu additionally carries the sidebar navigation treatment.",
+      "notes": [
+        {
+          "title": "PanelMenu chevrons",
+          "body": "PrimeNG 7 hardcodes pi-chevron-right and pi-chevron-down on expand icons, so MenuItem.icon cannot reach them. They are swapped to Phosphor plus/minus through a ::before content override."
+        }
+      ]
+    },
+    {
+      "key": "dialog",
+      "name": "Dialog",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Dialog",
+        "nodeId": "6738:50209"
+      },
+      "primeng": {
+        "selectors": [
+          "p-dialog",
+          "p-confirmDialog",
+          "p-dynamicDialog"
+        ],
+        "modules": [
+          "DialogModule",
+          "ConfirmDialogModule",
+          "DynamicDialogModule"
+        ]
+      },
+      "cssKey": "overlays",
+      "iframeHeight": 96,
+      "approach": "Takes the card surface — same border, radius and shadow — with a background-2 titlebar. Covered by the shared overlay region alongside Drawer and Popover, since PrimeNG 7 gives all three the same .ui-widget-overlay backdrop.",
+      "notes": []
+    },
+    {
+      "key": "drawer",
+      "name": "Drawer",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Drawer",
+        "nodeId": "6738:50210"
+      },
+      "primeng": {
+        "selectors": [
+          "p-sidebar"
+        ],
+        "modules": [
+          "SidebarModule"
+        ]
+      },
+      "cssKey": "overlays",
+      "iframeHeight": 96,
+      "approach": "PrimeNG calls this Sidebar; the catalogue uses Figma's name so that 'sidebar' can keep meaning the app navigation shell. Edge-anchored, so it takes a single border on the docked side rather than a radius.",
+      "notes": [
+        {
+          "title": "Name collision",
+          "body": "Three things could be called sidebar: this overlay, the app navigation shell, and PrimeNG's p-sidebar. Drawer is the overlay, App sidebar is the shell."
+        }
+      ]
+    },
+    {
+      "key": "popover",
+      "name": "Popover",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Popover",
+        "nodeId": "6738:50211"
+      },
+      "primeng": {
+        "selectors": [
+          "p-overlayPanel"
+        ],
+        "modules": [
+          "OverlayPanelModule"
+        ]
+      },
+      "cssKey": "overlays",
+      "iframeHeight": 96,
+      "approach": "Menu surface rather than card surface — lighter shadow, tighter radius — because it is anchored to a trigger rather than centered. The nova arrow is removed.",
+      "notes": []
+    },
+    {
+      "key": "toast",
+      "name": "Toast",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Toast",
+        "nodeId": "6738:53165"
+      },
+      "primeng": {
+        "selectors": [
+          "p-toast",
+          "p-growl"
+        ],
+        "modules": [
+          "ToastModule"
+        ]
+      },
+      "cssKey": "feedback",
+      "iframeHeight": 96,
+      "approach": "Severity colors come from the semantic scale — success, info, warning and danger each map to their tier-2 tint with tier-1 text — instead of nova's saturated fills. Shares a region with Message, which uses the same severity mapping.",
+      "notes": []
+    },
+    {
+      "key": "message",
+      "name": "Message",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Message",
+        "nodeId": "6738:53164"
+      },
+      "primeng": {
+        "selectors": [
+          "p-message",
+          "p-messages"
+        ],
+        "modules": [
+          "MessageModule",
+          "MessagesModule"
+        ]
+      },
+      "cssKey": "feedback",
+      "iframeHeight": 140,
+      "approach": "Inline severity banner using the same semantic tint and text pairing as Toast, so a validation error and an error toast are visually the same object in two placements.",
+      "notes": []
+    },
+    {
+      "key": "tooltip",
+      "name": "Tooltip",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Tooltip",
+        "nodeId": "6738:50212"
+      },
+      "primeng": {
+        "selectors": [
+          "pTooltip"
+        ],
+        "modules": [
+          "TooltipModule"
+        ]
+      },
+      "cssKey": "feedback",
+      "iframeHeight": 88,
+      "approach": "Inverted surface — foreground-1 fill with background-1 text — which is the same pairing as the primary button. Arrow color is set per direction because PrimeNG 7 builds it from border colors.",
+      "notes": []
+    },
+    {
+      "key": "loading",
+      "name": "Loading",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Loading",
+        "nodeId": "6738:55114"
+      },
+      "primeng": {
+        "selectors": [
+          "p-progressSpinner",
+          "p-progressBar"
+        ],
+        "modules": [
+          "ProgressSpinnerModule",
+          "ProgressBarModule"
+        ]
+      },
+      "cssKey": "loading",
+      "iframeHeight": 140,
+      "approach": "The spinner's four-color nova animation is flattened to a single brand stroke by overriding the dash animation. The bar is a background-3 track with a foreground-1 fill.",
+      "notes": []
+    },
+    {
+      "key": "app-sidebar",
+      "name": "AppSidebar",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "AppSidebar",
+        "nodeId": "10438:16477"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "A composition, not a component PrimeNG could supply: logo, collapse toggle, PanelMenu navigation and an account popup in one shell. Lives in layout/main-layout and is visible on every page of this app.",
+      "notes": [
+        {
+          "title": "Collapsed rail",
+          "body": "The 56px collapsed width is a literal. Figma's app-sidebar collection carries width and padding but dropped the collapsed variant width."
+        }
+      ]
+    },
+    {
+      "key": "avatar",
+      "name": "Avatar",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Avatar",
+        "nodeId": "6738:55105"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "PrimeNG did not ship an Avatar until v10. Implemented as app-avatar with label, image and icon modes, sized off the controls/sizing scale so it lines up with adjacent controls.",
+      "notes": []
+    },
+    {
+      "key": "chip",
+      "name": "Chip",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Chip & Tag",
+        "nodeId": "6738:55109"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Display token. PrimeNG did not ship a standalone Chip until later versions, so this is app-chip with a remove affordance. It is the token p-chips should render inside its field, not the field itself.",
+      "notes": []
+    },
+    {
+      "key": "tag",
+      "name": "Tag",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Chip & Tag",
+        "nodeId": "6738:55109"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Static severity label. Same Figma page as Chip and Chips, different component: no remove control, severity is the point. Implemented as app-chip without removable.",
+      "notes": []
+    },
+    {
+      "key": "badge",
+      "name": "Badge",
+      "group": "new-components",
+      "status": "planned",
+      "figma": {
+        "page": "Chip & Tag",
+        "nodeId": "6738:55109"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Count or status overlay, drawn on the Chip & Tag page as its own component. No app-badge yet; the sidebar notification count is a one-off.",
+      "notes": []
+    },
+    {
+      "key": "stepper",
+      "name": "Stepper",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Stepper",
+        "nodeId": "6738:49739"
+      },
+      "primeng": {
+        "selectors": [
+          "p-steps"
+        ],
+        "modules": [
+          "StepsModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "PrimeNG 7 ships p-steps, an indicator with no content panels, so only half of Figma's Stepper exists. app-stepper supplies the indicator plus completed and active states.",
+      "notes": []
+    },
+    {
+      "key": "curinos-logo",
+      "name": "Curinos Logo",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Brand",
+        "nodeId": "9847:19517"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Five Figma types on the Brand page: wordmark, one, one-alt, mark, and one-mark. Letterforms use currentColor so they follow the surface; the One badge keeps its yellow-to-orange fill.",
+      "notes": [
+        {
+          "title": "Variants",
+          "body": "variant=\"wordmark\" | \"one\" | \"one-alt\" | \"mark\" | \"one-mark\". Sidebar and login stay on wordmark."
+        }
+      ]
+    },
+    {
+      "key": "ph-icon",
+      "name": "Phosphor Icon",
+      "group": "new-components",
+      "status": "built",
+      "figma": {
+        "page": "Icons",
+        "nodeId": "0:1"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Inline SVG icon component for cases where stroke and size must follow tokens. PrimeNG accepts the Phosphor webfont classes directly on its icon inputs, so this is only needed for standalone icons.",
+      "notes": [
+        {
+          "title": "Webfont versus SVG",
+          "body": "Use the ph and ph-duotone classes for PrimeNG icon inputs. Use app-ph-icon when the icon needs icons/stroke applied."
+        }
+      ]
+    },
+    {
+      "key": "blockui",
+      "name": "BlockUI",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-blockUI"
+        ],
+        "modules": [
+          "BlockUIModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Masks a component or the whole page while an operation runs. Needs a decision on the scrim colour and whether a spinner sits on top, neither of which the Loading page covers.",
+      "notes": []
+    },
+    {
+      "key": "captcha",
+      "name": "Captcha",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-captcha"
+        ],
+        "modules": [
+          "CaptchaModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Wrapper around Google reCAPTCHA. Google renders the widget in an iframe, so a Curinos design could only govern its placement and the error text around it.",
+      "notes": []
+    },
+    {
+      "key": "carousel",
+      "name": "Carousel",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-carousel"
+        ],
+        "modules": [
+          "CarouselModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Horizontally paged list with navigation arrows and page indicators. No Figma page covers the arrow or indicator treatment.",
+      "notes": []
+    },
+    {
+      "key": "chart",
+      "name": "Chart",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-chart"
+        ],
+        "modules": [
+          "ChartModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Chart.js wrapper. Series colour is set per dataset in TypeScript rather than in CSS, so what this needs is a token-backed palette rather than a component page.",
+      "notes": []
+    },
+    {
+      "key": "colorpicker",
+      "name": "ColorPicker",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-colorPicker"
+        ],
+        "modules": [
+          "ColorPickerModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Saturation square and hue slider in an overlay. Left stock, it is the most conspicuously non-Curinos surface in this list.",
+      "notes": []
+    },
+    {
+      "key": "datascroller",
+      "name": "DataScroller",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-dataScroller"
+        ],
+        "modules": [
+          "DataScrollerModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Loads further rows on scroll or on a button press. Row layout comes from the item template, so the design work is the loader row rather than the component.",
+      "notes": []
+    },
+    {
+      "key": "dataview",
+      "name": "DataView",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-dataView",
+          "p-dataViewLayoutOptions"
+        ],
+        "modules": [
+          "DataViewModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Grid and list rendering of a collection with a layout switch. Its paginator is already styled; the layout switch and the empty state are not.",
+      "notes": []
+    },
+    {
+      "key": "fullcalendar",
+      "name": "FullCalendar",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-fullCalendar"
+        ],
+        "modules": [
+          "FullCalendarModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "FullCalendar 3 wrapper. The library renders its own DOM and ships its own stylesheet, making this a theming exercise rather than an override region.",
+      "notes": []
+    },
+    {
+      "key": "galleria",
+      "name": "Galleria",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-galleria"
+        ],
+        "modules": [
+          "GalleriaModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Image gallery with a filmstrip and caption. No Figma page, and nothing in the app uses it.",
+      "notes": []
+    },
+    {
+      "key": "gmap",
+      "name": "GMap",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-gmap"
+        ],
+        "modules": [
+          "GMapModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Google Maps wrapper. Map appearance is configured through the Maps API rather than CSS, so tokens cannot reach it.",
+      "notes": []
+    },
+    {
+      "key": "inplace",
+      "name": "Inplace",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-inplace"
+        ],
+        "modules": [
+          "InplaceModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Swaps a display value for an editor when clicked. The design question is how the display state signals that it is editable at all.",
+      "notes": []
+    },
+    {
+      "key": "orderlist",
+      "name": "OrderList",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-orderList"
+        ],
+        "modules": [
+          "OrderListModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Reorderable list with move controls. It shares its item, selection and control treatment with PickList, so the two want designing together.",
+      "notes": []
+    },
+    {
+      "key": "organizationchart",
+      "name": "OrganizationChart",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-organizationChart"
+        ],
+        "modules": [
+          "OrganizationChartModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Node tree drawn with nested tables and connector borders. The connectors are CSS borders, so a design has to name their colour and weight.",
+      "notes": []
+    },
+    {
+      "key": "picklist",
+      "name": "PickList",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-pickList"
+        ],
+        "modules": [
+          "PickListModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Two lists with transfer controls between them. Pairs with OrderList.",
+      "notes": []
+    },
+    {
+      "key": "rating",
+      "name": "Rating",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-rating"
+        ],
+        "modules": [
+          "RatingModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Star rating input. Needs a glyph decision before anything else, since the stock icons are PrimeIcons and this app is on Phosphor.",
+      "notes": []
+    },
+    {
+      "key": "scrollpanel",
+      "name": "ScrollPanel",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-scrollPanel"
+        ],
+        "modules": [
+          "ScrollPanelModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Replaces the native scrollbar with a styled one. Curinos has no scrollbar design, which is why the app scrolls natively everywhere.",
+      "notes": []
+    },
+    {
+      "key": "terminal",
+      "name": "Terminal",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-terminal"
+        ],
+        "modules": [
+          "TerminalModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Command line emulator. Listed for completeness. There is no plausible use for it in this app.",
+      "notes": []
+    },
+    {
+      "key": "toolbar",
+      "name": "Toolbar",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-toolbar"
+        ],
+        "modules": [
+          "ToolbarModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Horizontal bar with a left and a right slot. The app shell header already does this job without PrimeNG, so a design would first have to decide which of the two wins.",
+      "notes": []
+    },
+    {
+      "key": "virtualscroller",
+      "name": "VirtualScroller",
+      "group": "primeng7-gap",
+      "status": "gap",
+      "figma": null,
+      "primeng": {
+        "selectors": [
+          "p-virtualScroller"
+        ],
+        "modules": [
+          "VirtualScrollerModule"
+        ]
+      },
+      "cssKey": null,
+      "iframeHeight": 0,
+      "approach": "Renders only the visible slice of a long list. Behavioural apart from the fixed item height, which the item template owns.",
+      "notes": []
+    }
+  ]
+}

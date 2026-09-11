@@ -1,0 +1,73 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  // PrimeNG only sets border-box under .ui-widget, which does not cover this.
+  box-sizing: border-box;
+  height: var(--curinos-dimensions-controls-sizing-sm);
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-xs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-none);
+  white-space: nowrap;
+}
+
+// Tier 2 is the tint and tier 3 the text on it. Figma swaps the two in dark
+// mode, so these pairings hold in both themes.
+.chip--neutral {
+  background: var(--curinos-color-background-3);
+  border-color: var(--curinos-color-border-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+.chip--primary {
+  background: var(--curinos-color-semantic-primary-2);
+  border-color: var(--curinos-color-semantic-primary-1);
+  color: var(--curinos-color-semantic-primary-3);
+}
+
+.chip--success {
+  background: var(--curinos-color-semantic-success-2);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-semantic-success-3);
+}
+
+.chip--info {
+  background: var(--curinos-color-semantic-info-2);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-semantic-info-3);
+}
+
+.chip--warning {
+  background: var(--curinos-color-semantic-warning-2);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-semantic-warning-3);
+}
+
+.chip--danger {
+  background: var(--curinos-color-semantic-danger-2);
+  border-color: var(--curinos-color-semantic-danger-1);
+  color: var(--curinos-color-semantic-danger-3);
+}
+
+.chip__icon {
+  font-size: 1.1em;
+}
+
+.chip__remove {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: var(--curinos-effects-opacity-80);
+
+  &:hover {
+    opacity: 1;
+  }
+}

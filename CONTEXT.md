@@ -4,32 +4,68 @@ Terms for the Curinos PrimeNG sandbox design system.
 
 ## Curinos layer
 
-Brand design tokens (`--curinos-*`) generated from Figma collections. The foundation layer — colors, dimensions, and effects that describe the Curinos visual language. Regenerated via `npm run tokens:build` from collection exports in `tokens/sources/`.
-
-## PrimeNG bridge
-
-Hand-authored Layer 2 mapping from PrimeNG 7 component anatomy to Curinos tokens (`--primeng-*`). The canonical interface for how PrimeNG chrome connects to the brand layer. Transition token tables derive Curinos targets from this module at build time.
+Brand design tokens (`--curinos-*`) generated from Figma collections — colors, dimensions, effects, and typography. The only token layer. Component styling consumes these directly; there is no intermediate mapping. Regenerated via `npm run tokens:build` from collection exports in `tokens/sources/`.
 
 ## Override layer
 
-Global `.ui-*` CSS wiring in `_overrides.scss` that applies the bridge to stock PrimeNG 7 markup. Scoped to Curinos mode via `body:not(.primeng-default)`.
+Global `.ui-*` CSS in `_overrides.scss` that applies Curinos tokens to stock PrimeNG 7 markup. Scoped to Curinos mode via the `$curinos` selector in `_scope.scss`, which repeats `body:not(.primeng-default)` to outrank nova-light. Every component's styling lives here, delimited by `@component css:<key>` markers.
 
-## Transition page
+## Specificity audit
 
-Side-by-side comparison demo showing stock PrimeNG 7 (nova-light) next to Curinos-customized components. Documents override approach and token mapping for each component section.
+`npm run styles:audit`. Compares the highest specificity nova-light reaches for each `ui-*` class against the highest the override layer reaches. Losing that race is silent — the component keeps its stock appearance — so the audit fails the build rather than leaving it to be spotted in a screenshot.
 
-## Curinos Tokens page
+## Component catalogue
 
-In-app documentation for Layer 1: what Figma collections are exported, how the generator converts them, and where `--curinos-*` custom properties land.
+The `/components` page. Lists every component in the design system, grouped into **Customized PrimeNG**, **New components** and the **PrimeNG 7 gap**, with its Figma page, PrimeNG selector, coverage status, and the tokens it actually applies.
 
-## Theme variant
+## Customized PrimeNG
 
-Which styling mode the sandbox is in: **Curinos** (custom overrides active) or **default** (stock nova-light). Toggled via the `primeng-default` body class on default comparison routes.
+A component that exists in PrimeNG 7 and is restyled to Curinos through the override layer. The markup stays vanilla PrimeNG — no wrappers, no forked templates.
+
+## New component
+
+A component with no PrimeNG 7 counterpart, authored in this repo. Either PrimeNG gained it in a later version (Avatar, Chip, Tag, Badge), never had it (Stepper's content panels, the app shell), or it is Curinos-specific (the logo). Chip, Tag and Badge share a Figma page with Chips; Chips is PrimeNG 7's multi-value input and is a Customized PrimeNG entry.
+
+## PrimeNG 7 gap
+
+Everything PrimeNG 7 ships that Curinos has no Figma page for. Components Figma already draws on another page — Editor on Textarea, FileUpload and Slider on Inputs, ToggleButton and SplitButton on Button, AutoComplete on Selects — live on those catalogue entries, not here. Excludes behaviour-only directives, which have nothing to design, and the components PrimeNG 7 had already superseded.
+
+## Coverage status
+
+Where a catalogue entry stands. **Styled** and **stock** apply to Customized PrimeNG: whether Curinos override rules have been written yet. **Built** and **planned** apply to New components: whether the component exists in the repo. **Gap** applies to the PrimeNG 7 gap and means no design exists to build against.
+
+## Control size
+
+How a control's height is expressed. Curinos sizes controls by fixed height from the `controls/sizing` scale rather than by vertical padding, so Button, Inputs and Selects align at the same step. Textarea is the exception — it grows with content.
+
+## Theme mode
+
+Which color mode is active: **light** (the `:root` default) or **dark** (`[data-theme="dark"]`). Both are generated from the Figma Colors collection, which carries a value per mode for every color.
+
+## Drawer
+
+The edge-anchored overlay panel, `p-sidebar` in PrimeNG. Named for its Figma page so that "sidebar" is unambiguous.
 
 ## App sidebar
 
-Primary navigation shell in the Curinos main layout. Hosts the logo, PanelMenu sections, and account profile.
+Primary navigation shell in the Curinos main layout. Hosts the logo, PanelMenu sections, and account profile. Distinct from Drawer.
 
 ## Sidebar collapse state
 
 Whether the app sidebar is **expanded** (labels and submenus visible) or **collapsed** (icon-only rail). Clicking a section icon while collapsed expands the sidebar and opens that section's submenu.
+
+## Theme variant
+
+Which styling mode the sandbox is in: **Curinos** (custom overrides active) or **default** (stock nova-light). Toggled via the `primeng-default` body class, used by the example comparison routes and by the catalogue's per-component stock previews.
+
+## Curinos Tokens page
+
+In-app documentation for the token layer: what Figma collections are exported, how the generator converts them, and where `--curinos-*` custom properties land.
+
+## Overview page
+
+The `/overview` page and the app's landing route. Explains the approach — one token layer, overrides on stock markup, documentation generated by reading the CSS — and the process that produces a catalogue entry. Written for someone meeting the system for the first time.
+
+## Layout page
+
+The `/dashboard` page. A composed application screen — sidebar, menubar, cards, charts — used to check that the components hold together in a real arrangement rather than in isolation on the catalogue.

@@ -9,7 +9,18 @@
   height: 24px;
 }
 
-:host.curinos-logo-host--mark {
+:host.curinos-logo-host--one {
+  width: 110px;
+  height: 24px;
+}
+
+:host.curinos-logo-host--one-alt {
+  width: 136px;
+  height: 24px;
+}
+
+:host.curinos-logo-host--mark,
+:host.curinos-logo-host--one-mark {
   width: 24px;
   height: 24px;
 }

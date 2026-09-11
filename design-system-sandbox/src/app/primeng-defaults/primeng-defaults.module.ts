@@ -13,20 +13,17 @@ import { TableModule } from 'primeng/table';
 import { SharedModule } from '../shared/shared.module';
 import { PrimengLoginComponent } from './primeng-login/primeng-login.component';
 import { PrimengDashboardComponent } from './primeng-dashboard/primeng-dashboard.component';
-import { TransitionDefaultComponent } from './transition-default/transition-default.component';
 
 /**
- * Stock PrimeNG (nova-light) versions of the login & dashboard pages.
- * They render the same components as the Curinos pages but without the
- * design-system overrides — the pages add `primeng-default` to <body>,
- * which suppresses the global Curinos overrides in _overrides.scss.
+ * Stock PrimeNG (nova-light) example screens. They render the same components
+ * as the Curinos pages but without the design-system overrides — each page adds
+ * `primeng-default` to <body>, which suppresses everything in _overrides.scss.
+ *
+ * The catalogue's per-component stock previews live in ComponentDefaultModule,
+ * which is lazy.
  */
 @NgModule({
-  declarations: [
-    PrimengLoginComponent,
-    PrimengDashboardComponent,
-    TransitionDefaultComponent
-  ],
+  declarations: [PrimengLoginComponent, PrimengDashboardComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -40,10 +37,6 @@ import { TransitionDefaultComponent } from './transition-default/transition-defa
     TableModule,
     SharedModule
   ],
-  exports: [
-    PrimengLoginComponent,
-    PrimengDashboardComponent,
-    TransitionDefaultComponent
-  ]
+  exports: [PrimengLoginComponent, PrimengDashboardComponent]
 })
 export class PrimengDefaultsModule { }

@@ -7,17 +7,24 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      {
+        path: 'overview',
+        loadChildren: '../pages/overview/overview.module#OverviewModule',
+        data: { showMenubar: false }
+      },
       {
         path: 'dashboard',
         loadChildren: '../pages/pages.module#PagesModule',
         data: { showMenubar: false }
       },
       {
-        path: 'transition',
-        loadChildren: '../pages/transition/transition.module#TransitionModule',
+        path: 'components',
+        loadChildren: '../pages/components/components.module#ComponentsModule',
         data: { showMenubar: false }
       },
+      // The Transition page became the component catalogue.
+      { path: 'transition', redirectTo: 'components' },
       {
         path: 'curinos-tokens',
         loadChildren: '../pages/curinos-tokens/curinos-tokens.module#CurinosTokensModule',

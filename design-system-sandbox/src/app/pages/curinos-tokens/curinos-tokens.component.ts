@@ -3,7 +3,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-curinos-tokens',
   templateUrl: './curinos-tokens.component.html',
-  styleUrls: ['./curinos-tokens.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CurinosTokensComponent {
@@ -22,9 +21,16 @@ export class CurinosTokensComponent {
   }]
 }`;
 
-  readonly aliasChainSnippet = `--curinos-color-background-1: var(--curinos-color-semantic-surface-50, #fffdfa);
---curinos-color-semantic-surface-50: var(--curinos-color-primitives-gray-50, #fffdfa);
---curinos-color-primitives-gray-50: #fffdfa;`;
+  readonly aliasChainSnippet = `:root {
+  --curinos-color-background-1: var(--curinos-color-semantic-surface-white, #ffffff);
+  --curinos-color-semantic-surface-white: #ffffff;
+}
+
+/* Dark only restates what changed. background-1 re-aliases because its
+   Figma target differs; the leaves below it are overridden in place. */
+[data-theme="dark"] {
+  --curinos-color-background-1: var(--curinos-color-semantic-surface-950, #1e1b1a);
+}`;
 
   readonly outputTreeSnippet = `src/styles/tokens/
   sources/           ← Figma exports (committed)
@@ -37,7 +43,7 @@ export class CurinosTokensComponent {
 
   readonly usageSnippet = `.my-element {
   color: var(--curinos-color-foreground-1);
-  border-radius: var(--curinos-dimensions-radii-cards);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
 }`;
 
   readonly devtoolsSnippet = `getComputedStyle(document.documentElement)

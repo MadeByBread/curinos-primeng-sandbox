@@ -1,0 +1,12 @@
+<span class="chip" [ngClass]="'chip--' + severity">
+  <i *ngIf="icon" class="chip__icon" [ngClass]="icon"></i>
+  <span class="chip__label">{{ label }}</span>
+  <button
+    *ngIf="removable"
+    type="button"
+    class="chip__remove"
+    [attr.aria-label]="'Remove ' + label"
+    (click)="onRemove($event)">
+    <i class="ph ph-x"></i>
+  </button>
+</span>

@@ -1,0 +1,235 @@
+<div class="doc-page">
+  <div class="doc-container">
+    <p-card styleClass="ui-card--hero ui-card--hero-tight">
+      <h1 class="doc-heading doc-heading--1">How Curinos lands on PrimeNG</h1>
+      <p class="doc-lead">
+        Tokens come from Figma. One stylesheet spends them on stock PrimeNG markup.
+        The catalogue is a reading of that stylesheet, not a plan for it.
+      </p>
+    </p-card>
+
+    <div class="overview-flow">
+      <p-card styleClass="ui-card--section ui-card--content-stack">
+        <p-header>
+          <div class="overview-frame__head">
+            <div>
+              <h2 class="doc-heading doc-heading--2">Curinos tokens</h2>
+              <p class="overview-frame__blurb">
+                Four Figma collections. The only token layer.
+              </p>
+            </div>
+            <app-chip label="Figma"></app-chip>
+          </div>
+        </p-header>
+        <div class="overview-cells">
+          <p-card styleClass="ui-card--compact">
+            <p class="overview-cell__title">Colors</p>
+            <p class="overview-cell__body">Primitives, semantic roles, light and dark.</p>
+          </p-card>
+          <p-card styleClass="ui-card--compact">
+            <p class="overview-cell__title">Dimensions</p>
+            <p class="overview-cell__body">Control heights, radii. No spacing scale yet.</p>
+          </p-card>
+          <p-card styleClass="ui-card--compact">
+            <p class="overview-cell__title">Effects</p>
+            <p class="overview-cell__body">Opacity. Elevation is still a literal in CSS.</p>
+          </p-card>
+          <p-card styleClass="ui-card--compact">
+            <p class="overview-cell__title">Typography</p>
+            <p class="overview-cell__body">Families, size, weight, line-height.</p>
+          </p-card>
+        </div>
+      </p-card>
+
+      <div class="overview-flow__join" aria-hidden="true"></div>
+
+      <p-card styleClass="ui-card--compact overview-flow__node">
+        <div class="overview-frame__head">
+          <div>
+            <p class="overview-cell__title">Generator</p>
+            <p class="overview-cell__body">One JSON file becomes one SCSS partial of <code>--curinos-*</code> properties.</p>
+          </div>
+          <app-chip label="tokens:build"></app-chip>
+        </div>
+      </p-card>
+
+      <div class="overview-flow__join" aria-hidden="true"></div>
+
+      <p-card styleClass="ui-card--section ui-card--content-stack">
+        <p-header>
+          <div class="overview-frame__head">
+            <div>
+              <h2 class="doc-heading doc-heading--2">What consumes the tokens</h2>
+              <p class="overview-frame__blurb">
+                Same variables, two kinds of surface. Nothing sits between them.
+              </p>
+            </div>
+          </div>
+        </p-header>
+        <div class="overview-cells overview-cells--two">
+          <p-card styleClass="ui-card--compact">
+            <div class="overview-frame__head">
+              <p class="overview-cell__title">Override layer</p>
+              <app-chip label="Customized"></app-chip>
+            </div>
+            <p class="overview-cell__body">
+              Global <code>.ui-*</code> rules in <code>_overrides.scss</code>.
+              PrimeNG keeps its own markup.
+            </p>
+          </p-card>
+          <p-card styleClass="ui-card--compact">
+            <div class="overview-frame__head">
+              <p class="overview-cell__title">New components</p>
+              <app-chip label="Authored"></app-chip>
+            </div>
+            <p class="overview-cell__body">
+              Chip, Avatar, Stepper and the rest, written here because PrimeNG 7 does not ship them.
+            </p>
+          </p-card>
+        </div>
+      </p-card>
+
+      <div class="overview-flow__join" aria-hidden="true"></div>
+
+      <p-card styleClass="ui-card--compact overview-flow__node">
+        <div class="overview-frame__head">
+          <div>
+            <p class="overview-cell__title">Catalogue</p>
+            <p class="overview-cell__body">
+              Parses each <code>@component</code> region and lists the tokens that region actually spent.
+            </p>
+          </div>
+          <app-chip label="tokens:docs"></app-chip>
+        </div>
+      </p-card>
+    </div>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="doc-heading doc-heading--2">The approach</h2>
+      </p-header>
+
+      <p class="doc-body">
+        There is no mapping layer. An earlier <code>--primeng-*</code> bridge renamed
+        Curinos tokens for PrimeNG anatomy; most of it was a pass-through, and the rest
+        was nova-light's own sizing wearing a Curinos name. Component CSS now reads
+        <code>--curinos-*</code> directly. If a mapping is non-obvious — the primary
+        button is an ink fill, not brand yellow — it gets a comment, not a second variable.
+      </p>
+
+      <p class="doc-body">
+        Markup stays vanilla PrimeNG. Wrappers and forked templates would make the
+        stock comparison on the
+        <a routerLink="/components">component catalogue</a> meaningless: any difference
+        you see there has to be styling.
+      </p>
+
+      <p class="doc-body">
+        Documentation is generated backwards. The catalogue does not record what a
+        component is supposed to use. It reads the CSS that is applied, so a token that
+        stops being spent disappears from the table. See
+        <a routerLink="/curinos-tokens">Curinos Tokens</a> for the export format.
+      </p>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="doc-heading doc-heading--2">The process</h2>
+      </p-header>
+
+      <p class="doc-body">
+        Four steps, always in this order. Click through them.
+      </p>
+
+      <app-stepper
+        [steps]="processSteps"
+        [activeIndex]="processIndex"
+        (stepSelected)="processIndex = $event">
+      </app-stepper>
+
+      <p-card styleClass="ui-card--compact">
+        <p class="overview-cell__title">{{ processPanel.title }}</p>
+        <p class="overview-cell__body">{{ processPanel.body }}</p>
+        <p *ngIf="processPanel.command" class="overview-cell__command">
+          <code>{{ processPanel.command }}</code>
+        </p>
+      </p-card>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="doc-heading doc-heading--2">An example: Button</h2>
+      </p-header>
+
+      <p class="doc-body">
+        Figma draws several button sizes and a row of semantic fills. In code that is
+        one <code>.ui-button</code>, a size class, and a severity class. Height comes
+        from <code>controls/sizing</code>. The default fill is
+        <code>foreground-1</code>; Success spends <code>semantic/success/1</code>.
+      </p>
+
+      <div class="overview-example">
+        <button pButton type="button" label="Submit"></button>
+        <button pButton type="button" label="Success" class="ui-button-success"></button>
+        <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+      </div>
+
+      <pre class="doc-pre"><code>{{ buttonExample }}</code></pre>
+
+      <p class="doc-body">
+        After <code>tokens:docs</code>, those variables are what the Button catalogue
+        entry lists. If the Success rule is deleted, <code>semantic-success-1</code>
+        leaves the table. That is the whole contract.
+      </p>
+
+      <p class="doc-note">
+        The live buttons above are the same <code>pButton</code> the catalogue uses.
+        Open <a routerLink="/components/customized-primeng" [queryParams]="{ c: 'button' }">Button</a> to see every variation next
+        to stock nova-light.
+      </p>
+    </p-card>
+
+    <p-card styleClass="ui-card--section ui-card--content-stack">
+      <p-header>
+        <h2 class="doc-heading doc-heading--2">What the catalogue groups</h2>
+      </p-header>
+
+      <p class="doc-body">
+        Figma pages do not map 1:1 onto PrimeNG 7. The catalogue splits on that fact.
+      </p>
+
+      <div class="overview-cells">
+        <p-card styleClass="ui-card--compact">
+          <p class="overview-cell__title">
+            <a routerLink="/components/customized-primeng">Customized PrimeNG</a>
+          </p>
+          <p class="overview-cell__body">
+            PrimeNG already ships it. We restyle the stock markup.
+          </p>
+        </p-card>
+        <p-card styleClass="ui-card--compact">
+          <p class="overview-cell__title">
+            <a routerLink="/components/new-components">New components</a>
+          </p>
+          <p class="overview-cell__body">
+            PrimeNG 7 has no counterpart. Authored here, same tokens.
+          </p>
+        </p-card>
+        <p-card styleClass="ui-card--compact">
+          <p class="overview-cell__title">
+            <a routerLink="/components/primeng7-gap">PrimeNG 7 gap</a>
+          </p>
+          <p class="overview-cell__body">
+            PrimeNG ships it, Figma does not. Shown as stock so the gap is visible.
+          </p>
+        </p-card>
+        <p-card styleClass="ui-card--compact">
+          <p class="overview-cell__title">One Figma page, several entries</p>
+          <p class="overview-cell__body">
+            Chip, Tag, Badge and Chips share a page. Chips is the input; the others are display.
+          </p>
+        </p-card>
+      </div>
+    </p-card>
+  </div>
+</div>

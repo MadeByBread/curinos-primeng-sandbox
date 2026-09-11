@@ -7,10 +7,22 @@ import { ButtonModule } from 'primeng/button';
 import { CurinosLogoComponent } from './curinos-logo/curinos-logo.component';
 import { PhIconComponent } from './ph-icon/ph-icon.component';
 import { ButtonComponent } from './button/button.component';
+import { AvatarComponent } from './avatar/avatar.component';
+import { ChipComponent } from './chip/chip.component';
+import { StepperComponent } from './stepper/stepper.component';
+
+const COMPONENTS = [
+  CurinosLogoComponent,
+  PhIconComponent,
+  ButtonComponent,
+  AvatarComponent,
+  ChipComponent,
+  StepperComponent
+];
 
 @NgModule({
-  declarations: [CurinosLogoComponent, PhIconComponent, ButtonComponent],
+  declarations: COMPONENTS,
   imports: [CommonModule, HttpClientModule, RouterModule, ButtonModule],
-  exports: [CurinosLogoComponent, PhIconComponent, ButtonComponent]
+  exports: COMPONENTS
 })
 export class SharedModule { }

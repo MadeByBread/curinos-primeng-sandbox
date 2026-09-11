@@ -1,0 +1,67 @@
+@import '../primeng/scope';
+
+// App-level layout compositions.
+//
+// These are page scaffolding, not design system components. `p-card` is used
+// here as a generic container — Figma has no Card page and these hero/section/
+// compact treatments are not Figma variants. They live outside
+// styles/primeng/_overrides.scss so the catalogue's Card entry stays about the
+// card surface itself.
+//
+// Global rather than component-scoped because Angular's emulated encapsulation
+// cannot reach `.ui-card-body` inside PrimeNG's own template.
+//
+// Padding values are literals: Curinos has no spacing scale yet.
+
+#{$curinos} .ui-card.ui-card--hero .ui-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 24px;
+}
+
+#{$curinos} .ui-card.ui-card--hero.ui-card--hero-tight .ui-card-body {
+  gap: 12px;
+}
+
+#{$curinos} .ui-card.ui-card--section .ui-card-header {
+  padding: 24px 24px 0;
+}
+
+#{$curinos} .ui-card.ui-card--section .ui-card-content {
+  padding: 24px;
+}
+
+#{$curinos} .ui-card.ui-card--section.ui-card--content-split .ui-card-content {
+  min-height: 85px;
+  padding: 0 24px 24px;
+}
+
+#{$curinos} .ui-card.ui-card--section.ui-card--content-no-top .ui-card-content {
+  padding-top: 0;
+}
+
+#{$curinos} .ui-card.ui-card--section.ui-card--content-stack .ui-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px 24px 24px;
+}
+
+#{$curinos} .ui-card.ui-card--compact .ui-card-body {
+  padding: 16px;
+}
+
+// A catalogue entry. Roomier than the documentation sections because the
+// preview needs air around it, and the disclosure rows below need to read as
+// a footer to the card rather than as more content.
+#{$curinos} .ui-card.ui-card--entry .ui-card-header {
+  padding: 24px 24px 0;
+}
+
+#{$curinos} .ui-card.ui-card--entry .ui-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px 8px;
+}

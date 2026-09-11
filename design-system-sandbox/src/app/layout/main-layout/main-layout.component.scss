@@ -4,7 +4,7 @@ $font-sans: 'Work Sans', sans-serif;
   display: flex;
   height: 100vh;
   overflow: hidden;
-  background: var(--curinos-color-background-1);
+  background: var(--curinos-color-background-2);
 }
 
 .sidebar {
@@ -23,7 +23,8 @@ $font-sans: 'Work Sans', sans-serif;
   position: relative;
   z-index: 100;
   overflow: visible;
-  width: var(--curinos-dimensions-app-sidebar-width-collapsed);
+  // Curinos has no collapsed-rail token; 56px is the Figma Sidebar Variant2 width.
+  width: 56px;
 
   .sidebar__container {
     overflow: visible;
@@ -81,7 +82,7 @@ $font-sans: 'Work Sans', sans-serif;
   flex: 1;
   flex-direction: column;
   min-height: 0;
-  border-radius: var(--curinos-dimensions-radii-cards);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
   background: var(--curinos-color-background-1);
   overflow: hidden;
 }
@@ -162,7 +163,7 @@ $font-sans: 'Work Sans', sans-serif;
   width: 100%;
   padding: 8px;
   border: 0;
-  border-radius: var(--curinos-dimensions-radii-buttons);
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
   background: transparent;
   text-align: left;
   cursor: pointer;
@@ -207,7 +208,7 @@ $font-sans: 'Work Sans', sans-serif;
   padding: 0 4px;
   border: 2px solid var(--curinos-color-background-1);
   border-radius: 10.5px;
-  background: var(--primeng-panelmenu-icon-accent);
+  background: var(--curinos-color-semantic-primary-1);
   font-size: 10.5px;
   font-weight: 700;
   line-height: 1;
@@ -251,7 +252,9 @@ $font-sans: 'Work Sans', sans-serif;
   flex-direction: column;
   min-width: 0;
   overflow: hidden;
-  background: var(--curinos-color-background-1);
+  // Inherits the canvas. The sidebar is a background-1 card sitting on it; the
+  // main area is the canvas itself, with each page supplying its own cards.
+  background: transparent;
 }
 
 .page-body {

@@ -1,0 +1,22 @@
+<ol class="stepper">
+  <li
+    *ngFor="let step of steps; let i = index; let last = last"
+    class="stepper__step"
+    [ngClass]="'stepper__step--' + stateOf(i)">
+    <button
+      type="button"
+      class="stepper__trigger"
+      [disabled]="!navigable"
+      (click)="onSelect(i)">
+      <span class="stepper__marker">
+        <i *ngIf="stateOf(i) === 'complete'" class="ph ph-check"></i>
+        <ng-container *ngIf="stateOf(i) !== 'complete'">{{ i + 1 }}</ng-container>
+      </span>
+      <span class="stepper__text">
+        <span class="stepper__label">{{ step.label }}</span>
+        <span *ngIf="step.hint" class="stepper__hint">{{ step.hint }}</span>
+      </span>
+    </button>
+    <span *ngIf="!last" class="stepper__connector"></span>
+  </li>
+</ol>

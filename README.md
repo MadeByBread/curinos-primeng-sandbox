@@ -26,6 +26,11 @@ docker compose run --rm --service-ports ng bash
 > `ports:` mapping by default, so without it `localhost:4200` would be
 > unreachable from the host.
 
+If you have a container that's already running, you can enter it with:
+```bash
+docker compose exec ng bash
+```
+
 ### 3. Install dependencies (inside the container)
 
 ```bash
@@ -159,8 +164,8 @@ You can start working immediately — no scaffolding step:
   Phosphor webfonts
 - **Animations** — `BrowserAnimationsModule` is registered in `app.module.ts`
   (required by several PrimeNG components)
-- **Design tokens** — Layer 1 (Curinos) and Layer 2 (PrimeNG bridge) SCSS under
-  `src/styles/tokens/`
+- **Design tokens** — Curinos SCSS under `src/styles/tokens/`, generated from
+  Figma collection exports
 
 `node_modules` is gitignored, so you still need `npm install` once per clone.
 
@@ -234,119 +239,72 @@ PrimeNG 7 PanelMenu renders expand/collapse chevrons as hardcoded PrimeIcons
 
 ## Design tokens
 
-Global CSS custom properties are organised as a **two-layer architecture**, defined
-on `:root` and imported in `design-system-sandbox/src/styles.scss`.
+Global CSS custom properties live on `:root`, imported by
+`design-system-sandbox/src/styles.scss`. There is **one** token layer: `--curinos-*`,
+generated from Figma. Component overrides consume it directly.
 
-### Two layers
+An earlier version of this repo had a second hand-authored layer (`--primeng-*`) that
+mapped Curinos onto PrimeNG 7 component anatomy. It was deleted — 53 of its 84 tokens
+were one-hop pass-throughs and 27 were nova-light literals wearing Curinos names. See
+[ADR-0003](docs/adr/0003-single-layer-token-architecture.md).
 
-| Layer                          | Prefix        | Source                                                                | Authoring         |
-| ------------------------------ | ------------- | --------------------------------------------------------------------- | ----------------- |
-| **Layer 1 — Curinos**          | `--curinos-*` | The three Figma **Curinos** collections (Colors, Dimensions, Effects) | **Generated**     |
-| **Layer 2 — PrimeNG 7 bridge** | `--primeng-*` | Hand-curated to PrimeNG 7 component anatomy                           | **Hand-authored** |
+### Generation
 
-**Layer 1 (Curinos)** is the single source of truth — the real brand foundation.
-Its colors form a three-tier graph (`primitives → semantic → background/foreground/border`)
-that the generator preserves via `var()` references with a literal fallback:
+`scripts/figma-tokens-to-scss.js` is **collection-driven**: each source file is one Figma
+collection (rich export with `variables[]`, modes, and alias chains), and maps 1:1 to one
+generated partial.
 
-```css
---curinos-color-background-1: var(--curinos-color-semantic-surface-50, #fffdfa);
---curinos-color-semantic-surface-50: var(
-  --curinos-color-primitives-gray-50,
-  #fffdfa
-);
---curinos-color-primitives-gray-50: #fffdfa;
-```
+| Source (`tokens/sources/`) | Collection         | Generated                  | Prefix                     |
+| -------------------------- | ------------------ | -------------------------- | -------------------------- |
+| `curinos-colors.json`      | Curinos Colors     | `curinos/_color.scss`      | `--curinos-color-*`        |
+| `curinos-dimensions.json`  | Curinos Dimensions | `curinos/_dimensions.scss` | `--curinos-dimensions-*`   |
+| `curinos-effects.json`     | Curinos Effects    | `curinos/_effects.scss`    | `--curinos-effects-*`      |
+| `curinos-typography.json`  | Curinos Typography | `curinos/_typography.scss` | `--curinos-typography-*`   |
 
-**Layer 2 (PrimeNG bridge)** maps PrimeNG 7 component styling onto Layer 1.
-PrimeNG 7 has **no native CSS-variable token system** (that arrived in a later
-PrimeNG, which is what the Figma "Prime \*" collections describe), so this layer is
-written by hand to match PrimeNG 7's `.ui-*` component anatomy and is consumed by
-component overrides:
-
-```css
---primeng-button-primary-background: var(--curinos-color-foreground-1);
---primeng-inputtext-focus-border-color: var(--curinos-color-semantic-primary-1);
---primeng-card-border-radius: var(--curinos-dimensions-radii-cards);
-```
-
-> The Figma "Prime \*" collections (Prime Primitive, Prime Component Common, …) are
-> intentionally **not** mirrored — they target a newer PrimeNG token shape.
-
-### Generation (Layer 1 only)
-
-`scripts/figma-tokens-to-scss.js` is **collection-driven**: each source file is one
-Figma collection (rich export with `variables[]`, modes, and alias chains), and maps
-1:1 to one generated partial.
-
-| Source (`tokens/sources/`)          | Collection              | Generated                  | Prefix                                              |
-| ----------------------------------- | ----------------------- | -------------------------- | --------------------------------------------------- |
-| `curinos-colors.json`               | Curinos Colors          | `curinos/_color.scss`      | `--curinos-color-*`                                 |
-| `curinos-dimensions.json`           | Curinos Dimensions      | `curinos/_dimensions.scss` | `--curinos-dimensions-*`                            |
-| `curinos-effects.json`              | Curinos Effects         | `curinos/_effects.scss`    | `--curinos-effects-*`                               |
-
-- **Modes** — colors ship Light + Dark; only **Light** is emitted. Other collections
-  are single-mode.
-- **Inheritance** — alias-driven: a variable that aliases another in the same
-  collection emits `var(--curinos-…-<alias>, <literal>)`.
+- **Inheritance** — a variable that aliases another in the same collection emits
+  `var(--curinos-…-<alias>, <literal>)`, mirroring the Figma graph with the resolved
+  value as a CSS fallback.
 - **Naming** — the full Figma path is slugged to kebab-case
   (`semantic/surface/50` → `--curinos-color-semantic-surface-50`).
+- **Units** — floats become `px` except font weights and line heights. Figma stores
+  opacity 0-100, so `opacity/90` is rescaled to `0.9`; CSS `opacity` clamps at 1 and
+  every step would otherwise collapse to fully opaque.
 
-### File structure
+### Light and dark
 
-```
-design-system-sandbox/
-  src/styles/
-    styles.scss                     ← imports tokens before PrimeNG
-    tokens/
-      _index.scss                   ← imports curinos layer, then primeng layer
-      curinos/                      ← Layer 1 (GENERATED — do not edit)
-        _index.scss
-        _color.scss
-        _dimensions.scss
-        _effects.scss
-      primeng/                      ← Layer 2 (HAND-AUTHORED bridge)
-        _index.scss
-      sources/                      ← Figma collection exports (rich format)
-        curinos-colors.json
-        curinos-dimensions.json
-        curinos-effects.json
-  scripts/
-    figma-tokens-to-scss.js         ← generates Layer 1 from the collections
-```
+Colors ship both modes. Light fills `:root`; dark fills `[data-theme="dark"]`.
 
-The root `tokens/_index.scss` imports `curinos` **before** `primeng` so the bridge's
-`var(--curinos-*)` references resolve.
+The dark block carries only the tokens that genuinely differ. A variable that aliases the
+same target in both modes is omitted, because custom properties resolve at use time and
+it picks up the overridden target on its own. In practice dark overrides the palette
+leaves and the semantic tier re-resolves for free — currently 119 overrides out of 372
+color tokens.
 
-Typography (Work Sans, Source Serif Pro) and spacing are app-level values; the fonts
-are loaded in `design-system-sandbox/src/index.html`. These live in the Figma
-"Prime Typography" / "Prime App" collections, which are not yet exported as rich token
-files, so they currently appear as literals in component styles.
+One consequence worth knowing: Figma swaps semantic tiers 2 and 3 between modes. In light,
+`semantic/danger/2` is the pale tint and `/3` the deep ink; in dark they trade places. So
+"tier 2 is the surface, tier 3 is the text on it" holds in both themes without a
+mode-specific rule.
 
-### Regenerating Layer 1
+### Regenerating
 
-Run on the **host** (Node is only needed for the script). Generated SCSS is committed
-and picked up by the container via the bind mount.
+Run on the **host** — Node is only needed for the script. Generated SCSS is committed and
+picked up by the container through the bind mount.
 
-1. **Export collections** — export each Curinos collection from Figma in the rich
-   format and save into `design-system-sandbox/src/styles/tokens/sources/` as
-   `curinos-colors.json`, `curinos-dimensions.json`, `curinos-effects.json`.
+1. **Export collections** — export each Curinos collection from Figma in the rich format
+   into `design-system-sandbox/src/styles/tokens/sources/`, using the exact filenames in
+   the table above.
 2. **Generate**
 
    ```bash
    cd design-system-sandbox
-   npm run tokens:build
+   npm run tokens:refresh
    ```
 
-   Prints a per-collection token count and the number of alias references.
-
-   **Scripts**
-
-   | Script | Purpose |
-   | --- | --- |
-   | `npm run tokens:build` | Regenerate Layer 1 SCSS from `tokens/sources/*.json` |
-   | `npm run tokens:sync:chart` | Merge Deposit Growth chart colors into `curinos-colors.json`, then run `tokens:build` |
-   | `npm run tokens:docs` | Regenerate Transition token tables from the PrimeNG bridge |
-   | `npm run tokens:refresh` | `tokens:build` then `tokens:docs` (after source or bridge edits) |
+   | Script                  | Purpose                                                     |
+   | ----------------------- | ----------------------------------------------------------- |
+   | `npm run tokens:build`  | Regenerate token SCSS from `tokens/sources/*.json`          |
+   | `npm run tokens:docs`   | Regenerate catalogue token tables from `_overrides.scss`    |
+   | `npm run tokens:refresh`| Both, in order                                              |
 
 3. **Verify**
 
@@ -360,23 +318,38 @@ and picked up by the container via the bind mount.
    getComputedStyle(document.documentElement).getPropertyValue(
      "--curinos-color-background-1",
    );
-   // → "#fffdfa"
    ```
 
-Restart or let `ng serve --poll 2000` pick up the updated styles if the dev server is
-already running.
+## Component catalogue
 
-To extend the **PrimeNG bridge**, edit `tokens/primeng/_index.scss` by hand — point
-new component variables at Curinos tokens, or use literals for component metrics that
-have no Curinos equivalent.
+`/components` lists every component in the design system, grouped into **Customized
+PrimeNG** (stock PrimeNG 7 restyled through `.ui-*` overrides) and **New components**
+(no PrimeNG 7 counterpart, authored here).
 
-After editing the bridge, regenerate Transition token tables:
+Figma page names are canonical and the PrimeNG selector is shown as the implementation.
+Where they disagree, Figma wins: the catalogue says **Drawer** for `p-sidebar` and
+**Popover** for `p-overlayPanel`, which leaves "sidebar" free to mean only the app
+navigation shell.
 
-```bash
-cd design-system-sandbox
-npm run tokens:docs
-```
+The mapping is many-to-many in both directions. Figma models each button size as its own
+component and they collapse to one `.ui-button` with a size class; Figma's single **Menus**
+page fans out to seven PrimeNG components.
 
-Portion labels and section metadata live in
-`src/app/pages/transition/transition-sections.manifest.json`. Curinos targets are
-resolved from the bridge by `scripts/extract-bridge-mappings.js`.
+Each entry can reveal a stock PrimeNG preview, off by default. Both sides render the same
+`app-component-demo` markup — the iframe route just adds `primeng-default` to `<body>`,
+which every rule in `_overrides.scss` is scoped against. Any visible difference is
+styling, never markup.
+
+### Adding a component
+
+1. Write the override rules in `styles/primeng/_overrides.scss`, wrapped in
+   `// @component css:<key>` / `// @component css:/<key>`. A key may open more than once,
+   and several entries may share one key.
+2. Add an entry to `src/app/pages/components/component-catalogue.manifest.json`.
+3. Add a demo case to `component-demo.component.html`, keyed on the component key.
+4. Run `npm run tokens:docs`.
+
+Token tables are not authored. `scripts/extract-component-catalogue.js` reads the
+`var(--curinos-*)` usage out of each region, so a token that stops being used disappears
+from the table on the next run. The script fails on a manifest entry pointing at a missing
+region, and on a region no entry claims.

@@ -1,100 +1,86 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { MenuItem } from "primeng/api";
-import { Subscription } from "rxjs";
-import { filter } from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
-import { ph, phDuotone } from "../../shared/icons/phosphor-icons";
+import { componentCatalogueIndex } from '../../pages/components/component-catalogue-index.generated';
+import { ph, phDuotone } from '../../shared/icons/phosphor-icons';
 
-/** Placeholder submenu link — use unique routerLink per item in real apps. */
-const subMenuItem = (label: string): MenuItem => ({ label, url: "#" });
+const COMPONENT_SECTION_ICONS: { [id: string]: string } = {
+  'customized-primeng': phDuotone('squares-four'),
+  'new-components': phDuotone('puzzle-piece'),
+  'primeng7-gap': phDuotone('circle-dashed'),
+};
+
+/**
+ * One submenu entry per catalogued component, generated from the same manifest
+ * the catalogue page renders, so the two cannot drift.
+ *
+ * The target travels as `?c=` rather than a router fragment: PrimeNG 7's
+ * MenuItem has no `fragment` field and PanelMenu only binds routerLink and
+ * queryParams. It is the key the stock-preview iframe already addresses.
+ */
+const componentSections = (): MenuItem[] =>
+  componentCatalogueIndex.map((group) => ({
+    label: group.title,
+    icon: COMPONENT_SECTION_ICONS[group.id],
+    routerLink: ['/components', group.id],
+    // The two built sections are the working areas and stay open. The gap
+    // section is a backlog and would bury them.
+    expanded: group.id !== 'primeng7-gap',
+    items: group.components.map((component) => ({
+      label: component.name,
+      routerLink: ['/components', group.id],
+      queryParams: { c: component.key },
+      // Siblings share a path, so inexact matching would light all of them.
+      routerLinkActiveOptions: { exact: true },
+    })),
+  }));
 
 const BASE_MENU_ITEMS: MenuItem[] = [
   {
-    label: "Overview",
-    icon: phDuotone("parallelogram"),
-    routerLink: ["/dashboard"],
+    label: 'Overview',
+    icon: phDuotone('book-open-text'),
+    routerLink: ['/overview'],
+  },
+  ...componentSections(),
+  {
+    label: 'Curinos Tokens',
+    icon: phDuotone('palette'),
+    routerLink: ['/curinos-tokens'],
   },
   {
-    label: "Transition",
-    icon: phDuotone("arrows-left-right"),
-    routerLink: ["/transition"],
-  },
-  {
-    label: "Curinos Tokens",
-    icon: phDuotone("palette"),
-    routerLink: ["/curinos-tokens"],
-  },
-  {
-    label: "New Customers",
-    icon: phDuotone("perspective"),
-    expanded: true,
-    items: [
-      subMenuItem("Summary"),
-      subMenuItem("Opportunities"),
-      subMenuItem("Campaign Builder"),
-      subMenuItem("Campaign Manager"),
-      subMenuItem("Campaign Reporting"),
-    ],
-  },
-  {
-    label: "Existing Customers",
-    icon: phDuotone("webcam"),
-    expanded: true,
-    items: [
-      subMenuItem("Summary"),
-      subMenuItem("Opportunities"),
-      subMenuItem("Program Builder"),
-      subMenuItem("Program Manager"),
-      subMenuItem("Program Reporting"),
-    ],
-  },
-  {
-    label: "Portfolio Pricing",
-    icon: phDuotone("replit-logo"),
-    expanded: false,
-    items: [subMenuItem("Summary")],
-  },
-  {
-    label: "Reporting",
-    icon: phDuotone("chart-pie"),
-    expanded: true,
-    items: [subMenuItem("Summary"), subMenuItem("Budget & ROI")],
-  },
-  {
-    label: "Data Management",
-    icon: phDuotone("table"),
-    expanded: true,
-    items: [
-      subMenuItem("Segments"),
-      subMenuItem("File Management"),
-      { label: "Settings", routerLink: ["/login"] },
-    ],
+    label: 'Layout',
+    icon: phDuotone('layout'),
+    routerLink: ['/dashboard'],
   },
 ];
 
 @Component({
-  selector: "app-main-layout",
-  templateUrl: "./main-layout.component.html",
-  styleUrls: ["./main-layout.component.scss"],
+  selector: 'app-main-layout',
+  templateUrl: './main-layout.component.html',
+  styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
   showMenubar = false;
   sidebarCollapsed = false;
   menuItems: MenuItem[] = [];
 
-  topBarItems: MenuItem[] = [{ label: "Dashboard", icon: "pi pi-chart-bar" }];
+  topBarItems: MenuItem[] = [
+    { label: 'Dashboard', icon: phDuotone('chart-bar') },
+  ];
 
   accountMenuItems: MenuItem[] = [
     {
-      label: "Switch to Default",
-      icon: ph("swap"),
-      command: () => this.router.navigate(["/dashboard-default"]),
+      label: 'Switch to Default',
+      icon: ph('swap'),
+      command: () => this.router.navigate(['/dashboard-default']),
     },
     { separator: true },
     {
-      label: "Sign out",
-      icon: ph("sign-out"),
+      label: 'Sign out',
+      icon: ph('sign-out'),
       command: () => this.signOut(),
     },
   ];
@@ -162,6 +148,6 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   }
 
   signOut() {
-    this.router.navigate(["/login"]);
+    this.router.navigate(['/login']);
   }
 }

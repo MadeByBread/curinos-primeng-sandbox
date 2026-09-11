@@ -1,0 +1,264 @@
+// ViewEncapsulation.None — these rules reach into p-card internals, matching
+// the pattern used by the other documentation pages.
+
+.catalogue {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1100px;
+  padding: 24px;
+  font-family: var(--curinos-typography-families-body);
+}
+
+.catalogue__title {
+  margin: 0;
+  font-family: var(--curinos-typography-families-headings);
+  font-size: var(--curinos-typography-font-size-xxl);
+  font-weight: var(--curinos-typography-font-weight-regular);
+  color: var(--curinos-color-foreground-1);
+}
+
+.catalogue__lede {
+  margin: 0;
+  max-width: 70ch;
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: 1.5;
+  color: var(--curinos-color-foreground-2);
+}
+
+.catalogue__group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// An entry reads top to bottom as name, sentence, rendering. Everything else
+// is reference material and sits behind a disclosure.
+.entry__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entry__name {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-lg);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-1);
+}
+
+.entry__status {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: var(--curinos-dimensions-radii-semantic-buttons);
+  font-size: var(--curinos-typography-font-size-xxs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.entry__status--styled {
+  background: var(--curinos-color-semantic-success-2);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-semantic-success-3);
+}
+
+.entry__status--stock {
+  background: var(--curinos-color-semantic-warning-2);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-semantic-warning-3);
+}
+
+.entry__status--built {
+  background: var(--curinos-color-semantic-info-2);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-semantic-info-3);
+}
+
+.entry__status--gap,
+.entry__status--planned {
+  background: var(--curinos-color-background-3);
+  border-color: var(--curinos-color-border-2);
+  color: var(--curinos-color-foreground-3);
+}
+
+.entry__approach {
+  margin: 8px 0 0;
+  max-width: 78ch;
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: 1.6;
+  color: var(--curinos-color-foreground-2);
+}
+
+// The rendering is the point of the entry, so it gets the room. Content is
+// centred vertically but left full width, since several demos are tables.
+.entry__preview {
+  display: flex;
+  align-items: center;
+  min-height: 200px;
+  padding: 40px 24px;
+  border: 1px solid var(--curinos-color-border-1);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+
+  > app-component-demo {
+    width: 100%;
+  }
+}
+
+.entry__details {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--curinos-color-border-1);
+}
+
+.disclosure + .disclosure .disclosure__summary {
+  border-top: 1px solid var(--curinos-color-border-1);
+}
+
+.disclosure__summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 2px;
+  border: 0;
+  background: transparent;
+  font-family: var(--curinos-typography-families-body);
+  font-size: var(--curinos-typography-font-size-xs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  color: var(--curinos-color-foreground-2);
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--curinos-color-foreground-1);
+  }
+}
+
+.disclosure__caret {
+  flex-shrink: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  color: var(--curinos-color-foreground-3);
+}
+
+// Counts belong on the closed row — the summary should say enough that most
+// entries never need opening.
+.disclosure__hint {
+  margin-left: auto;
+  font-weight: var(--curinos-typography-font-weight-regular);
+  color: var(--curinos-color-foreground-3);
+}
+
+.disclosure__body {
+  padding: 4px 0 16px 22px;
+}
+
+.entry__meta {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: baseline;
+  gap: 6px 8px;
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-xs);
+
+  dt {
+    color: var(--curinos-color-foreground-3);
+  }
+
+  dd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 0;
+  }
+
+  code {
+    padding: 1px 4px;
+    border-radius: var(--curinos-dimensions-radii-xs);
+    background: var(--curinos-color-background-3);
+    font-family: var(--curinos-typography-families-code);
+    color: var(--curinos-color-foreground-2);
+  }
+
+  a {
+    color: var(--curinos-color-foreground-1);
+  }
+}
+
+.entry__none {
+  color: var(--curinos-color-foreground-3);
+  font-style: italic;
+}
+
+.entry__stock {
+  iframe {
+    display: block;
+    width: 100%;
+    border: 1px dashed var(--curinos-color-border-2);
+    border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  }
+}
+
+.entry__note {
+  padding: 12px;
+  border-left: 2px solid var(--curinos-color-border-3);
+  background: var(--curinos-color-background-2);
+
+  & + & {
+    margin-top: 8px;
+  }
+
+  h4 {
+    margin: 0 0 4px;
+    font-size: var(--curinos-typography-font-size-xs);
+    font-weight: var(--curinos-typography-font-weight-medium);
+    color: var(--curinos-color-foreground-1);
+  }
+
+  p {
+    margin: 0;
+    max-width: 78ch;
+    font-size: var(--curinos-typography-font-size-xs);
+    line-height: 1.6;
+    color: var(--curinos-color-foreground-2);
+  }
+}
+
+.entry__tokens {
+  h4 {
+    margin: 20px 0 8px;
+    font-size: var(--curinos-typography-font-size-xs);
+    font-weight: var(--curinos-typography-font-weight-medium);
+    color: var(--curinos-color-foreground-1);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--curinos-typography-font-size-xs);
+  }
+
+  th {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--curinos-color-border-1);
+    background: var(--curinos-color-background-2);
+    color: var(--curinos-color-foreground-1);
+    text-align: left;
+  }
+
+  td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--curinos-color-border-1);
+    color: var(--curinos-color-foreground-2);
+    vertical-align: top;
+  }
+
+  code {
+    font-family: var(--curinos-typography-families-code);
+    color: var(--curinos-color-foreground-1);
+  }
+}

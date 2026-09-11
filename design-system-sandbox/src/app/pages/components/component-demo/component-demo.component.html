@@ -1,0 +1,466 @@
+<div class="demo" [ngSwitch]="key">
+
+  <div *ngSwitchCase="'button'" class="demo__row demo__row--stack">
+    <div class="demo__section">
+      <p class="demo__section-title">Basic</p>
+      <div class="demo__row">
+        <button pButton type="button" label="Submit"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Icons</p>
+      <div class="demo__row">
+        <button pButton type="button" [icon]="phCheck"></button>
+        <button pButton type="button" label="Profile" [icon]="phUser"></button>
+        <button pButton type="button" label="Submit" [icon]="phCheck" iconPos="right"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Severities</p>
+      <div class="demo__row">
+        <button pButton type="button" label="Default"></button>
+        <button pButton type="button" label="Outlined" class="ui-button-secondary"></button>
+        <button pButton type="button" label="Success" class="ui-button-success"></button>
+        <button pButton type="button" label="Info" class="ui-button-info"></button>
+        <button pButton type="button" label="Warning" class="ui-button-warning"></button>
+        <button pButton type="button" label="Secondary" class="ui-button-accent"></button>
+        <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Sizes</p>
+      <div class="demo__row">
+        <button pButton type="button" label="Small" class="ui-button-sm"></button>
+        <button pButton type="button" label="Default"></button>
+        <button pButton type="button" label="Large" class="ui-button-lg"></button>
+      </div>
+      <div class="demo__row">
+        <button pButton type="button" label="Small" class="ui-button-sm" [icon]="phCheck" iconPos="left"></button>
+        <button pButton type="button" label="Default" [icon]="phCheck" iconPos="left"></button>
+        <button pButton type="button" label="Large" class="ui-button-lg" [icon]="phCheck" iconPos="left"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Icon only</p>
+      <div class="demo__row">
+        <button pButton type="button" [icon]="phCheck"></button>
+        <button pButton type="button" [icon]="phCheck" class="ui-button-secondary"></button>
+        <button pButton type="button" [icon]="phCheck" class="ui-button-ghost"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Button group</p>
+      <div class="ui-buttonset">
+        <button pButton type="button" label="Save" [icon]="phCheck"></button>
+        <button pButton type="button" label="Delete" [icon]="phTrash"></button>
+        <button pButton type="button" label="Cancel" [icon]="phX"></button>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Toggle and split</p>
+      <div class="demo__row">
+        <p-toggleButton [(ngModel)]="toggled" onLabel="Included" offLabel="Excluded"></p-toggleButton>
+        <p-splitButton label="Publish" [model]="menuItems"></p-splitButton>
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'inputs'" class="demo__row demo__row--stack">
+    <div class="demo__row">
+      <input pInputText type="text" placeholder="Placeholder" [(ngModel)]="textValue" />
+      <input pInputText type="text" value="With a value" />
+      <input pInputText type="text" placeholder="Disabled" disabled />
+    </div>
+    <div class="demo__row">
+      <p-slider [(ngModel)]="sliderValue" [style]="{ width: '220px' }"></p-slider>
+      <span>{{ sliderValue }}</span>
+    </div>
+    <p-fileUpload
+      name="demo[]"
+      [customUpload]="true"
+      [auto]="false"
+      [multiple]="true"
+      chooseLabel="Choose"
+      uploadLabel="Upload"
+      cancelLabel="Cancel">
+    </p-fileUpload>
+  </div>
+
+  <div *ngSwitchCase="'textarea'" class="demo__row demo__row--stack">
+    <textarea pInputTextarea rows="3" placeholder="Notes" [(ngModel)]="areaValue"></textarea>
+    <p class="demo__empty">Editor is on this Figma page. p-editor needs Quill, which this sandbox does not ship.</p>
+  </div>
+
+  <div *ngSwitchCase="'selects'" class="demo__row">
+    <p-dropdown [options]="products" placeholder="Select product" [(ngModel)]="selectedProduct"></p-dropdown>
+    <p-multiSelect [options]="products" defaultLabel="Select products" [(ngModel)]="selectedProducts"></p-multiSelect>
+    <p-autoComplete
+      [(ngModel)]="autoCompleteValue"
+      [suggestions]="filteredProducts"
+      (completeMethod)="filterProducts($event)"
+      [dropdown]="true"
+      placeholder="Search products">
+    </p-autoComplete>
+  </div>
+
+  <div *ngSwitchCase="'checkbox-radios'" class="demo__row">
+    <p-checkbox label="Include matured" [(ngModel)]="checked" binary="true"></p-checkbox>
+    <p-radioButton name="scope" value="a" label="All markets" [(ngModel)]="radioValue"></p-radioButton>
+    <p-radioButton name="scope" value="b" label="Selected" [(ngModel)]="radioValue"></p-radioButton>
+  </div>
+
+  <div *ngSwitchCase="'card'" class="demo__row demo__row--stack">
+    <p-card>
+      <p-header>Deposit summary</p-header>
+      <p>Balances across all retail products.</p>
+    </p-card>
+  </div>
+
+  <div *ngSwitchCase="'datatable'" class="demo__row demo__row--stack">
+    <p-table [value]="tableRows" [rowHover]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="product">Product <p-sortIcon field="product"></p-sortIcon></th>
+          <th>Balance</th>
+          <th>Growth</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr>
+          <td>{{ row.product }}</td>
+          <td>{{ row.balance }}</td>
+          <td>{{ row.growth }}</td>
+          <td>{{ row.status }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div *ngSwitchCase="'paginator'" class="demo__row demo__row--stack">
+    <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10, 25, 50]"></p-paginator>
+  </div>
+
+  <div *ngSwitchCase="'tree'" class="demo__row demo__row--stack">
+    <p-tree [value]="treeNodes" selectionMode="single"></p-tree>
+  </div>
+
+  <div *ngSwitchCase="'treetable'" class="demo__row demo__row--stack">
+    <p-treeTable [value]="treeTableNodes">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Product</th>
+          <th>Balance</th>
+          <th>Growth</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+          <td><p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>{{ rowData.product }}</td>
+          <td>{{ rowData.balance }}</td>
+          <td>{{ rowData.growth }}</td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+
+  <div *ngSwitchCase="'tabs'" class="demo__row demo__row--stack">
+    <p-tabView>
+      <p-tabPanel header="Balances">Deposit balances by product.</p-tabPanel>
+      <p-tabPanel header="Pricing">Posted and effective rates.</p-tabPanel>
+      <p-tabPanel header="History">Twelve-month trend.</p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <div *ngSwitchCase="'breadcrumb'" class="demo__row demo__row--stack">
+    <p-breadcrumb [model]="breadcrumbItems" [home]="breadcrumbHome"></p-breadcrumb>
+  </div>
+
+  <div *ngSwitchCase="'accordions'" class="demo__row demo__row--stack">
+    <p-accordion>
+      <p-accordionTab header="Rate drivers" [selected]="true">
+        Competitor moves and internal funding costs.
+      </p-accordionTab>
+      <p-accordionTab header="Assumptions">
+        Elasticity held constant across the forecast window.
+      </p-accordionTab>
+    </p-accordion>
+
+    <p-panel header="Forecast window" [toggleable]="true">
+      Twelve months, rolled forward each quarter.
+    </p-panel>
+
+    <p-fieldset legend="Funding costs" [toggleable]="true">
+      Blended across retail and wholesale sources.
+    </p-fieldset>
+  </div>
+
+  <div *ngSwitchCase="'menus'" class="demo__row demo__row--stack">
+    <p-menubar [model]="menubarItems"></p-menubar>
+    <div class="demo__row">
+      <p-menu [model]="menuItems"></p-menu>
+      <p-panelMenu [model]="panelMenuItems" [multiple]="true" styleClass="demo__panelmenu"></p-panelMenu>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'dialog'" class="demo__row">
+    <button pButton type="button" label="Open dialog" (click)="dialogVisible = true"></button>
+    <p-dialog header="Confirm pricing change" [(visible)]="dialogVisible" [modal]="true" [style]="{ width: '360px' }">
+      <p>Personal Checking will move to 4.10% at the next posting cycle.</p>
+      <p-footer>
+        <button pButton type="button" label="Cancel" class="ui-button-secondary" (click)="dialogVisible = false"></button>
+        <button pButton type="button" label="Apply" (click)="dialogVisible = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+
+  <div *ngSwitchCase="'drawer'" class="demo__row">
+    <button pButton type="button" label="Open drawer" (click)="drawerVisible = true"></button>
+    <p-sidebar [(visible)]="drawerVisible" position="right" [style]="{ width: '320px' }">
+      <h3>Filters</h3>
+      <p>Narrow the deposit set by market and product.</p>
+    </p-sidebar>
+  </div>
+
+  <div *ngSwitchCase="'popover'" class="demo__row">
+    <button pButton type="button" label="Show popover" (click)="popover.toggle($event)"></button>
+    <p-overlayPanel #popover>
+      <p>Growth is measured against the trailing twelve months.</p>
+    </p-overlayPanel>
+  </div>
+
+  <div *ngSwitchCase="'toast'" class="demo__row">
+    <button pButton type="button" label="Success" (click)="showToast('success')"></button>
+    <button pButton type="button" label="Warning" class="ui-button-secondary" (click)="showToast('warn')"></button>
+    <button pButton type="button" label="Error" class="ui-button-ghost" (click)="showToast('error')"></button>
+    <p-toast key="catalogue"></p-toast>
+  </div>
+
+  <div *ngSwitchCase="'message'" class="demo__row demo__row--stack">
+    <p-message severity="success" text="Pricing published to all markets."></p-message>
+    <p-message severity="info" text="Rates refresh every weekday at 06:00."></p-message>
+    <p-message severity="warn" text="Two markets are missing competitor data."></p-message>
+    <p-message severity="error" text="Rate exceeds the approved ceiling."></p-message>
+  </div>
+
+  <div *ngSwitchCase="'tooltip'" class="demo__row">
+    <button pButton type="button" label="Hover me" pTooltip="Trailing twelve-month growth" tooltipPosition="top"></button>
+    <input pInputText type="text" placeholder="Focus me" pTooltip="Enter a posted rate" tooltipPosition="right" />
+  </div>
+
+  <div *ngSwitchCase="'loading'" class="demo__row demo__row--stack">
+    <p-progressSpinner [style]="{ width: '40px', height: '40px' }"></p-progressSpinner>
+    <p-progressBar [value]="62"></p-progressBar>
+  </div>
+
+  <div *ngSwitchCase="'app-sidebar'" class="demo__row demo__row--stack">
+    <div class="demo__sidebar">
+      <app-curinos-logo variant="wordmark"></app-curinos-logo>
+      <p-panelMenu [model]="panelMenuItems" [multiple]="true" styleClass="sidebar-menu"></p-panelMenu>
+      <div class="demo__sidebar-account">
+        <app-avatar label="Maven Raven" size="sm"></app-avatar>
+        <span class="demo__sidebar-name">Maven Raven</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'avatar'" class="demo__row">
+    <app-avatar label="Maven Raven" size="sm"></app-avatar>
+    <app-avatar label="Maven Raven" size="md"></app-avatar>
+    <app-avatar label="Maven Raven" size="lg"></app-avatar>
+    <app-avatar [icon]="phHouse" size="md" shape="square"></app-avatar>
+  </div>
+
+  <div *ngSwitchCase="'chip'" class="demo__row">
+    <app-chip label="Personal Checking" [removable]="true"></app-chip>
+    <app-chip label="Business Savings" [removable]="true"></app-chip>
+    <app-chip label="CD 12-Month" [icon]="phHouse" [removable]="true"></app-chip>
+  </div>
+
+  <div *ngSwitchCase="'tag'" class="demo__row">
+    <app-chip label="Active"></app-chip>
+    <app-chip label="Published" severity="success"></app-chip>
+    <app-chip label="Needs review" severity="warning"></app-chip>
+    <app-chip label="Over ceiling" severity="danger"></app-chip>
+  </div>
+
+  <div *ngSwitchCase="'badge'" class="demo__row">
+    <span class="demo__badge">8</span>
+    <span class="demo__badge demo__badge--dot"></span>
+    <button pButton type="button" label="Inbox" icon="pi pi-bell"></button>
+  </div>
+
+  <div *ngSwitchCase="'stepper'" class="demo__row demo__row--stack">
+    <app-stepper [steps]="steps" [activeIndex]="activeStep" (stepSelected)="activeStep = $event"></app-stepper>
+  </div>
+
+  <div *ngSwitchCase="'curinos-logo'" class="demo__row">
+    <app-curinos-logo variant="wordmark"></app-curinos-logo>
+    <app-curinos-logo variant="one"></app-curinos-logo>
+    <app-curinos-logo variant="one-alt"></app-curinos-logo>
+    <app-curinos-logo variant="mark"></app-curinos-logo>
+    <app-curinos-logo variant="one-mark"></app-curinos-logo>
+  </div>
+
+  <div *ngSwitchCase="'ph-icon'" class="demo__row">
+    <app-ph-icon name="house"></app-ph-icon>
+    <app-ph-icon name="key" size="20px"></app-ph-icon>
+    <app-ph-icon name="sparkle" weight="duotone"></app-ph-icon>
+    <i [ngClass]="phSparkle"></i>
+  </div>
+
+  <div *ngSwitchCase="'blockui'" class="demo__row demo__row--stack">
+    <button pButton type="button" [label]="blocked ? 'Unblock' : 'Block'" (click)="blocked = !blocked"></button>
+    <p-panel #blockPanel header="Deposit summary">
+      Balances across all retail products.
+    </p-panel>
+    <p-blockUI [target]="blockPanel" [blocked]="blocked"></p-blockUI>
+  </div>
+
+  <div *ngSwitchCase="'captcha'" class="demo__row">
+    <p class="demo__empty">Needs a Google reCAPTCHA site key. The widget renders in an iframe PrimeNG does not style.</p>
+  </div>
+
+  <div *ngSwitchCase="'carousel'" class="demo__row demo__row--stack">
+    <p-carousel [value]="tableRows" headerText="Products" [numVisible]="1" [pageLinks]="4">
+      <ng-template let-row pTemplate="item">
+        <div class="demo__tile">
+          <strong>{{ row.product }}</strong>
+          <span>{{ row.balance }}</span>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div *ngSwitchCase="'chart'" class="demo__row">
+    <p class="demo__empty">Needs Chart.js. Series colour is set per dataset in TypeScript, not CSS.</p>
+  </div>
+
+  <div *ngSwitchCase="'chips'" class="demo__row">
+    <p-chips [(ngModel)]="chipValues" placeholder="Add a product"></p-chips>
+  </div>
+
+  <div *ngSwitchCase="'colorpicker'" class="demo__row">
+    <p-colorPicker [(ngModel)]="colorValue" [inline]="true"></p-colorPicker>
+  </div>
+
+  <div *ngSwitchCase="'datascroller'" class="demo__row demo__row--stack">
+    <p-dataScroller [value]="tableRows" [rows]="2" [inline]="true" scrollHeight="140px">
+      <ng-template let-row pTemplate="item">
+        <div class="demo__tile">
+          <strong>{{ row.product }}</strong>
+          <span>{{ row.balance }}</span>
+        </div>
+      </ng-template>
+    </p-dataScroller>
+  </div>
+
+  <div *ngSwitchCase="'dataview'" class="demo__row demo__row--stack">
+    <p-dataView [value]="tableRows">
+      <p-header>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </p-header>
+      <ng-template let-row pTemplate="listItem">
+        <div class="demo__tile">
+          <strong>{{ row.product }}</strong>
+          <span>{{ row.balance }} · {{ row.growth }}</span>
+        </div>
+      </ng-template>
+      <ng-template let-row pTemplate="gridItem">
+        <div class="demo__tile">
+          <strong>{{ row.product }}</strong>
+          <span>{{ row.balance }}</span>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+
+  <div *ngSwitchCase="'fullcalendar'" class="demo__row">
+    <p class="demo__empty">Needs FullCalendar 3. It renders its own DOM and stylesheet.</p>
+  </div>
+
+  <div *ngSwitchCase="'galleria'" class="demo__row">
+    <p-galleria
+      [images]="galleryImages"
+      [panelWidth]="280"
+      [panelHeight]="140"
+      [frameWidth]="56"
+      [frameHeight]="36"
+      [autoPlay]="false"
+      [showCaption]="true">
+    </p-galleria>
+  </div>
+
+  <div *ngSwitchCase="'gmap'" class="demo__row">
+    <p class="demo__empty">Needs the Google Maps JavaScript API. Tokens cannot reach into the map canvas.</p>
+  </div>
+
+  <div *ngSwitchCase="'inplace'" class="demo__row">
+    <p-inplace [closable]="true">
+      <p-inplaceDisplay>Posted rate {{ inplaceRate }}</p-inplaceDisplay>
+      <p-inplaceContent>
+        <input pInputText type="text" [(ngModel)]="inplaceRate" />
+      </p-inplaceContent>
+    </p-inplace>
+  </div>
+
+  <div *ngSwitchCase="'orderlist'" class="demo__row demo__row--stack">
+    <p-orderList [value]="orderItems" header="Products" [listStyle]="listStyle"></p-orderList>
+  </div>
+
+  <div *ngSwitchCase="'organizationchart'" class="demo__row demo__row--stack">
+    <p-organizationChart [value]="orgNodes"></p-organizationChart>
+  </div>
+
+  <div *ngSwitchCase="'picklist'" class="demo__row demo__row--stack">
+    <p-pickList
+      [source]="pickSource"
+      [target]="pickTarget"
+      sourceHeader="Available"
+      targetHeader="Selected"
+      [sourceStyle]="listStyle"
+      [targetStyle]="listStyle">
+    </p-pickList>
+  </div>
+
+  <div *ngSwitchCase="'rating'" class="demo__row">
+    <p-rating [(ngModel)]="ratingValue" [cancel]="false"></p-rating>
+  </div>
+
+  <div *ngSwitchCase="'scrollpanel'" class="demo__row demo__row--stack">
+    <p-scrollPanel [style]="scrollStyle">
+      <p>Balances across all retail products. Growth is measured against the trailing twelve months.</p>
+      <p>Rates refresh every weekday at 06:00. Two markets are missing competitor data.</p>
+      <p>Personal Checking will move to 4.10% at the next posting cycle.</p>
+    </p-scrollPanel>
+  </div>
+
+  <div *ngSwitchCase="'terminal'" class="demo__row demo__row--stack">
+    <p-terminal welcomeMessage="Deposit console. Type balances." prompt="curinos $"></p-terminal>
+  </div>
+
+  <div *ngSwitchCase="'toolbar'" class="demo__row demo__row--stack">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New"></button>
+        <button pButton type="button" label="Export" class="ui-button-secondary"></button>
+      </div>
+      <div class="ui-toolbar-group-right">
+        <button pButton type="button" icon="pi pi-search" class="ui-button-ghost"></button>
+      </div>
+    </p-toolbar>
+  </div>
+
+  <div *ngSwitchCase="'virtualscroller'" class="demo__row demo__row--stack">
+    <p-virtualScroller [value]="tableRows" [itemSize]="36" [style]="virtualStyle">
+      <ng-template let-row pTemplate="item">
+        <div class="demo__tile demo__tile--row">
+          <strong>{{ row.product }}</strong>
+          <span>{{ row.balance }}</span>
+        </div>
+      </ng-template>
+    </p-virtualScroller>
+  </div>
+
+  <p *ngSwitchDefault class="demo__empty">No demo for "{{ key }}".</p>
+</div>

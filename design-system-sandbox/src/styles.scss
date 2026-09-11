@@ -6,12 +6,18 @@
 @import "~@phosphor-icons/web/src/regular/style.css";
 @import "~@phosphor-icons/web/src/duotone/style.css";
 @import 'styles/icons/phosphor';
+@import 'styles/icons/primeicons.generated';
 @import 'styles/primeng/overrides';
+@import 'styles/app/layout';
+@import 'styles/app/doc-page';
 
 html,
 body {
   margin: 0;
   padding: 0;
+  // The app canvas. Set here as well as on .layout so overscroll and any area
+  // the layout does not cover land on the same surface rather than on white.
+  background: var(--curinos-color-background-2);
 }
 
 /* You can add global styles to this file, and also import other style files */

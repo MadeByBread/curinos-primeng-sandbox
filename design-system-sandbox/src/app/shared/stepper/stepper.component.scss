@@ -1,0 +1,104 @@
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--curinos-typography-families-body);
+}
+
+.stepper__step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+
+  &:last-child {
+    flex: 0 0 auto;
+  }
+}
+
+.stepper__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.stepper__marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--curinos-dimensions-controls-sizing-md);
+  height: var(--curinos-dimensions-controls-sizing-md);
+  border: 1px solid var(--curinos-color-border-3);
+  border-radius: 50%;
+  background: var(--curinos-color-background-1);
+  font-size: var(--curinos-typography-font-size-xs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-none);
+  color: var(--curinos-color-foreground-3);
+}
+
+.stepper__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.stepper__label {
+  font-size: var(--curinos-typography-font-size-sm);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  line-height: var(--curinos-typography-line-height-tight);
+  color: var(--curinos-color-foreground-3);
+}
+
+.stepper__hint {
+  font-size: var(--curinos-typography-font-size-xs);
+  line-height: var(--curinos-typography-line-height-tight);
+  color: var(--curinos-color-foreground-3);
+}
+
+.stepper__connector {
+  flex: 1;
+  height: 1px;
+  min-width: 24px;
+  margin: 0 12px;
+  background: var(--curinos-color-border-2);
+}
+
+// Completed steps take the ink fill; the active step is outlined in ink so the
+// two are distinguishable without relying on color alone.
+.stepper__step--complete {
+  .stepper__marker {
+    background: var(--curinos-color-foreground-1);
+    border-color: var(--curinos-color-foreground-1);
+    color: var(--curinos-color-background-1);
+  }
+
+  .stepper__label {
+    color: var(--curinos-color-foreground-2);
+  }
+}
+
+.stepper__step--active {
+  .stepper__marker {
+    border-color: var(--curinos-color-foreground-1);
+    color: var(--curinos-color-foreground-1);
+  }
+
+  .stepper__label {
+    color: var(--curinos-color-foreground-1);
+  }
+}
