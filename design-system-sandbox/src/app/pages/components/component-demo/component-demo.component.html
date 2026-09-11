@@ -71,10 +71,6 @@
       <input pInputText type="text" value="With a value" />
       <input pInputText type="text" placeholder="Disabled" disabled />
     </div>
-    <div class="demo__row">
-      <p-slider [(ngModel)]="sliderValue" [style]="{ width: '220px' }"></p-slider>
-      <span>{{ sliderValue }}</span>
-    </div>
     <p-fileUpload
       name="demo[]"
       [customUpload]="true"
@@ -84,6 +80,32 @@
       uploadLabel="Upload"
       cancelLabel="Cancel">
     </p-fileUpload>
+  </div>
+
+  <div *ngSwitchCase="'slider'" class="demo__row demo__row--stack">
+    <div class="demo__section">
+      <p class="demo__section-title">Basic</p>
+      <p-slider [(ngModel)]="sliderValue" [style]="{ width: '216px' }"></p-slider>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Input</p>
+      <div class="demo__slider">
+        <input
+          pInputText
+          type="text"
+          [ngModel]="sliderInputValue"
+          (ngModelChange)="sliderInputValue = +$event || 0" />
+        <p-slider [(ngModel)]="sliderInputValue" [style]="{ width: '100%' }"></p-slider>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Range</p>
+      <p-slider [(ngModel)]="sliderRange" [range]="true" [style]="{ width: '216px' }"></p-slider>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Vertical</p>
+      <p-slider [(ngModel)]="sliderVertical" orientation="vertical" [style]="{ height: '100px' }"></p-slider>
+    </div>
   </div>
 
   <div *ngSwitchCase="'textarea'" class="demo__row demo__row--stack">
@@ -258,7 +280,10 @@
       <app-curinos-logo variant="wordmark"></app-curinos-logo>
       <p-panelMenu [model]="panelMenuItems" [multiple]="true" styleClass="sidebar-menu"></p-panelMenu>
       <div class="demo__sidebar-account">
-        <app-avatar label="Maven Raven" size="sm"></app-avatar>
+        <span class="demo__sidebar-avatar">
+          <app-avatar label="Maven Raven" size="sm" shape="square"></app-avatar>
+          <app-badge value="8" severity="primary" size="md" [bordered]="true" class="demo__sidebar-badge"></app-badge>
+        </span>
         <span class="demo__sidebar-name">Maven Raven</span>
       </div>
     </div>
@@ -284,10 +309,55 @@
     <app-chip label="Over ceiling" severity="danger"></app-chip>
   </div>
 
-  <div *ngSwitchCase="'badge'" class="demo__row">
-    <span class="demo__badge">8</span>
-    <span class="demo__badge demo__badge--dot"></span>
-    <button pButton type="button" label="Inbox" icon="pi pi-bell"></button>
+  <div *ngSwitchCase="'badge'" class="demo__row demo__row--stack">
+    <div class="demo__section">
+      <p class="demo__section-title">Severity</p>
+      <div class="demo__row">
+        <app-badge value="8" severity="primary"></app-badge>
+        <app-badge value="8" severity="secondary"></app-badge>
+        <app-badge value="8" severity="success"></app-badge>
+        <app-badge value="8" severity="info"></app-badge>
+        <app-badge value="8" severity="warning"></app-badge>
+        <app-badge value="8" severity="danger"></app-badge>
+        <app-badge value="8" severity="contrast"></app-badge>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Size</p>
+      <div class="demo__row demo__row--align-end">
+        <app-badge value="8" size="xl"></app-badge>
+        <app-badge value="8" size="lg"></app-badge>
+        <app-badge value="8" size="md"></app-badge>
+        <app-badge value="8" size="sm"></app-badge>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Dot</p>
+      <div class="demo__row">
+        <app-badge dot severity="danger"></app-badge>
+        <app-badge dot severity="primary"></app-badge>
+      </div>
+    </div>
+    <div class="demo__section">
+      <p class="demo__section-title">Overlay</p>
+      <div class="demo__row">
+        <span class="demo__overlay-target">
+          <i class="ph ph-bell demo__overlay-icon"></i>
+          <app-badge value="8" severity="primary" size="md" [bordered]="true" class="demo__overlay-badge"></app-badge>
+        </span>
+        <button pButton type="button" label="Inbox" icon="pi pi-bell"></button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'otp'" class="demo__row demo__row--stack">
+    <div class="demo__otp" aria-hidden="true">
+      <span class="demo__otp-cell">1</span>
+      <span class="demo__otp-cell">2</span>
+      <span class="demo__otp-cell">3</span>
+      <span class="demo__otp-cell">4</span>
+    </div>
+    <p class="demo__empty">No app-otp yet. Placeholder matches the four-cell Basic example on the Inputs page.</p>
   </div>
 
   <div *ngSwitchCase="'stepper'" class="demo__row demo__row--stack">

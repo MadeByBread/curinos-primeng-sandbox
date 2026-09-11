@@ -1,0 +1,40 @@
+<div class="component-list">
+  <p-card styleClass="ui-card--hero">
+    <h1 class="component-list__title">Component List</h1>
+    <p class="component-list__lede">
+      {{ components.length }} components across the catalogue, sorted alphabetically.
+    </p>
+  </p-card>
+
+  <p-card styleClass="ui-card--section">
+    <div class="component-list__table-wrap">
+      <table class="component-list__table">
+        <thead>
+          <tr>
+            <th scope="col">Component</th>
+            <th scope="col">Section</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let component of components">
+            <td>
+              <a
+                class="component-list__link"
+                [routerLink]="['/components', component.groupId]"
+                [queryParams]="{ c: component.key }">
+                {{ component.name }}
+              </a>
+            </td>
+            <td class="component-list__group">{{ component.groupTitle }}</td>
+            <td>
+              <span class="component-list__status" [ngClass]="'component-list__status--' + component.status">
+                {{ statusLabel(component.status) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-card>
+</div>

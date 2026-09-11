@@ -169,7 +169,10 @@ export class ComponentDemoComponent implements OnDestroy {
     }
   ];
   ratingValue = 3;
-  sliderValue = 40;
+  sliderValue = 28;
+  sliderInputValue = 28;
+  sliderRange: number[] = [10, 40];
+  sliderVertical = 10;
   toggled = true;
   listStyle = { height: '160px' };
   scrollStyle = { width: '100%', height: '120px' };

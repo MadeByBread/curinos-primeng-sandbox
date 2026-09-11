@@ -1,0 +1,105 @@
+.component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1100px;
+  padding: 24px;
+  font-family: var(--curinos-typography-families-body);
+  color: var(--curinos-color-foreground-1);
+}
+
+.component-list__title {
+  margin: 0;
+  font-family: var(--curinos-typography-families-headings);
+  font-size: var(--curinos-typography-font-size-xxl);
+  font-weight: var(--curinos-typography-font-weight-regular);
+  color: var(--curinos-color-foreground-1);
+}
+
+.component-list__lede {
+  margin: 0;
+  font-size: var(--curinos-typography-font-size-sm);
+  line-height: 1.6;
+  color: var(--curinos-color-foreground-2);
+}
+
+.component-list__table-wrap {
+  overflow-x: auto;
+  padding: 24px;
+}
+
+.component-list__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--curinos-typography-font-size-sm);
+
+  th,
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--curinos-color-border-1);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    font-size: var(--curinos-typography-font-size-xs);
+    font-weight: var(--curinos-typography-font-weight-medium);
+    color: var(--curinos-color-foreground-3);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.component-list__link {
+  color: var(--curinos-color-semantic-primary-3);
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--curinos-color-semantic-secondary-1);
+    text-decoration-style: double;
+  }
+}
+
+.component-list__group {
+  color: var(--curinos-color-foreground-2);
+}
+
+.component-list__status {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: var(--curinos-typography-font-size-xxs);
+  font-weight: var(--curinos-typography-font-weight-medium);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.component-list__status--styled {
+  background: var(--curinos-color-semantic-success-2);
+  border-color: var(--curinos-color-semantic-success-1);
+  color: var(--curinos-color-semantic-success-3);
+}
+
+.component-list__status--stock {
+  background: var(--curinos-color-semantic-warning-2);
+  border-color: var(--curinos-color-semantic-warning-1);
+  color: var(--curinos-color-semantic-warning-3);
+}
+
+.component-list__status--built {
+  background: var(--curinos-color-semantic-info-2);
+  border-color: var(--curinos-color-semantic-info-1);
+  color: var(--curinos-color-semantic-info-3);
+}
+
+.component-list__status--gap,
+.component-list__status--planned {
+  background: var(--curinos-color-background-3);
+  border-color: var(--curinos-color-border-2);
+  color: var(--curinos-color-foreground-3);
+}

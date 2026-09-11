@@ -1,0 +1,83 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  font-family: var(--curinos-typography-families-body);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge--bordered {
+  border-color: var(--curinos-color-background-2);
+}
+
+.badge--sm {
+  min-width: 17.5px;
+  height: 17.5px;
+  padding: 0 4px;
+  font-size: 10px;
+}
+
+.badge--md {
+  min-width: 21px;
+  height: 21px;
+  padding: 0 4px;
+  font-size: 10px;
+}
+
+.badge--lg {
+  min-width: 24.5px;
+  height: 24.5px;
+  padding: 0 5px;
+  font-size: var(--curinos-typography-font-size-xxs);
+}
+
+.badge--xl {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  font-size: var(--curinos-typography-font-size-xs);
+}
+
+.badge--dot {
+  padding: 0;
+}
+
+.badge--primary {
+  background: var(--curinos-color-semantic-primary-3);
+  color: var(--curinos-color-semantic-primary-2);
+}
+
+.badge--secondary {
+  background: var(--curinos-color-semantic-secondary-3);
+  color: var(--curinos-color-semantic-secondary-2);
+}
+
+.badge--success {
+  background: var(--curinos-color-semantic-success-3);
+  color: var(--curinos-color-semantic-success-2);
+}
+
+.badge--info {
+  background: var(--curinos-color-semantic-info-3);
+  color: var(--curinos-color-semantic-info-2);
+}
+
+.badge--warning {
+  background: var(--curinos-color-semantic-warning-3);
+  color: var(--curinos-color-semantic-warning-2);
+}
+
+.badge--danger {
+  background: var(--curinos-color-semantic-danger-3);
+  color: var(--curinos-color-semantic-danger-2);
+}
+
+.badge--contrast {
+  background: var(--curinos-color-background-4);
+  color: var(--curinos-color-background-1);
+}

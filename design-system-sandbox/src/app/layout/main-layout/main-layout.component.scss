@@ -83,7 +83,7 @@ $font-sans: 'Work Sans', sans-serif;
   flex-direction: column;
   min-height: 0;
   border-radius: var(--curinos-dimensions-radii-semantic-cards);
-  background: var(--curinos-color-background-1);
+  background: var(--curinos-color-background-2);
   overflow: hidden;
 }
 
@@ -170,7 +170,7 @@ $font-sans: 'Work Sans', sans-serif;
   font-family: inherit;
 
   &:hover {
-    background: var(--curinos-color-background-2);
+    background: var(--curinos-color-background-3);
   }
 
   &:focus {
@@ -180,39 +180,14 @@ $font-sans: 'Work Sans', sans-serif;
 
 .sidebar-profile__avatar {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--curinos-color-background-2);
-}
-
-.sidebar-profile__initial {
-  font-size: 14px;
-  line-height: 1;
-  color: var(--curinos-color-semantic-surface-900);
 }
 
 .sidebar-profile__badge {
   position: absolute;
   top: -10.5px;
   right: -3.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 21px;
-  height: 21px;
-  padding: 0 4px;
-  border: 2px solid var(--curinos-color-background-1);
-  border-radius: 10.5px;
-  background: var(--curinos-color-semantic-primary-1);
-  font-size: 10.5px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--curinos-color-semantic-surface-white);
 }
 
 .sidebar-profile__info {
@@ -252,7 +227,7 @@ $font-sans: 'Work Sans', sans-serif;
   flex-direction: column;
   min-width: 0;
   overflow: hidden;
-  // Inherits the canvas. The sidebar is a background-1 card sitting on it; the
+  // Inherits the canvas. The sidebar shares background-2 with the shell; the
   // main area is the canvas itself, with each page supplying its own cards.
   background: transparent;
 }

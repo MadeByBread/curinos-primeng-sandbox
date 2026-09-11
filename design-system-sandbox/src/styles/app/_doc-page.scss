@@ -27,6 +27,17 @@ $font-serif: 'Source Serif Pro', serif;
   width: 100%;
 }
 
+.doc-page a {
+  color: var(--curinos-color-semantic-primary-3);
+  text-decoration: underline dashed;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: var(--curinos-color-semantic-secondary-1);
+    text-decoration: underline double;
+  }
+}
+
 .doc-heading {
   margin: 0;
   font-family: $font-serif;
@@ -64,16 +75,6 @@ $font-serif: 'Source Serif Pro', serif;
   line-height: 1.5;
   letter-spacing: -0.42px;
   color: var(--curinos-color-foreground-2);
-}
-
-.doc-lead a,
-.doc-body a {
-  color: var(--curinos-color-semantic-primary-1);
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .doc-lead code,
@@ -157,4 +158,196 @@ $font-serif: 'Source Serif Pro', serif;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
   white-space: pre;
+}
+
+// Linear docs layout — title, sections, tables, labeled code. Used by Overview
+// so it reads like a theming reference rather than a stack of cards.
+
+.doc-page--prose {
+  max-width: 768px;
+}
+
+.doc-page--prose .doc-container {
+  gap: 0;
+}
+
+.doc-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.doc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--curinos-color-border-2);
+}
+
+.doc-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.doc-callout {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--curinos-color-border-2);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-2);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.42px;
+  color: var(--curinos-color-foreground-2);
+}
+
+.doc-figure {
+  margin: 0;
+  border: 1px solid var(--curinos-color-border-2);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  overflow: hidden;
+  background: var(--curinos-color-background-2);
+}
+
+.doc-figure__file {
+  margin: 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--curinos-color-border-2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--curinos-color-foreground-3);
+  background: var(--curinos-color-background-1);
+}
+
+.doc-figure .doc-pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.doc-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--curinos-color-border-2);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+}
+
+.doc-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.doc-swatch {
+  min-width: 0;
+  border: 1px solid var(--curinos-color-border-2);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  overflow: hidden;
+  background: var(--curinos-color-background-1);
+}
+
+.doc-swatch__chip {
+  height: 48px;
+  border-bottom: 1px solid var(--curinos-color-border-2);
+}
+
+.doc-swatch__meta {
+  padding: 8px 10px;
+}
+
+.doc-swatch__name {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--curinos-color-foreground-1);
+}
+
+.doc-swatch__var {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--curinos-color-foreground-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-radii {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.doc-radius {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px 12px;
+  border: 1px solid var(--curinos-color-border-2);
+  border-radius: var(--curinos-dimensions-radii-semantic-cards);
+  background: var(--curinos-color-background-1);
+}
+
+.doc-radius__tile {
+  width: 40px;
+  height: 40px;
+  background: var(--curinos-color-background-3);
+  border: 1px solid var(--curinos-color-foreground-1);
+}
+
+.doc-radius__name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--curinos-color-foreground-3);
+  text-align: center;
+}
+
+.doc-steps {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.42px;
+  color: var(--curinos-color-foreground-2);
+}
+
+.doc-steps li + li {
+  margin-top: 10px;
+}
+
+.doc-steps code {
+  font-size: 13px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--curinos-color-background-2);
+  color: var(--curinos-color-foreground-1);
+}
+
+.doc-page--prose .doc-table {
+  margin-top: 0;
+}
+
+.doc-page--prose .doc-table th,
+.doc-page--prose .doc-table td {
+  border-color: var(--curinos-color-border-2);
+}
+
+@media (max-width: 720px) {
+  .doc-swatches,
+  .doc-radii {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

@@ -47,6 +47,10 @@ $text-tracking: -0.42px;
 $button-icon-size-lg: 24px;
 // Chip Examples are a 16px capsule. No radii token is that round.
 $chip-radius: 16px;
+// Slider track is 3px. Handle hit area is controls/sizing/xs (20).
+$slider-track: 3px;
+$slider-handle-ring: 2px;
+$slider-handle-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.08), 0 1px 1px 0 rgba(0, 0, 0, 0.14);
 
 // @component css:inputs
 // Controls are sized by height, not vertical padding, so Button, Inputs and
@@ -80,6 +84,68 @@ $chip-radius: 16px;
   box-shadow: $control-shadow;
 }
 // @component css:/inputs
+
+// @component css:slider
+// Designed on the Inputs page. Track is background-3; the filled range is
+// brand yellow. The handle is a 16px disc in a 20px ring — sizing/xs — not
+// an input, so it has its own region.
+#{$curinos} .ui-slider.ui-widget-content {
+  background: var(--curinos-color-background-3);
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-md);
+}
+
+#{$curinos} .ui-slider.ui-slider-horizontal {
+  height: $slider-track;
+}
+
+#{$curinos} .ui-slider.ui-slider-vertical {
+  width: $slider-track;
+}
+
+#{$curinos} .ui-slider .ui-slider-range,
+#{$curinos} .ui-slider .ui-slider-range.ui-widget-header {
+  background: var(--curinos-color-semantic-primary-1);
+  border: 0;
+  border-radius: var(--curinos-dimensions-radii-md);
+}
+
+#{$curinos} .ui-slider .ui-slider-handle,
+#{$curinos} .ui-slider .ui-slider-handle.ui-state-default {
+  width: var(--curinos-dimensions-controls-sizing-xs);
+  height: var(--curinos-dimensions-controls-sizing-xs);
+  background: var(--curinos-color-background-1);
+  border: $slider-handle-ring solid var(--curinos-color-background-3);
+  border-radius: 50%;
+  box-shadow: $slider-handle-shadow;
+}
+
+#{$curinos} .ui-slider-horizontal .ui-slider-handle {
+  top: calc((var(--curinos-dimensions-controls-sizing-xs) - #{$slider-track}) / -2);
+  margin-left: calc(var(--curinos-dimensions-controls-sizing-xs) / -2);
+}
+
+#{$curinos} .ui-slider-vertical .ui-slider-handle {
+  left: calc((var(--curinos-dimensions-controls-sizing-xs) - #{$slider-track}) / -2);
+  margin-bottom: calc(var(--curinos-dimensions-controls-sizing-xs) / -2);
+}
+
+#{$curinos} .ui-slider .ui-slider-handle.ui-state-hover,
+#{$curinos} .ui-slider .ui-slider-handle:hover {
+  background: var(--curinos-color-background-2);
+  border-color: var(--curinos-color-background-3);
+}
+
+#{$curinos} .ui-slider .ui-slider-handle.ui-state-focus,
+#{$curinos} .ui-slider .ui-slider-handle:focus {
+  border-width: 3px;
+  border-color: var(--curinos-color-semantic-primary-1);
+}
+
+#{$curinos} .ui-slider.ui-state-disabled {
+  opacity: var(--curinos-effects-opacity-40);
+}
+// @component css:/slider
 
 // @component css:textarea
 #{$curinos} textarea.ui-inputtext,
@@ -815,7 +881,7 @@ $chip-radius: 16px;
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {
-  background: var(--curinos-color-background-2) !important;
+  background: var(--curinos-color-background-3) !important;
   color: var(--curinos-color-foreground-1);
   border: 0 !important;
 }
@@ -833,7 +899,7 @@ $chip-radius: 16px;
 
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {
-  background: var(--curinos-color-background-2) !important;
+  background: var(--curinos-color-background-3) !important;
   color: var(--curinos-color-foreground-1);
   border: 0 !important;
 }
@@ -953,7 +1019,7 @@ $chip-radius: 16px;
 
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover,
 #{$curinos} .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {
-  background: var(--curinos-color-background-2) !important;
+  background: var(--curinos-color-background-3) !important;
   color: var(--curinos-color-foreground-3) !important;
 }
 

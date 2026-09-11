@@ -1,235 +1,298 @@
-<div class="doc-page">
+<div class="doc-page doc-page--prose">
   <div class="doc-container">
-    <p-card styleClass="ui-card--hero ui-card--hero-tight">
-      <h1 class="doc-heading doc-heading--1">How Curinos lands on PrimeNG</h1>
-      <p class="doc-lead">
-        Tokens come from Figma. One stylesheet spends them on stock PrimeNG markup.
-        The catalogue is a reading of that stylesheet, not a plan for it.
+    <header class="doc-header">
+      <h1 class="doc-heading doc-heading--1">Theming</h1>
+      <p class="doc-lead">Using CSS variables from the Figma collections.</p>
+    </header>
+
+    <div class="doc-intro">
+      <p class="doc-callout">
+        Want the export format and generator rules?
+        See <a routerLink="/curinos-tokens">Curinos Tokens</a>.
       </p>
-    </p-card>
 
-    <div class="overview-flow">
-      <p-card styleClass="ui-card--section ui-card--content-stack">
-        <p-header>
-          <div class="overview-frame__head">
-            <div>
-              <h2 class="doc-heading doc-heading--2">Curinos tokens</h2>
-              <p class="overview-frame__blurb">
-                Four Figma collections. The only token layer.
-              </p>
-            </div>
-            <app-chip label="Figma"></app-chip>
-          </div>
-        </p-header>
-        <div class="overview-cells">
-          <p-card styleClass="ui-card--compact">
-            <p class="overview-cell__title">Colors</p>
-            <p class="overview-cell__body">Primitives, semantic roles, light and dark.</p>
-          </p-card>
-          <p-card styleClass="ui-card--compact">
-            <p class="overview-cell__title">Dimensions</p>
-            <p class="overview-cell__body">Control heights, radii. No spacing scale yet.</p>
-          </p-card>
-          <p-card styleClass="ui-card--compact">
-            <p class="overview-cell__title">Effects</p>
-            <p class="overview-cell__body">Opacity. Elevation is still a literal in CSS.</p>
-          </p-card>
-          <p-card styleClass="ui-card--compact">
-            <p class="overview-cell__title">Typography</p>
-            <p class="overview-cell__body">Families, size, weight, line-height.</p>
-          </p-card>
-        </div>
-      </p-card>
+      <p class="doc-body">
+        We use CSS variables for theming. The four Figma collections generate
+        <code>--curinos-*</code> properties — the only token layer. Override those
+        tokens to change the look of the app without rewriting component classes.
+      </p>
 
-      <div class="overview-flow__join" aria-hidden="true"></div>
+      <div class="doc-preview">
+        <button pButton type="button" label="Submit"></button>
+        <button pButton type="button" label="Success" class="ui-button-success"></button>
+        <button pButton type="button" label="Danger" class="ui-button-danger"></button>
+        <app-chip label="Tag"></app-chip>
+        <app-chip label="Primary" severity="primary"></app-chip>
+      </div>
 
-      <p-card styleClass="ui-card--compact overview-flow__node">
-        <div class="overview-frame__head">
-          <div>
-            <p class="overview-cell__title">Generator</p>
-            <p class="overview-cell__body">One JSON file becomes one SCSS partial of <code>--curinos-*</code> properties.</p>
-          </div>
-          <app-chip label="tokens:build"></app-chip>
-        </div>
-      </p-card>
+      <figure class="doc-figure">
+        <figcaption class="doc-figure__file">Usage</figcaption>
+        <pre class="doc-pre"><code>{{ consumeSnippet }}</code></pre>
+      </figure>
 
-      <div class="overview-flow__join" aria-hidden="true"></div>
-
-      <p-card styleClass="ui-card--section ui-card--content-stack">
-        <p-header>
-          <div class="overview-frame__head">
-            <div>
-              <h2 class="doc-heading doc-heading--2">What consumes the tokens</h2>
-              <p class="overview-frame__blurb">
-                Same variables, two kinds of surface. Nothing sits between them.
-              </p>
-            </div>
-          </div>
-        </p-header>
-        <div class="overview-cells overview-cells--two">
-          <p-card styleClass="ui-card--compact">
-            <div class="overview-frame__head">
-              <p class="overview-cell__title">Override layer</p>
-              <app-chip label="Customized"></app-chip>
-            </div>
-            <p class="overview-cell__body">
-              Global <code>.ui-*</code> rules in <code>_overrides.scss</code>.
-              PrimeNG keeps its own markup.
-            </p>
-          </p-card>
-          <p-card styleClass="ui-card--compact">
-            <div class="overview-frame__head">
-              <p class="overview-cell__title">New components</p>
-              <app-chip label="Authored"></app-chip>
-            </div>
-            <p class="overview-cell__body">
-              Chip, Avatar, Stepper and the rest, written here because PrimeNG 7 does not ship them.
-            </p>
-          </p-card>
-        </div>
-      </p-card>
-
-      <div class="overview-flow__join" aria-hidden="true"></div>
-
-      <p-card styleClass="ui-card--compact overview-flow__node">
-        <div class="overview-frame__head">
-          <div>
-            <p class="overview-cell__title">Catalogue</p>
-            <p class="overview-cell__body">
-              Parses each <code>@component</code> region and lists the tokens that region actually spent.
-            </p>
-          </div>
-          <app-chip label="tokens:docs"></app-chip>
-        </div>
-      </p-card>
+      <p class="doc-body">
+        Dark mode works by overriding the same tokens inside
+        <code>[data-theme="dark"]</code>. Colors carry a value per mode; the other
+        three collections are single-mode.
+      </p>
     </div>
 
-    <p-card styleClass="ui-card--section ui-card--content-stack">
-      <p-header>
-        <h2 class="doc-heading doc-heading--2">The approach</h2>
-      </p-header>
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">Token convention</h2>
 
       <p class="doc-body">
-        There is no mapping layer. An earlier <code>--primeng-*</code> bridge renamed
-        Curinos tokens for PrimeNG anatomy; most of it was a pass-through, and the rest
-        was nova-light's own sizing wearing a Curinos name. Component CSS now reads
-        <code>--curinos-*</code> directly. If a mapping is non-obvious — the primary
-        button is an ink fill, not brand yellow — it gets a comment, not a second variable.
+        Surfaces pair with ink. The numbered background token is the fill; the
+        matching foreground token is the text and icons that sit on it.
+        <code>background-1</code> pairs with <code>foreground-1</code>.
       </p>
 
       <p class="doc-body">
-        Markup stays vanilla PrimeNG. Wrappers and forked templates would make the
-        stock comparison on the
-        <a routerLink="/components">component catalogue</a> meaningless: any difference
+        Given these variables:
+      </p>
+
+      <figure class="doc-figure">
+        <figcaption class="doc-figure__file">tokens/curinos/_color.scss</figcaption>
+        <pre class="doc-pre"><code>{{ conventionVars }}</code></pre>
+      </figure>
+
+      <p class="doc-body">
+        A surface painted with <code>background-1</code> uses
+        <code>foreground-1</code> for its content:
+      </p>
+
+      <figure class="doc-figure">
+        <figcaption class="doc-figure__file">Usage</figcaption>
+        <pre class="doc-pre"><code>{{ conventionUsage }}</code></pre>
+      </figure>
+
+      <p class="doc-body">
+        The default button inverts that pair — ink fill, page-colored label —
+        so brand yellow stays an accent. Non-obvious mappings get a comment,
+        not a second variable. There is no <code>--primeng-*</code> bridge.
+      </p>
+    </section>
+
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">Theme tokens</h2>
+
+      <p class="doc-body">
+        These tokens live in the generated partials under
+        <code>:root</code> and <code>[data-theme="dark"]</code>.
+      </p>
+
+      <div class="doc-swatches">
+        <div class="doc-swatch" *ngFor="let swatch of swatches">
+          <div class="doc-swatch__chip" [style.background]="'var(' + swatch.variable + ')'"></div>
+          <div class="doc-swatch__meta">
+            <span class="doc-swatch__name">{{ swatch.name }}</span>
+            <span class="doc-swatch__var">{{ swatch.variable }}</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th scope="col">Token</th>
+            <th scope="col">What it controls</th>
+            <th scope="col">Used by</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>background-1</code> / <code>foreground-1</code></td>
+            <td>The default app surface and ink.</td>
+            <td>Page shell, headings, the default button fill.</td>
+          </tr>
+          <tr>
+            <td><code>background-2</code> / <code>background-3</code></td>
+            <td>Recessed surfaces and supporting fills.</td>
+            <td>Cards, chips, muted panels, code blocks.</td>
+          </tr>
+          <tr>
+            <td><code>foreground-2</code> / <code>foreground-3</code></td>
+            <td>Secondary and muted copy.</td>
+            <td>Leads, helper text, placeholders.</td>
+          </tr>
+          <tr>
+            <td><code>border-1</code> … <code>border-3</code></td>
+            <td>Separators by contrast.</td>
+            <td>Cards, inputs, tables, layout dividers.</td>
+          </tr>
+          <tr>
+            <td><code>semantic-primary</code></td>
+            <td>Brand yellow. An accent, not the default action fill.</td>
+            <td>Links, the One badge, primary chips.</td>
+          </tr>
+          <tr>
+            <td><code>semantic-success</code> / <code>warning</code> / <code>danger</code></td>
+            <td>Status emphasis.</td>
+            <td>Severity buttons, messages, tags.</td>
+          </tr>
+          <tr>
+            <td><code>controls/sizing</code></td>
+            <td>Fixed control heights (20 / 28 / 32 / 40 / 48 / 64).</td>
+            <td>Button, Inputs, Selects. Textarea grows with content.</td>
+          </tr>
+          <tr>
+            <td><code>radii/semantic-*</code></td>
+            <td>Corner scale keyed to component kind.</td>
+            <td>Buttons 2px, cards 4px, inputs 2px.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="doc-note">
+        The full list is on <a routerLink="/curinos-tokens">Curinos Tokens</a>.
+        What each component actually spends is on the
+        <a routerLink="/components">catalogue</a> — that table is parsed from the CSS.
+      </p>
+    </section>
+
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">Radius scale</h2>
+
+      <p class="doc-body">
+        Radii are named tokens, not a single base with <code>calc()</code>.
+        Semantic aliases point at the primitive that component kind should use.
+        Changing <code>radii/semantic/buttons</code> in Figma updates every button.
+      </p>
+
+      <div class="doc-radii">
+        <div class="doc-radius" *ngFor="let radius of radii">
+          <div class="doc-radius__tile" [style.border-radius]="'var(' + radius.variable + ')'"></div>
+          <span class="doc-radius__name">{{ radius.name }}</span>
+        </div>
+      </div>
+
+      <figure class="doc-figure">
+        <figcaption class="doc-figure__file">tokens/curinos/_dimensions.scss</figcaption>
+        <pre class="doc-pre"><code>{{ radiusSnippet }}</code></pre>
+      </figure>
+    </section>
+
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">How components consume them</h2>
+
+      <p class="doc-body">
+        Markup stays vanilla PrimeNG. Global <code>.ui-*</code> rules in
+        <code>_overrides.scss</code> spend the tokens. Wrappers and forked
+        templates would make the stock comparison on the
+        <a routerLink="/components">catalogue</a> meaningless: any difference
         you see there has to be styling.
       </p>
 
       <p class="doc-body">
-        Documentation is generated backwards. The catalogue does not record what a
-        component is supposed to use. It reads the CSS that is applied, so a token that
-        stops being spent disappears from the table. See
-        <a routerLink="/curinos-tokens">Curinos Tokens</a> for the export format.
+        New components — Chip, Avatar, Stepper, the logo — have no PrimeNG 7
+        counterpart, so they are authored here and read the same variables.
       </p>
-    </p-card>
+    </section>
 
-    <p-card styleClass="ui-card--section ui-card--content-stack">
-      <p-header>
-        <h2 class="doc-heading doc-heading--2">The process</h2>
-      </p-header>
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">The process</h2>
 
       <p class="doc-body">
-        Four steps, always in this order. Click through them.
+        Four steps, always in this order.
       </p>
 
-      <app-stepper
-        [steps]="processSteps"
-        [activeIndex]="processIndex"
-        (stepSelected)="processIndex = $event">
-      </app-stepper>
+      <ol class="doc-steps">
+        <li>
+          Export Colors, Dimensions, Effects and Typography from Figma in the
+          rich variable format. Drop the JSON on the existing files in
+          <code>tokens/sources/</code>. There is no second collection for PrimeNG.
+        </li>
+        <li>
+          Generate the CSS variables.
+          <code>npm run tokens:build</code>
+          writes one SCSS partial per collection. Light values land on
+          <code>:root</code>; dark values land on
+          <code>[data-theme="dark"]</code>, and only where the alias actually changes.
+        </li>
+        <li>
+          Spend the tokens on stock markup. Open <code>_overrides.scss</code>,
+          find or add a <code>// @component css:&lt;key&gt;</code> region, and write
+          global <code>.ui-*</code> rules. Values with no Curinos source stay as
+          named literals at the top of the file.
+        </li>
+        <li>
+          Let the catalogue read the CSS.
+          <code>npm run tokens:docs</code>
+          parses each region into the token table.
+          <code>npm run styles:audit</code>
+          checks that nova-light cannot out-specify those rules.
+        </li>
+      </ol>
+    </section>
 
-      <p-card styleClass="ui-card--compact">
-        <p class="overview-cell__title">{{ processPanel.title }}</p>
-        <p class="overview-cell__body">{{ processPanel.body }}</p>
-        <p *ngIf="processPanel.command" class="overview-cell__command">
-          <code>{{ processPanel.command }}</code>
-        </p>
-      </p-card>
-    </p-card>
-
-    <p-card styleClass="ui-card--section ui-card--content-stack">
-      <p-header>
-        <h2 class="doc-heading doc-heading--2">An example: Button</h2>
-      </p-header>
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">An example: Button</h2>
 
       <p class="doc-body">
-        Figma draws several button sizes and a row of semantic fills. In code that is
-        one <code>.ui-button</code>, a size class, and a severity class. Height comes
-        from <code>controls/sizing</code>. The default fill is
+        Figma draws several button sizes and a row of semantic fills. In code
+        that is one <code>.ui-button</code>, a size class, and a severity class.
+        Height comes from <code>controls/sizing</code>. The default fill is
         <code>foreground-1</code>; Success spends <code>semantic/success/1</code>.
       </p>
 
-      <div class="overview-example">
+      <div class="doc-preview">
         <button pButton type="button" label="Submit"></button>
         <button pButton type="button" label="Success" class="ui-button-success"></button>
         <button pButton type="button" label="Danger" class="ui-button-danger"></button>
       </div>
 
-      <pre class="doc-pre"><code>{{ buttonExample }}</code></pre>
+      <figure class="doc-figure">
+        <figcaption class="doc-figure__file">_overrides.scss</figcaption>
+        <pre class="doc-pre"><code>{{ buttonExample }}</code></pre>
+      </figure>
 
       <p class="doc-body">
-        After <code>tokens:docs</code>, those variables are what the Button catalogue
-        entry lists. If the Success rule is deleted, <code>semantic-success-1</code>
-        leaves the table. That is the whole contract.
+        After <code>tokens:docs</code>, those variables are what the Button
+        catalogue entry lists. If the Success rule is deleted,
+        <code>semantic-success-1</code> leaves the table. That is the whole contract.
       </p>
 
       <p class="doc-note">
-        The live buttons above are the same <code>pButton</code> the catalogue uses.
-        Open <a routerLink="/components/customized-primeng" [queryParams]="{ c: 'button' }">Button</a> to see every variation next
-        to stock nova-light.
+        Open
+        <a routerLink="/components/customized-primeng" [queryParams]="{ c: 'button' }">Button</a>
+        to see every variation next to stock nova-light.
       </p>
-    </p-card>
+    </section>
 
-    <p-card styleClass="ui-card--section ui-card--content-stack">
-      <p-header>
-        <h2 class="doc-heading doc-heading--2">What the catalogue groups</h2>
-      </p-header>
+    <section class="doc-section">
+      <h2 class="doc-heading doc-heading--2">What the catalogue groups</h2>
 
       <p class="doc-body">
         Figma pages do not map 1:1 onto PrimeNG 7. The catalogue splits on that fact.
       </p>
 
-      <div class="overview-cells">
-        <p-card styleClass="ui-card--compact">
-          <p class="overview-cell__title">
-            <a routerLink="/components/customized-primeng">Customized PrimeNG</a>
-          </p>
-          <p class="overview-cell__body">
-            PrimeNG already ships it. We restyle the stock markup.
-          </p>
-        </p-card>
-        <p-card styleClass="ui-card--compact">
-          <p class="overview-cell__title">
-            <a routerLink="/components/new-components">New components</a>
-          </p>
-          <p class="overview-cell__body">
-            PrimeNG 7 has no counterpart. Authored here, same tokens.
-          </p>
-        </p-card>
-        <p-card styleClass="ui-card--compact">
-          <p class="overview-cell__title">
-            <a routerLink="/components/primeng7-gap">PrimeNG 7 gap</a>
-          </p>
-          <p class="overview-cell__body">
-            PrimeNG ships it, Figma does not. Shown as stock so the gap is visible.
-          </p>
-        </p-card>
-        <p-card styleClass="ui-card--compact">
-          <p class="overview-cell__title">One Figma page, several entries</p>
-          <p class="overview-cell__body">
-            Chip, Tag, Badge and Chips share a page. Chips is the input; the others are display.
-          </p>
-        </p-card>
-      </div>
-    </p-card>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th scope="col">Group</th>
+            <th scope="col">What it is</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a routerLink="/components/customized-primeng">Customized PrimeNG</a></td>
+            <td>PrimeNG already ships it. We restyle the stock markup.</td>
+          </tr>
+          <tr>
+            <td><a routerLink="/components/new-components">New components</a></td>
+            <td>PrimeNG 7 has no counterpart. Authored here, same tokens.</td>
+          </tr>
+          <tr>
+            <td><a routerLink="/components/primeng7-gap">PrimeNG 7 gap</a></td>
+            <td>PrimeNG ships it, Figma does not. Shown as stock so the gap is visible.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="doc-note">
+        One Figma page can become several entries. Chip, Tag, Badge and Chips
+        share a page — Chips is the input; the others are display. Slider
+        lives on Inputs the same way.
+      </p>
+    </section>
   </div>
 </div>

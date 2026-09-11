@@ -313,15 +313,15 @@ export const componentCatalogue: CatalogueGroup[] = [
         "key": "inputs",
         "name": "Inputs",
         "status": "styled",
-        "approach": "One .ui-inputtext rule covers every single-line text control, since PrimeNG 7 routes InputMask, Password, Spinner and Calendar through the same class. Fixed height from controls/sizing/lg with horizontal padding only. The Inputs page also designs FileUpload and Slider.",
+        "approach": "One .ui-inputtext rule covers every single-line text control, since PrimeNG 7 routes InputMask, Password, Spinner and Calendar through the same class. Fixed height from controls/sizing/lg with horizontal padding only. The Inputs page also designs Slider (its own entry) and FileUpload.",
         "notes": [
           {
             "title": "Textarea is excluded",
             "body": "The height rule carries :not(.ui-inputtextarea):not(textarea) so multi-line controls can still grow with their content."
           },
           {
-            "title": "File upload and slider",
-            "body": "Both sit on the Inputs page in Figma. FileUpload is a composite (drop zone, file row, progress) and Slider has its own handle and track, so they share this entry by page, not because .ui-inputtext covers them."
+            "title": "File upload",
+            "body": "FileUpload sits on the Inputs page as a composite (drop zone, file row, progress). It is not .ui-inputtext and has not been restyled yet."
           }
         ],
         "figma": {
@@ -336,8 +336,7 @@ export const componentCatalogue: CatalogueGroup[] = [
             "p-password",
             "p-spinner",
             "p-calendar",
-            "p-fileUpload",
-            "p-slider"
+            "p-fileUpload"
           ],
           "modules": [
             "InputTextModule",
@@ -345,8 +344,7 @@ export const componentCatalogue: CatalogueGroup[] = [
             "PasswordModule",
             "SpinnerModule",
             "CalendarModule",
-            "FileUploadModule",
-            "SliderModule"
+            "FileUploadModule"
           ]
         },
         "iframeHeight": 280,
@@ -426,6 +424,116 @@ export const componentCatalogue: CatalogueGroup[] = [
             "value": "0 1px 2px 0 rgba(18, 18, 23, 0.051)",
             "properties": [
               "box-shadow"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "slider",
+        "name": "Slider",
+        "status": "styled",
+        "approach": "Designed on the Inputs page as its own component: a 3px track in background-3, a filled range in semantic-primary-1, and a 20px handle (controls/sizing/xs) with a white disc and a beige ring. PrimeNG 7's p-slider is the track; the Input example is that slider plus a stock pInputText.",
+        "notes": [
+          {
+            "title": "Variants",
+            "body": "Basic is a single handle. Range is [range]=true with two handles. Vertical is orientation=vertical. Input is composition — Figma stacks an InputText above the track; PrimeNG 7 does not ship that pairing."
+          }
+        ],
+        "figma": {
+          "page": "Inputs",
+          "nodeId": "11574:20598",
+          "url": null
+        },
+        "primeng": {
+          "selectors": [
+            "p-slider"
+          ],
+          "modules": [
+            "SliderModule"
+          ]
+        },
+        "iframeHeight": 420,
+        "hasDemo": true,
+        "hasStockPreview": true,
+        "css": {
+          "source": "src/styles/primeng/_overrides.scss",
+          "css": "// Designed on the Inputs page. Track is background-3; the filled range is\n// brand yellow. The handle is a 16px disc in a 20px ring — sizing/xs — not\n// an input, so it has its own region.\nbody:not(.primeng-default) .ui-slider.ui-widget-content {\n  background: var(--curinos-color-background-3);\n  border: 0;\n  border-radius: var(--curinos-dimensions-radii-md);\n}\n\nbody:not(.primeng-default) .ui-slider.ui-slider-horizontal {\n  height: $slider-track;\n}\n\nbody:not(.primeng-default) .ui-slider.ui-slider-vertical {\n  width: $slider-track;\n}\n\nbody:not(.primeng-default) .ui-slider .ui-slider-range,\nbody:not(.primeng-default) .ui-slider .ui-slider-range.ui-widget-header {\n  background: var(--curinos-color-semantic-primary-1);\n  border: 0;\n  border-radius: var(--curinos-dimensions-radii-md);\n}\n\nbody:not(.primeng-default) .ui-slider .ui-slider-handle,\nbody:not(.primeng-default) .ui-slider .ui-slider-handle.ui-state-default {\n  width: var(--curinos-dimensions-controls-sizing-xs);\n  height: var(--curinos-dimensions-controls-sizing-xs);\n  background: var(--curinos-color-background-1);\n  border: $slider-handle-ring solid var(--curinos-color-background-3);\n  border-radius: 50%;\n  box-shadow: $slider-handle-shadow;\n}\n\nbody:not(.primeng-default) .ui-slider-horizontal .ui-slider-handle {\n  top: calc((var(--curinos-dimensions-controls-sizing-xs) - #{$slider-track}) / -2);\n  margin-left: calc(var(--curinos-dimensions-controls-sizing-xs) / -2);\n}\n\nbody:not(.primeng-default) .ui-slider-vertical .ui-slider-handle {\n  left: calc((var(--curinos-dimensions-controls-sizing-xs) - #{$slider-track}) / -2);\n  margin-bottom: calc(var(--curinos-dimensions-controls-sizing-xs) / -2);\n}\n\nbody:not(.primeng-default) .ui-slider .ui-slider-handle.ui-state-hover,\nbody:not(.primeng-default) .ui-slider .ui-slider-handle:hover {\n  background: var(--curinos-color-background-2);\n  border-color: var(--curinos-color-background-3);\n}\n\nbody:not(.primeng-default) .ui-slider .ui-slider-handle.ui-state-focus,\nbody:not(.primeng-default) .ui-slider .ui-slider-handle:focus {\n  border-width: 3px;\n  border-color: var(--curinos-color-semantic-primary-1);\n}\n\nbody:not(.primeng-default) .ui-slider.ui-state-disabled {\n  opacity: var(--curinos-effects-opacity-40);\n}"
+        },
+        "tokens": [
+          {
+            "token": "--curinos-color-background-1",
+            "properties": [
+              "background"
+            ]
+          },
+          {
+            "token": "--curinos-color-background-2",
+            "properties": [
+              "background"
+            ]
+          },
+          {
+            "token": "--curinos-color-background-3",
+            "properties": [
+              "background",
+              "border",
+              "border-color"
+            ]
+          },
+          {
+            "token": "--curinos-color-semantic-primary-1",
+            "properties": [
+              "background",
+              "border-color"
+            ]
+          },
+          {
+            "token": "--curinos-dimensions-controls-sizing-xs",
+            "properties": [
+              "height",
+              "left",
+              "margin-bottom",
+              "margin-left",
+              "top",
+              "width"
+            ]
+          },
+          {
+            "token": "--curinos-dimensions-radii-md",
+            "properties": [
+              "border-radius"
+            ]
+          },
+          {
+            "token": "--curinos-effects-opacity-40",
+            "properties": [
+              "opacity"
+            ]
+          }
+        ],
+        "literals": [
+          {
+            "name": "$slider-handle-ring",
+            "value": "2px",
+            "properties": [
+              "border"
+            ]
+          },
+          {
+            "name": "$slider-handle-shadow",
+            "value": "0 0.5px 0 0 rgba(0, 0, 0, 0.08), 0 1px 1px 0 rgba(0, 0, 0, 0.14)",
+            "properties": [
+              "box-shadow"
+            ]
+          },
+          {
+            "name": "$slider-track",
+            "value": "3px",
+            "properties": [
+              "height",
+              "left",
+              "top",
+              "width"
             ]
           }
         ]
@@ -1792,7 +1900,7 @@ export const componentCatalogue: CatalogueGroup[] = [
         "hasStockPreview": true,
         "css": {
           "source": "src/styles/primeng/_overrides.scss",
-          "css": "// Popup menu — the sidebar account menu is the production instance.\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu {\n  min-width: 160px;\n  padding: 4px;\n  border: 1px solid var(--curinos-color-border-1);\n  border-radius: var(--curinos-dimensions-radii-semantic-cards);\n  background: var(--curinos-color-background-1);\n  box-shadow: $menu-shadow;\n  font-family: var(--curinos-typography-families-body);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link {\n  padding: 8px 12px;\n  border-radius: var(--curinos-dimensions-radii-semantic-buttons);\n  color: var(--curinos-color-foreground-1);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-text {\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {\n  margin-right: 8px;\n  font-size: var(--curinos-typography-font-size-md);\n  color: var(--curinos-color-foreground-3);\n}\n\n// Sidebar navigation — PanelMenu styled to Figma. Resets nova-light accordion\n// chrome (blue expanded headers, gray borders).\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu {\n  width: 100%;\n  border: 0;\n  background: transparent;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {\n  border: 0;\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 6px 8px;\n  border: 0 !important;\n  border-radius: var(--curinos-dimensions-radii-md);\n  background: transparent !important;\n  font-family: var(--curinos-typography-families-body);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-3);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {\n  background: transparent !important;\n  border: 0 !important;\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {\n  order: 3;\n  margin: 0 0 0 auto;\n  font-size: var(--curinos-typography-font-size-sm);\n  color: var(--curinos-color-foreground-3);\n\n  // PrimeNG 7 hardcodes pi-chevron-right/down on expand icons; swap to Phosphor plus/minus.\n  &::before {\n    font-family: 'Phosphor' !important;\n    font-style: normal;\n    font-weight: normal;\n    font-variant: normal;\n    text-transform: none;\n    line-height: 1;\n    speak: none;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header:not(.ui-state-active) .ui-panelmenu-icon::before {\n  content: '\\e3d4'; // ph-plus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header.ui-state-active .ui-panelmenu-icon::before {\n  content: '\\e32a'; // ph-minus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-icon {\n  order: 1;\n  margin: 0;\n  font-size: var(--curinos-typography-font-size-lg);\n  line-height: var(--curinos-typography-line-height-none);\n  color: currentColor;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-text {\n  order: 2;\n  flex: 1;\n  min-width: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before {\n  color: var(--curinos-color-semantic-primary-1);\n  opacity: 1;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after {\n  color: var(--curinos-color-foreground-1);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {\n  overflow: hidden;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {\n  padding: 0;\n  margin: 0;\n  border: 0 !important;\n  border-top: 0 !important;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {\n  margin: 0;\n  padding: 2px 0 2px 10px;\n  border-left: 1px solid var(--curinos-color-border-1);\n  margin-left: 14px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem {\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link {\n  display: flex;\n  align-items: center;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  font-family: var(--curinos-typography-families-body);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-3) !important;\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {\n  color: var(--curinos-color-foreground-3) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-3) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {\n  background: transparent !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {\n  .ui-menuitem-text,\n  .ui-panelmenu-icon,\n  .ui-panelmenu-content-wrapper {\n    display: none;\n  }\n\n  .ui-panelmenu-header > a,\n  .ui-panelmenu-header-link {\n    justify-content: center;\n    gap: 0;\n    width: 30px;\n    height: 30px;\n    margin: 0 auto;\n    padding: 0;\n  }\n\n  .ui-menuitem-icon {\n    margin: 0;\n  }\n}\n\n// Shared chrome for the standalone menu components. The scoped sidebar rules\n// above win on specificity where both apply.\nbody:not(.primeng-default) .ui-menu,\nbody:not(.primeng-default) .ui-menubar,\nbody:not(.primeng-default) .ui-tieredmenu,\nbody:not(.primeng-default) .ui-contextmenu,\nbody:not(.primeng-default) .ui-panelmenu {\n  padding: 4px;\n  border: 1px solid var(--curinos-color-border-1);\n  border-radius: var(--curinos-dimensions-radii-semantic-cards);\n  background: var(--curinos-color-background-1);\n  font-family: var(--curinos-typography-families-body);\n}\n\nbody:not(.primeng-default) .ui-menubar {\n  padding: 4px 8px;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-link,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-link {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-2);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-link:hover {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-icon {\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .ui-menu .ui-submenu-header {\n  padding: 6px 8px;\n  border: 0;\n  background: transparent;\n  font-size: var(--curinos-typography-font-size-xs);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  color: var(--curinos-color-foreground-3);\n}\n\n// PanelMenu is a menu that happens to fold, so its headers reuse the menu-item\n// metrics above and only differ in weight. nova instead treats it as an\n// accordion: raised gray headers, a #007ad9 fill once expanded, and a bordered\n// content panel. All of that is removed.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-panel {\n  margin: 0;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {\n  margin-top: 2px;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header {\n  padding: 0;\n  border: 0;\n  background: transparent;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border: 0;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  background: transparent;\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-1);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {\n  border: 0;\n  background: var(--curinos-color-background-2);\n  color: var(--curinos-color-foreground-1);\n}\n\n// PrimeNG emits the expand caret as the first child; it belongs at the far end.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {\n  order: 3;\n  margin: 0 0 0 auto;\n  font-size: var(--curinos-typography-font-size-sm);\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a .ui-menuitem-text {\n  order: 2;\n  flex: 1;\n  min-width: 0;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background: transparent;\n}\n\n// A rule down the left ties the children to the header they belong to.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-submenu-list {\n  margin: 2px 0 2px 14px;\n  padding: 0 0 0 10px;\n  border-left: 1px solid var(--curinos-color-border-1);\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem {\n  margin: 0;\n}\n\n// nova colours the label span separately, so the link rule above cannot reach it.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-text,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-icon {\n  color: var(--curinos-color-foreground-1);\n}"
+          "css": "// Popup menu — the sidebar account menu is the production instance.\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu {\n  min-width: 160px;\n  padding: 4px;\n  border: 1px solid var(--curinos-color-border-1);\n  border-radius: var(--curinos-dimensions-radii-semantic-cards);\n  background: var(--curinos-color-background-1);\n  box-shadow: $menu-shadow;\n  font-family: var(--curinos-typography-families-body);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link {\n  padding: 8px 12px;\n  border-radius: var(--curinos-dimensions-radii-semantic-buttons);\n  color: var(--curinos-color-foreground-1);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-link:hover .ui-menuitem-text {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-text {\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n}\n\nbody:not(.primeng-default) .sidebar-account-menu.ui-menu .ui-menuitem-icon {\n  margin-right: 8px;\n  font-size: var(--curinos-typography-font-size-md);\n  color: var(--curinos-color-foreground-3);\n}\n\n// Sidebar navigation — PanelMenu styled to Figma. Resets nova-light accordion\n// chrome (blue expanded headers, gray borders).\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu {\n  width: 100%;\n  border: 0;\n  background: transparent;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel {\n  border: 0;\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active {\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header > a,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 6px 8px;\n  border: 0 !important;\n  border-radius: var(--curinos-dimensions-radii-md);\n  background: transparent !important;\n  font-family: var(--curinos-typography-families-body);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-3);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link:hover {\n  background: var(--curinos-color-background-3) !important;\n  color: var(--curinos-color-foreground-1);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {\n  background: transparent !important;\n  border: 0 !important;\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-header-link.ui-state-active:hover {\n  background: var(--curinos-color-background-3) !important;\n  color: var(--curinos-color-foreground-1);\n  border: 0 !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-icon {\n  order: 3;\n  margin: 0 0 0 auto;\n  font-size: var(--curinos-typography-font-size-sm);\n  color: var(--curinos-color-foreground-3);\n\n  // PrimeNG 7 hardcodes pi-chevron-right/down on expand icons; swap to Phosphor plus/minus.\n  &::before {\n    font-family: 'Phosphor' !important;\n    font-style: normal;\n    font-weight: normal;\n    font-variant: normal;\n    text-transform: none;\n    line-height: 1;\n    speak: none;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n  }\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header:not(.ui-state-active) .ui-panelmenu-icon::before {\n  content: '\\e3d4'; // ph-plus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header.ui-state-active .ui-panelmenu-icon::before {\n  content: '\\e32a'; // ph-minus\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-icon {\n  order: 1;\n  margin: 0;\n  font-size: var(--curinos-typography-font-size-lg);\n  line-height: var(--curinos-typography-line-height-none);\n  color: currentColor;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-text {\n  order: 2;\n  flex: 1;\n  min-width: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::before {\n  color: var(--curinos-color-semantic-primary-1);\n  opacity: 1;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-panelmenu-header-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu\n  .ui-menuitem-link.ui-state-active\n  .ui-menuitem-icon.ph-duotone::after {\n  color: var(--curinos-color-foreground-1);\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content-wrapper {\n  overflow: hidden;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content {\n  padding: 0;\n  margin: 0;\n  border: 0 !important;\n  border-top: 0 !important;\n  background: transparent !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-content > .ui-panelmenu-root-submenu > .ui-submenu-list {\n  margin: 0;\n  padding: 2px 0 2px 10px;\n  border-left: 1px solid var(--curinos-color-border-1);\n  margin-left: 14px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem {\n  margin: 0;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem + .ui-menuitem {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {\n  margin-top: 4px;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link {\n  display: flex;\n  align-items: center;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  font-family: var(--curinos-typography-families-body);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  line-height: var(--curinos-typography-line-height-tight);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-3) !important;\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link .ui-menuitem-text {\n  color: var(--curinos-color-foreground-3) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link:hover .ui-menuitem-text {\n  background: var(--curinos-color-background-3) !important;\n  color: var(--curinos-color-foreground-3) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active {\n  background: transparent !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar-menu.ui-panelmenu .ui-menuitem-link.ui-state-active .ui-menuitem-text {\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .sidebar--collapsed .sidebar-menu.ui-panelmenu {\n  .ui-menuitem-text,\n  .ui-panelmenu-icon,\n  .ui-panelmenu-content-wrapper {\n    display: none;\n  }\n\n  .ui-panelmenu-header > a,\n  .ui-panelmenu-header-link {\n    justify-content: center;\n    gap: 0;\n    width: 30px;\n    height: 30px;\n    margin: 0 auto;\n    padding: 0;\n  }\n\n  .ui-menuitem-icon {\n    margin: 0;\n  }\n}\n\n// Shared chrome for the standalone menu components. The scoped sidebar rules\n// above win on specificity where both apply.\nbody:not(.primeng-default) .ui-menu,\nbody:not(.primeng-default) .ui-menubar,\nbody:not(.primeng-default) .ui-tieredmenu,\nbody:not(.primeng-default) .ui-contextmenu,\nbody:not(.primeng-default) .ui-panelmenu {\n  padding: 4px;\n  border: 1px solid var(--curinos-color-border-1);\n  border-radius: var(--curinos-dimensions-radii-semantic-cards);\n  background: var(--curinos-color-background-1);\n  font-family: var(--curinos-typography-families-body);\n}\n\nbody:not(.primeng-default) .ui-menubar {\n  padding: 4px 8px;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-link,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-link,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-link {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-2);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-link:hover,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-link:hover {\n  background: var(--curinos-color-background-2) !important;\n  color: var(--curinos-color-foreground-1) !important;\n}\n\nbody:not(.primeng-default) .ui-menu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-menubar .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-tieredmenu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-contextmenu .ui-menuitem-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-menuitem-icon {\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .ui-menu .ui-submenu-header {\n  padding: 6px 8px;\n  border: 0;\n  background: transparent;\n  font-size: var(--curinos-typography-font-size-xs);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  color: var(--curinos-color-foreground-3);\n}\n\n// PanelMenu is a menu that happens to fold, so its headers reuse the menu-item\n// metrics above and only differ in weight. nova instead treats it as an\n// accordion: raised gray headers, a #007ad9 fill once expanded, and a bordered\n// content panel. All of that is removed.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-panel {\n  margin: 0;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-panel + .ui-panelmenu-panel {\n  margin-top: 2px;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header {\n  padding: 0;\n  border: 0;\n  background: transparent;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  min-height: var(--curinos-dimensions-controls-sizing-sm);\n  padding: 0 8px;\n  border: 0;\n  border-radius: var(--curinos-dimensions-radii-semantic-menu-items);\n  background: transparent;\n  font-size: var(--curinos-typography-font-size-sm);\n  font-weight: var(--curinos-typography-font-weight-medium);\n  letter-spacing: $text-tracking;\n  color: var(--curinos-color-foreground-1);\n  text-decoration: none;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {\n  border: 0;\n  background: var(--curinos-color-background-2);\n  color: var(--curinos-color-foreground-1);\n}\n\n// PrimeNG emits the expand caret as the first child; it belongs at the far end.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active) > a:hover .ui-panelmenu-icon,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover .ui-panelmenu-icon {\n  order: 3;\n  margin: 0 0 0 auto;\n  font-size: var(--curinos-typography-font-size-sm);\n  color: var(--curinos-color-foreground-3);\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-header > a .ui-menuitem-text {\n  order: 2;\n  flex: 1;\n  min-width: 0;\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content {\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background: transparent;\n}\n\n// A rule down the left ties the children to the header they belong to.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-submenu-list {\n  margin: 2px 0 2px 14px;\n  padding: 0 0 0 10px;\n  border-left: 1px solid var(--curinos-color-border-1);\n}\n\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem {\n  margin: 0;\n}\n\n// nova colours the label span separately, so the link rule above cannot reach it.\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-text,\nbody:not(.primeng-default) .ui-panelmenu .ui-panelmenu-content .ui-menuitem .ui-menuitem-link:hover .ui-menuitem-icon {\n  color: var(--curinos-color-foreground-1);\n}"
         },
         "tokens": [
           {
@@ -1803,6 +1911,12 @@ export const componentCatalogue: CatalogueGroup[] = [
           },
           {
             "token": "--curinos-color-background-2",
+            "properties": [
+              "background"
+            ]
+          },
+          {
+            "token": "--curinos-color-background-3",
             "properties": [
               "background"
             ]
@@ -2895,7 +3009,7 @@ export const componentCatalogue: CatalogueGroup[] = [
   {
     "id": "new-components",
     "title": "New components",
-    "blurb": "Components with no PrimeNG 7 counterpart, authored in this repo. PrimeNG gained Avatar, Chip, Tag and Badge in later versions; Stepper and the app shell never existed. Chip, Tag and Badge share a Figma page with Chips, which is a PrimeNG 7 input and lives under Customized PrimeNG.",
+    "blurb": "Components with no PrimeNG 7 counterpart, authored in this repo. PrimeNG gained Avatar, Chip, Tag, Badge and OTP in later versions; Stepper and the app shell never existed. Chip, Tag and Badge share a Figma page with Chips; OTP is on the Inputs page.",
     "components": [
       {
         "key": "app-sidebar",
@@ -2993,12 +3107,44 @@ export const componentCatalogue: CatalogueGroup[] = [
       {
         "key": "badge",
         "name": "Badge",
-        "status": "planned",
-        "approach": "Count or status overlay, drawn on the Chip & Tag page as its own component. No app-badge yet; the sidebar notification count is a one-off.",
-        "notes": [],
+        "status": "built",
+        "approach": "Count or status overlay on the Chip & Tag page. Unlike Chip and Tag, the fill is semantic tier 3 and the label tier 2. Seven severities — primary through contrast — and four sizes from 17.5px to 28px.",
+        "notes": [
+          {
+            "title": "Overlay",
+            "body": "Set bordered when the badge sits on another surface. The sidebar account avatar and icon overlays use this ring."
+          }
+        ],
         "figma": {
           "page": "Chip & Tag",
-          "nodeId": "6738:55109",
+          "nodeId": "11238:59215",
+          "url": null
+        },
+        "primeng": {
+          "selectors": [],
+          "modules": []
+        },
+        "iframeHeight": 220,
+        "hasDemo": true,
+        "hasStockPreview": false,
+        "css": null,
+        "tokens": [],
+        "literals": []
+      },
+      {
+        "key": "otp",
+        "name": "OTP",
+        "status": "planned",
+        "approach": "One-time passcode field on the Inputs page as inputotp. PrimeNG did not ship InputOtp until v17, so there is no stock markup to restyle. Each cell is a square at controls/sizing/lg with the same chrome as Inputs; the group autofocuses and advances on input.",
+        "notes": [
+          {
+            "title": "Variants",
+            "body": "Basic is four cells. Filled pre-populates digits. Sizes steps through sm and lg. Form stacks the field above a submit button — composition, not a single component."
+          }
+        ],
+        "figma": {
+          "page": "Inputs",
+          "nodeId": "11574:13405",
           "url": null
         },
         "primeng": {

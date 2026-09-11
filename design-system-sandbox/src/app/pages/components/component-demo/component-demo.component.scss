@@ -20,6 +20,13 @@
   gap: 8px;
 }
 
+.demo__slider {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 216px;
+}
+
 .demo__section-title {
   margin: 0;
   font-size: var(--curinos-typography-font-size-sm);
@@ -42,7 +49,7 @@
   padding: 12px;
   border: 1px solid var(--curinos-color-border-1);
   border-radius: var(--curinos-dimensions-radii-semantic-cards);
-  background: var(--curinos-color-background-1);
+  background: var(--curinos-color-background-2);
 }
 
 .demo__sidebar-account {
@@ -53,25 +60,60 @@
   border-top: 1px solid var(--curinos-color-border-1);
 }
 
-.demo__badge {
+.demo__otp {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.demo__otp-cell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  border-radius: 999px;
-  background: var(--curinos-color-semantic-danger-1);
-  font-size: var(--curinos-typography-font-size-xxs);
+  width: var(--curinos-dimensions-controls-sizing-lg);
+  height: var(--curinos-dimensions-controls-sizing-lg);
+  border: 1px solid var(--curinos-color-border-3);
+  border-radius: var(--curinos-dimensions-radii-semantic-inputs);
+  background: var(--curinos-color-background-1);
+  font-size: var(--curinos-typography-font-size-sm);
   font-weight: var(--curinos-typography-font-weight-medium);
-  color: var(--curinos-color-background-1);
+  color: var(--curinos-color-foreground-1);
+  box-shadow: 0 1px 2px 0 rgba(18, 18, 23, 0.051);
 }
 
-.demo__badge--dot {
-  min-width: 8px;
-  width: 8px;
-  height: 8px;
-  padding: 0;
+.demo__row--align-end {
+  align-items: flex-end;
+}
+
+.demo__sidebar-avatar {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.demo__sidebar-badge {
+  position: absolute;
+  top: -10.5px;
+  right: -3.5px;
+}
+
+.demo__overlay-target {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--curinos-dimensions-controls-sizing-md);
+  height: var(--curinos-dimensions-controls-sizing-md);
+}
+
+.demo__overlay-icon {
+  font-size: var(--curinos-typography-font-size-lg);
+  color: var(--curinos-color-foreground-2);
+}
+
+.demo__overlay-badge {
+  position: absolute;
+  top: -9px;
+  right: -9px;
 }
 
 .demo__tile {

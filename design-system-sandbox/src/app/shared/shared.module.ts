@@ -9,6 +9,7 @@ import { PhIconComponent } from './ph-icon/ph-icon.component';
 import { ButtonComponent } from './button/button.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { ChipComponent } from './chip/chip.component';
+import { BadgeComponent } from './badge/badge.component';
 import { StepperComponent } from './stepper/stepper.component';
 
 const COMPONENTS = [
@@ -17,6 +18,7 @@ const COMPONENTS = [
   ButtonComponent,
   AvatarComponent,
   ChipComponent,
+  BadgeComponent,
   StepperComponent
 ];
 

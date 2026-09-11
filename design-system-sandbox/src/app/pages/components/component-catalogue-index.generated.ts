@@ -27,6 +27,10 @@ export const componentCatalogueIndex: CatalogueIndexGroup[] = [
         "name": "Inputs"
       },
       {
+        "key": "slider",
+        "name": "Slider"
+      },
+      {
         "key": "textarea",
         "name": "Textarea"
       },
@@ -131,6 +135,10 @@ export const componentCatalogueIndex: CatalogueIndexGroup[] = [
       {
         "key": "badge",
         "name": "Badge"
+      },
+      {
+        "key": "otp",
+        "name": "OTP"
       },
       {
         "key": "stepper",

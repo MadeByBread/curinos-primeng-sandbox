@@ -19,7 +19,7 @@
     {
       "id": "new-components",
       "title": "New components",
-      "blurb": "Components with no PrimeNG 7 counterpart, authored in this repo. PrimeNG gained Avatar, Chip, Tag and Badge in later versions; Stepper and the app shell never existed. Chip, Tag and Badge share a Figma page with Chips, which is a PrimeNG 7 input and lives under Customized PrimeNG."
+      "blurb": "Components with no PrimeNG 7 counterpart, authored in this repo. PrimeNG gained Avatar, Chip, Tag, Badge and OTP in later versions; Stepper and the app shell never existed. Chip, Tag and Badge share a Figma page with Chips; OTP is on the Inputs page."
     },
     {
       "id": "primeng7-gap",
@@ -80,8 +80,7 @@
           "p-password",
           "p-spinner",
           "p-calendar",
-          "p-fileUpload",
-          "p-slider"
+          "p-fileUpload"
         ],
         "modules": [
           "InputTextModule",
@@ -89,21 +88,47 @@
           "PasswordModule",
           "SpinnerModule",
           "CalendarModule",
-          "FileUploadModule",
-          "SliderModule"
+          "FileUploadModule"
         ]
       },
       "cssKey": "inputs",
       "iframeHeight": 280,
-      "approach": "One .ui-inputtext rule covers every single-line text control, since PrimeNG 7 routes InputMask, Password, Spinner and Calendar through the same class. Fixed height from controls/sizing/lg with horizontal padding only. The Inputs page also designs FileUpload and Slider.",
+      "approach": "One .ui-inputtext rule covers every single-line text control, since PrimeNG 7 routes InputMask, Password, Spinner and Calendar through the same class. Fixed height from controls/sizing/lg with horizontal padding only. The Inputs page also designs Slider (its own entry) and FileUpload.",
       "notes": [
         {
           "title": "Textarea is excluded",
           "body": "The height rule carries :not(.ui-inputtextarea):not(textarea) so multi-line controls can still grow with their content."
         },
         {
-          "title": "File upload and slider",
-          "body": "Both sit on the Inputs page in Figma. FileUpload is a composite (drop zone, file row, progress) and Slider has its own handle and track, so they share this entry by page, not because .ui-inputtext covers them."
+          "title": "File upload",
+          "body": "FileUpload sits on the Inputs page as a composite (drop zone, file row, progress). It is not .ui-inputtext and has not been restyled yet."
+        }
+      ]
+    },
+    {
+      "key": "slider",
+      "name": "Slider",
+      "group": "customized-primeng",
+      "status": "styled",
+      "figma": {
+        "page": "Inputs",
+        "nodeId": "11574:20598"
+      },
+      "primeng": {
+        "selectors": [
+          "p-slider"
+        ],
+        "modules": [
+          "SliderModule"
+        ]
+      },
+      "cssKey": "slider",
+      "iframeHeight": 420,
+      "approach": "Designed on the Inputs page as its own component: a 3px track in background-3, a filled range in semantic-primary-1, and a 20px handle (controls/sizing/xs) with a white disc and a beige ring. PrimeNG 7's p-slider is the track; the Input example is that slider plus a stock pInputText.",
+      "notes": [
+        {
+          "title": "Variants",
+          "body": "Basic is a single handle. Range is [range]=true with two handles. Vertical is orientation=vertical. Input is composition — Figma stacks an InputText above the track; PrimeNG 7 does not ship that pairing."
         }
       ]
     },
@@ -705,10 +730,33 @@
       "key": "badge",
       "name": "Badge",
       "group": "new-components",
-      "status": "planned",
+      "status": "built",
       "figma": {
         "page": "Chip & Tag",
-        "nodeId": "6738:55109"
+        "nodeId": "11238:59215"
+      },
+      "primeng": {
+        "selectors": [],
+        "modules": []
+      },
+      "cssKey": null,
+      "iframeHeight": 220,
+      "approach": "Count or status overlay on the Chip & Tag page. Unlike Chip and Tag, the fill is semantic tier 3 and the label tier 2. Seven severities — primary through contrast — and four sizes from 17.5px to 28px.",
+      "notes": [
+        {
+          "title": "Overlay",
+          "body": "Set bordered when the badge sits on another surface. The sidebar account avatar and icon overlays use this ring."
+        }
+      ]
+    },
+    {
+      "key": "otp",
+      "name": "OTP",
+      "group": "new-components",
+      "status": "planned",
+      "figma": {
+        "page": "Inputs",
+        "nodeId": "11574:13405"
       },
       "primeng": {
         "selectors": [],
@@ -716,8 +764,13 @@
       },
       "cssKey": null,
       "iframeHeight": 0,
-      "approach": "Count or status overlay, drawn on the Chip & Tag page as its own component. No app-badge yet; the sidebar notification count is a one-off.",
-      "notes": []
+      "approach": "One-time passcode field on the Inputs page as inputotp. PrimeNG did not ship InputOtp until v17, so there is no stock markup to restyle. Each cell is a square at controls/sizing/lg with the same chrome as Inputs; the group autofocuses and advances on input.",
+      "notes": [
+        {
+          "title": "Variants",
+          "body": "Basic is four cells. Filled pre-populates digits. Sizes steps through sm and lg. Form stacks the field above a submit button — composition, not a single component."
+        }
+      ]
     },
     {
       "key": "stepper",

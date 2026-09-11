@@ -21,6 +21,28 @@ const COMPONENT_SECTION_ICONS: { [id: string]: string } = {
  * MenuItem has no `fragment` field and PanelMenu only binds routerLink and
  * queryParams. It is the key the stock-preview iframe already addresses.
  */
+const componentListSection = (): MenuItem => ({
+  label: 'Component List',
+  icon: phDuotone('list-bullets'),
+  routerLink: ['/component-list'],
+  expanded: false,
+  items: componentCatalogueIndex
+    .flatMap(group =>
+      group.components.map(component => ({
+        label: component.name,
+        groupId: group.id,
+        key: component.key
+      }))
+    )
+    .sort((a, b) => a.label.localeCompare(b.label))
+    .map(component => ({
+      label: component.label,
+      routerLink: ['/components', component.groupId],
+      queryParams: { c: component.key },
+      routerLinkActiveOptions: { exact: true }
+    }))
+});
+
 const componentSections = (): MenuItem[] =>
   componentCatalogueIndex.map((group) => ({
     label: group.title,
@@ -44,12 +66,13 @@ const BASE_MENU_ITEMS: MenuItem[] = [
     icon: phDuotone('book-open-text'),
     routerLink: ['/overview'],
   },
-  ...componentSections(),
   {
     label: 'Curinos Tokens',
     icon: phDuotone('palette'),
     routerLink: ['/curinos-tokens'],
   },
+  componentListSection(),
+  ...componentSections(),
   {
     label: 'Layout',
     icon: phDuotone('layout'),

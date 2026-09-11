@@ -2,6 +2,7 @@ $font-sans: 'Work Sans', sans-serif;
 $font-serif: 'Source Serif Pro', serif;
 
 .dashboard-panel {
+  padding-top: 24px;
   font-family: $font-sans;
   color: var(--curinos-color-semantic-surface-900);
 }

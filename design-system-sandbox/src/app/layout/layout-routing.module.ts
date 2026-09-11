@@ -29,6 +29,11 @@ const routes: Routes = [
         path: 'curinos-tokens',
         loadChildren: '../pages/curinos-tokens/curinos-tokens.module#CurinosTokensModule',
         data: { showMenubar: false }
+      },
+      {
+        path: 'component-list',
+        loadChildren: '../pages/component-list/component-list.module#ComponentListModule',
+        data: { showMenubar: false }
       }
     ]
   }
